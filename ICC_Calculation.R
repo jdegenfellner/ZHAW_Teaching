@@ -55,14 +55,8 @@ df1 <- df1 %>% mutate(Mean = (Measurement1 + Measurement2)/2)
 colnames(df1) <- c("patcode", "Measurement1", "Measurement2", "Mean_M1_M2")
 
 # 2) Estimate correct model 
-#df$patcode <- as.factor(df$patcode) does not change the result
-#model1 <- lmer(trans1 ~ Index1 + (1|patcode), data = df) # no error
 model1 <- lmer(trans1 ~ (1|patcode), data = df) # this should be the correct 
                                                 # model, since it's consistent with the other ICC-value
-#model1 <- lmer(trans1 ~ 1 + (1|patcode), data = df) # same ICC
-#model1 <- lmer(trans1 ~ Index1 + (Index1|patcode), data = df) # ERROR
-#model2 <- lmer(trans1 ~ patcode + (1|Index1), data = df) # ERROR
-#model2 <- lmer(trans1 ~ Index1 + (1|Index1) + (1|patcode), data = df) # ERROR
 
 performance::icc(model1) # ICC: 0.764
 
