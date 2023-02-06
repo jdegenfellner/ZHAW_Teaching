@@ -24,3 +24,6 @@ nullspace(df_mat) # kernel not trivial
 det(t(df_mat) %*% df_mat) # ?
 detect.lindep(df) # "Suspicious column name(s):   height, mass, bmi"
 lm(outcome ~ height + mass + bmi, data = df) # estimator for bmi does not exist.
+
+# height, mass and bmi are linearly (!) independent since bmi is NOT a linear (!)
+# combination of the vectors height and mass. 
