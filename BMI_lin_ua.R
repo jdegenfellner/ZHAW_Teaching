@@ -19,6 +19,7 @@ detect.lindep(df) # "No linear dependent column(s) detected."
 lm(outcome ~ height + mass + bmi, data = df) # estimator for bmi exists.
 
 
+# Now we define a linear dependence among the variables:
 bmi <- 2*height + 3*mass
 df <- data.frame(outcome = outcome, height = height, mass = mass, bmi = bmi)
 df_mat <- as.matrix(df)
@@ -28,6 +29,8 @@ det(t(df_mat) %*% df_mat) # >> 0
 # "Satz 8 Eine quadratische Matrix A ist genau dann invertierbar, wenn det(A) != 0."
 solve(t(df_mat) %*% df_mat) # BUT: inverse does not exist
 # What happened?
+# Since det(A^(-1)) = 1/det(A), this means that the determinant of the inverse
+# is close to zero and therefore almost singular!
 detect.lindep(df) # "Suspicious column name(s):   height, mass, bmi"
 lm(outcome ~ height + mass + bmi, data = df) # Estimator for bmi does not exist.
 
