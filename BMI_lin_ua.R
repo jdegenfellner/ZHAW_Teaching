@@ -14,6 +14,7 @@ df_mat <- as.matrix(df)
 nullspace(df_mat) # kernel trivial
 det(t(df_mat) %*% df_mat) # ?
 detect.lindep(df) # "No linear dependent column(s) detected."
+lm(outcome ~ height + mass + bmi, data = df) # estimator for bmi exists.
 
 
 bmi <- 2*height + 3*mass
@@ -22,3 +23,4 @@ df_mat <- as.matrix(df)
 nullspace(df_mat) # kernel not trivial
 det(t(df_mat) %*% df_mat) # ?
 detect.lindep(df) # "Suspicious column name(s):   height, mass, bmi"
+lm(outcome ~ height + mass + bmi, data = df) # estimator for bmi does not exist.
