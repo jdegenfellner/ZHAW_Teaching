@@ -23,4 +23,18 @@ d.catcont <- data.frame(group, height, weight)
 d.catcont %>% ggplot(aes(x = height, y = weight, colour = group)) + 
   geom_point() + 
   ggtitle("Weight and height scatterplot for two groups A/B") +  
+  theme(plot.title = element_text(hjust = 0.5)) + # Center title
+  geom_smooth(aes(group = group), method = "lm") # add regression lines
+
+# How about adding regression parameters?
+library(ggpmisc)
+d.catcont %>% ggplot(aes(x = height, y = weight, colour = group)) + 
+  geom_point() + 
+  geom_smooth(aes(group = group), method = "lm") + # Add regression lines
+  stat_poly_eq(aes(label = paste(after_stat(eq.label), 
+                                 after_stat(rr.label), sep = "~~~")), 
+               formula = y ~ x, 
+               parse = TRUE, size = 3) + # Add regression equations
+  ggtitle("Weight and height scatterplot for two groups A/B") +  
   theme(plot.title = element_text(hjust = 0.5)) # Center title
+
