@@ -38,3 +38,8 @@ predict(mod, newdata = data.frame(feed = "meatmeal"))
 predict(mod, newdata = data.frame(feed = "linseed"))                    
 predict(mod, newdata = data.frame(feed = "horsebean"))
 predict(mod, newdata = data.frame(feed = "casein"))
+
+# Slide 18, LM2.pdf
+library(emmeans)
+em <- emmeans(mod, pairwise ~ feed) 
+summary(em, infer = c(TRUE, TRUE))$contrasts
