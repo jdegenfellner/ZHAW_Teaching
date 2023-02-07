@@ -22,8 +22,17 @@ str(d.cat2)
 mod <- lm(response ~ therapy*age, data = d.cat2) # "*" test main AND interaction effects, ":" is only the interaction effect
 #summary(mod)
 tbl_regression(mod)
+coef(mod)
+predict(mod, newdata = data.frame(therapy = "Trt", age = "old")) # 69.34672
+# check manually:
 
-mod_int_only <- lm(response ~ therapy:age, data = d.cat2) # "*" test main AND interaction effects, ":" is only the interaction effect
-summary(mod_int_only)
-tbl_regression(mod_int_only)
+
+
+
+
+#mod_int_only <- lm(response ~ therapy:age, data = d.cat2) # "*" test main AND interaction effects, ":" is only the interaction effect
+#summary(mod_int_only)
+#tbl_regression(mod_int_only)
+
+str(d.cat2)
 
