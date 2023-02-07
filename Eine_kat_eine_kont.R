@@ -48,8 +48,12 @@ d.catcont %>%
 
 mod <- lm(weight ~ group*heightCent, data = d.catcont)
 summary(mod)
+confint(mod)
 tbl_regression(mod, intercept = TRUE)
 predict(mod, newdata = data.frame(group = "B", heightCent = 2.3)) # 70.09261
 # manually:
 64.07758 + 4.41906 + 0.60936*2.3 + 0.08454*2.3 # 70.09261, identical
 
+# Slide 71, Steigung Gruppe B:
+library(Publish)
+mod %>% publish()
