@@ -43,3 +43,5 @@ predict(mod, newdata = data.frame(feed = "casein"))
 library(emmeans)
 em <- emmeans(mod, pairwise ~ feed) 
 summary(em, infer = c(TRUE, TRUE))$contrasts
+# Large differences from the boxplot above get rather low p-values
+# as expected.
