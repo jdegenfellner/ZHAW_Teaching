@@ -4,7 +4,7 @@ library(tidyverse)
 library(flextable)
 library(gtsummary)
 
-# set.seed(10)
+set.seed(10)
 n.groups <- 2
 n.sample <- 50
 n <- n.groups * n.sample ##sample size
@@ -32,7 +32,9 @@ d.catcont %>% ggplot(aes(x = height, y = weight, colour = group)) +
 
 # How about adding regression parameters?
 library(ggpmisc)
-d.catcont %>% ggplot(aes(x = height, y = weight, colour = group)) + 
+d.catcont <- d.catcont %>% mutate(heightCent = scale(height, scale = FALSE))
+d.catcont %>% 
+  ggplot(aes(x = heightCent, y = weight, colour = group)) + 
   geom_point() + 
   geom_smooth(aes(group = group), method = "lm") + # Add regression lines
   stat_poly_eq(aes(label = paste(after_stat(eq.label), 
@@ -42,6 +44,8 @@ d.catcont %>% ggplot(aes(x = height, y = weight, colour = group)) +
   ggtitle("Weight and height scatterplot for two groups A/B") +  
   theme(plot.title = element_text(hjust = 0.5)) # Center title
 
-mod <- lm(weight ~ group*height, data = d.catcont)
+mod <- lm(weight ~ group*heightCent, data = d.catcont)
 summary(mod)
 tbl_regression(mod, intercept = TRUE)
+predict(mod, newdata = data.frame(group = "B", heightCent = 2.3))
+# ??
