@@ -1,5 +1,9 @@
 # Eine kategorielle und eine kontin. Eingangsgroesse
 
+library(tidyverse)
+library(flextable)
+library(gtsummary)
+
 # set.seed(10)
 n.groups <- 2
 n.sample <- 50
@@ -38,3 +42,6 @@ d.catcont %>% ggplot(aes(x = height, y = weight, colour = group)) +
   ggtitle("Weight and height scatterplot for two groups A/B") +  
   theme(plot.title = element_text(hjust = 0.5)) # Center title
 
+mod <- lm(weight ~ group*height, data = d.catcont)
+summary(mod)
+tbl_regression(mod, intercept = TRUE)

@@ -1,3 +1,7 @@
+library(tidyverse)
+library(flextable)
+library(gtsummary)
+
 
 # Slide 33, LM2.pdf
 set.seed(22)
