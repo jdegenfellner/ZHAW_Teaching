@@ -1,0 +1,26 @@
+# Eine kategorielle und eine kontin. Eingangsgroesse
+
+# set.seed(10)
+n.groups <- 2
+n.sample <- 50
+n <- n.groups * n.sample ##sample size
+ind <- rep(1:n.groups, each = n.sample) ##Indicator for group 
+group <- factor(ind, labels = c("A", "B"))
+height <- rnorm(n, mean = 165, sd = 11.4)
+covariates <- data.frame(group, height)
+Xeffects <- model.matrix(~group * height)
+Xmeans <- model.matrix(~group * height - height - 1) 
+sigma <- 2
+betaM <- c(muA <- -36.475, muB <- -45.5, slopeA <- 0.615, slopeB <- 0.7) ##Means-Param. 
+betaE <- c(muA, muB - muA, slopeA, slopeB - slopeA) ##Effekt-Parm
+lin.pred <- Xeffects %*% betaE
+lin.pred2 <- Xmeans %*% betaM
+# all.equal(lin.pred,lin.pred2) ## ist dasselbe
+eps <- rnorm(n = n, mean = 0, sd = sigma) ## add noise 
+weight <- lin.pred + eps ## Zielgrösse
+d.catcont <- data.frame(group, height, weight)
+
+d.catcont %>% ggplot(aes(x = height, y = weight, colour = group)) + 
+  geom_point() + 
+  ggtitle("Weight and height scatterplot for two groups A/B") +  
+  theme(plot.title = element_text(hjust = 0.5)) # Center title
