@@ -30,7 +30,7 @@ mod <- lm(weight ~ feed, data = chickwts)
 summary(mod)
 tbl_regression(mod) # Shows reference level "casein" nicely
 predict(mod, newdata = data.frame(feed = "sunflower")) # same as in Slide 11, LM2.pdf above
-# predict manually für "sunflower?
+# predict manually for "sunflower?
 # "casein" is the reference level, hence:
 323.5833 + 5.333 # same result!
 predict(mod, newdata = data.frame(feed = "soybean"))
