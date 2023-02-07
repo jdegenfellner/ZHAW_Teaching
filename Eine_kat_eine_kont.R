@@ -32,7 +32,8 @@ d.catcont %>% ggplot(aes(x = height, y = weight, colour = group)) +
 
 # How about adding regression parameters?
 library(ggpmisc)
-d.catcont <- d.catcont %>% mutate(heightCent = scale(height, scale = FALSE))
+d.catcont$heightCent <- scale(d.catcont$height, scale = FALSE)
+d.catcont$heightCent <- as.vector(d.catcont$heightCent) # necessary since the previous line creates a matrix which causes problems with predict() later on
 d.catcont %>% 
   ggplot(aes(x = heightCent, y = weight, colour = group)) + 
   geom_point() + 
@@ -44,8 +45,11 @@ d.catcont %>%
   ggtitle("Weight and height scatterplot for two groups A/B") +  
   theme(plot.title = element_text(hjust = 0.5)) # Center title
 
+
 mod <- lm(weight ~ group*heightCent, data = d.catcont)
 summary(mod)
 tbl_regression(mod, intercept = TRUE)
-predict(mod, newdata = data.frame(group = "B", heightCent = 2.3))
-# ??
+predict(mod, newdata = data.frame(group = "B", heightCent = 2.3)) # 70.09261
+# manually:
+64.07758 + 4.41906 + 0.60936*2.3 + 0.08454*2.3 # 70.09261, identical
+
