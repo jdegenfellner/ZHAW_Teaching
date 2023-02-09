@@ -27,7 +27,8 @@ add_dot <- function(p) {
 p
 }
 
-add_dot(p)
+add_dot(p) # execute repeatedly. In approx. every 20th attempt, we would get
+# a falsely detected difference.
 
 
 
