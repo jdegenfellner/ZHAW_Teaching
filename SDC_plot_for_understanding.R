@@ -20,7 +20,7 @@ p <- ggplot(data_df, aes(x = x, y = y)) +
 add_dot <- function(p) {
   x <- rnorm(1)
   if(x > q_97.5 | x < q_2.5){
-    p <<- p + geom_point(x = x, y = 0, size = 2.5, color = "red")  
+    p <<- p + geom_point(x = x, y = 0, size = 2.5, color = "red")  # global variable
   } else {
     p <<- p + geom_point(x = x, y = 0, size = 2.5, color = "blue") 
   }
