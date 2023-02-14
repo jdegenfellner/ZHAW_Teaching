@@ -10,3 +10,6 @@ sd(gr2)
 
 # What happens to the p-Value and why?
 t.test(gr1, gr2)$p.value
+
+# Hint: visualize the outlier influence on the difference in means and
+# on the standard deviation of gr2
