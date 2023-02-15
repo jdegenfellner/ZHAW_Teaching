@@ -1,4 +1,5 @@
 compare_versions <- function() {
+  # Compares your current R Version to the CRAN-version.
   library(rvest)
   url <- "https://cran.r-project.org/bin/windows/base/"
   page <- read_html(url)
