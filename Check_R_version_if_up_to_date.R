@@ -1,16 +1,9 @@
-library(rvest)
-
-get_cran_version <- function() {
+compare_versions <- function() {
+  library(rvest)
   url <- "https://cran.r-project.org/bin/windows/base/"
   page <- read_html(url)
   text <- html_text(page)
-  version_string <- substr(text, 12,16)
-  
-  return(version_string)
-}
-
-compare_versions <- function() {
-  cran_version <- get_cran_version()
+  cran_version <- substr(text, 12,16)
   my_version <- substr(R.version.string, 11,15)
   
   if (cran_version == my_version) {
@@ -19,3 +12,4 @@ compare_versions <- function() {
     message(sprintf("Your R version is outdated. The latest version is %s.", cran_version))
   }
 }
+compare_versions()
