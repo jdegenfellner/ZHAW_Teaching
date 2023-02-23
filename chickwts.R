@@ -1,7 +1,6 @@
 library(tidyverse)
-library(flextable)
-library(gtsummary)
-
+library(flextable) # nice tables
+library(gtsummary) # nice regression results
 
 str(chickwts)
 tot_mean <- mean(chickwts$weight)
