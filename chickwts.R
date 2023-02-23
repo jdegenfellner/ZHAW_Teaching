@@ -11,7 +11,7 @@ options(digits = 7)
 chickwts %>% group_by(feed) %>% 
   summarise(Durchschnitt = mean(weight),
             Effekt = mean(weight) - tot_mean)
-
+# Slide 12
 boxplot(weight ~ feed, data = chickwts)
 
 

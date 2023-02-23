@@ -17,3 +17,8 @@ library(flextable) # more beautiful tables
 library(gtsummary) # show regression results nicely
 
 tbl_regression(mod) # create nice table for output
+anova(mod)
+tbl_regression(anova(mod))
+
+library(rstatix)
+flextable(anova_summary(anova(mod)))
