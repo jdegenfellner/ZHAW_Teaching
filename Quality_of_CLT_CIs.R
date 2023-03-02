@@ -4,9 +4,11 @@
 # speficially, how often is the true mean included in the 
 # confidence interval depending on the sample size?"
 
-library(ggplot2)
+# [output was then adapted to fit the needs]
 
-# Generate random samples from a normal distribution
+library(tidyverse)
+
+# Generate random samples from (a normal distribution)
 set.seed(123)
 sample_size <- c(5, 10, 15, 20, 100)
 samples_per_size <- 1000
@@ -21,7 +23,7 @@ for (i in 1:length(sample_size)) {
   results[i, 1] <- n
   for (j in 1:samples_per_size) {
     #sample <- rnorm(n, mean = true_mean, sd = true_sd) # True distribution is normal
-    sample <- rpois(n = n, lambda = true_mean) # Try other distribution
+    sample <- rpois(n = n, lambda = true_mean) # Try skewed distribution
     mean_estimate <- mean(sample)
     sd_estimate <- sd(sample)
     ci <- mean_estimate + c(-1, 1) * qnorm(0.975) * sd_estimate / sqrt(n) # CTL approx. 95% confidence interval
