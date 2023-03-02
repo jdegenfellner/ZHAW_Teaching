@@ -1,3 +1,5 @@
+# https://github.com/jdegenfellner/ZHAW_Teaching
+
 library(tidyverse)
 library(flextable)
 library(gtsummary)
@@ -23,7 +25,7 @@ d.cat2 <- data.frame(response, age, therapy)
 
 str(d.cat2)
 
-mod <- lm(response ~ therapy*age, data = d.cat2) 
+mod <- lm(response ~ therapy*age, data = d.cat2) # therapy + age + therapy:age
 # "*" test main AND interaction effects, ":" is only the interaction effect
 # from help: The * operator denotes factor crossing: a*b is interpreted as a + b + a:b.
 summary(mod)
