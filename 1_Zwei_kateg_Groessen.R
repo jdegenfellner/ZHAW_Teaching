@@ -23,7 +23,8 @@ d.cat2 <- data.frame(response, age, therapy)
 
 str(d.cat2)
 
-mod <- lm(response ~ therapy*age, data = d.cat2) # "*" test main AND interaction effects, ":" is only the interaction effect
+mod <- lm(response ~ therapy*age, data = d.cat2) 
+# "*" test main AND interaction effects, ":" is only the interaction effect
 # from help: The * operator denotes factor crossing: a*b is interpreted as a + b + a:b.
 summary(mod)
 tbl_regression(mod, intercept = TRUE)
