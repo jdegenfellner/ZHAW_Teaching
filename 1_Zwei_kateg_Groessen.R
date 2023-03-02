@@ -34,11 +34,12 @@ R2(mod, adj.type = "olkin-pratt", pred = FALSE)[2] # Unbiased estimator
 summary(mod)$r.squared
 summary(mod)$adj.r.squared
 
-tbl_regression(mod, ntercept = TRUE)
+tbl_regression(mod, intercept = TRUE)
 coef(mod)
 predict(mod, newdata = data.frame(therapy = "Trt", age = "old")) # 69.34672
 # check manually (just plug in):
 34.8891800 + 6.3137427 + 26.8931452 + 1.2506546 # 69.34672
+
 
 
 # What happens here?
