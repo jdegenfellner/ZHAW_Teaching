@@ -9,9 +9,9 @@ library(ggplot2)
 # Generate random samples from a normal distribution
 set.seed(123)
 sample_size <- c(5, 10, 15, 20, 100)
-samples_per_size <- 10000
-true_mean <- 0
-true_sd <- 1
+samples_per_size <- 1000
+true_mean <- 3
+true_sd <- 3
 
 results <- data.frame(matrix(ncol = samples_per_size + 1, nrow = length(sample_size)))
 colnames(results) <- c("SampleSize", paste0("Sample", 1:samples_per_size))
@@ -20,7 +20,8 @@ for (i in 1:length(sample_size)) {
   n <- sample_size[i]
   results[i, 1] <- n
   for (j in 1:samples_per_size) {
-    sample <- rnorm(n, mean = true_mean, sd = true_sd)
+    #sample <- rnorm(n, mean = true_mean, sd = true_sd) # True distribution is normal
+    sample <- rpois(n = n, lambda = true_mean) # Try other distribution
     mean_estimate <- mean(sample)
     sd_estimate <- sd(sample)
     ci <- mean_estimate + c(-1, 1) * qnorm(0.975) * sd_estimate / sqrt(n) # CTL approx. 95% confidence interval
