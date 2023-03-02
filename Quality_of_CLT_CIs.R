@@ -9,7 +9,7 @@ library(ggplot2)
 # Generate random samples from a normal distribution
 set.seed(123)
 sample_size <- c(10, 50, 100, 500)
-samples_per_size <- 1000
+samples_per_size <- 10000
 true_mean <- 0
 true_sd <- 1
 
@@ -23,7 +23,7 @@ for (i in 1:length(sample_size)) {
     sample <- rnorm(n, mean = true_mean, sd = true_sd)
     mean_estimate <- mean(sample)
     sd_estimate <- sd(sample)
-    ci <- mean_estimate + c(-1, 1) * qnorm(0.975) * sd_estimate / sqrt(n)
+    ci <- mean_estimate + c(-1, 1) * qnorm(0.975) * sd_estimate / sqrt(n) # CTL approx. 95% confidence interval
     results[i, j + 1] <- (ci[1] <= true_mean & true_mean <= ci[2])
   }
 }
@@ -31,6 +31,8 @@ for (i in 1:length(sample_size)) {
 # Calculate the proportion of times the true mean was included in the CI
 proportions <- apply(results[, -1], 1, mean)
 proportions_df <- data.frame(SampleSize = sample_size, Proportion = proportions)
+
+proportions_df
 
 # Plot the results
 ggplot(proportions_df, aes(x = SampleSize, y = Proportion)) +

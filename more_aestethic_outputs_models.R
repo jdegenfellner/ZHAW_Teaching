@@ -1,6 +1,7 @@
 library(report)
 
 mod <- lm(Fertility ~ ., data = swiss) # Explain Fertility by ALL other variables in the data set
+summary(mod)
 report(mod)
 report_performance(mod)
 report_parameters(mod)
