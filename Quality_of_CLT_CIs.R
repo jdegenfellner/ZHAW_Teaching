@@ -8,7 +8,7 @@ library(ggplot2)
 
 # Generate random samples from a normal distribution
 set.seed(123)
-sample_size <- c(10, 50, 100, 500)
+sample_size <- c(5, 10, 15, 20, 100)
 samples_per_size <- 10000
 true_mean <- 0
 true_sd <- 1
@@ -37,7 +37,7 @@ proportions_df
 # Plot the results
 ggplot(proportions_df, aes(x = SampleSize, y = Proportion)) +
   geom_col(fill = "blue") +
-  geom_text(aes(label = paste0(round(100 * Proportion, 2), "%")), position = position_dodge(width = 0.9), vjust = -0.25) +
+  geom_text(aes(label = paste0(round(100 * Proportion, 2), "%")), position = position_dodge(width = 0.9), vjust = -0.25, size = 2) +
   xlab("Sample size") + ylab("Proportion of times true mean was included in CI") +
   ggtitle("Quality of Confidence Intervals from the Central Limit Theorem") +
   theme_classic()
