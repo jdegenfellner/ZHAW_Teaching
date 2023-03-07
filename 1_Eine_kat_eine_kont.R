@@ -49,6 +49,7 @@ d.catcont %>%
 
 mod <- lm(weight ~ group*heightCent, data = d.catcont)
 summary(mod)
+check_model(mod)
 confint(mod)
 tbl_regression(mod, intercept = TRUE)
 predict(mod, newdata = data.frame(group = "B", heightCent = 2.3)) # 70.09261
