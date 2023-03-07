@@ -3,6 +3,7 @@
 library(tidyverse)
 library(flextable)
 library(gtsummary)
+library(performance)
 
 set.seed(10)
 n.groups <- 2
