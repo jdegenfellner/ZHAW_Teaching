@@ -23,5 +23,11 @@ unique(nchar(inj$Period)) # 4/7; two formats
 inj$Period <- ifelse(nchar(inj$Period) == 7,substr(inj$Period,1,4), inj$Period)
 unique(nchar(inj$Period)) # 4
 
+sum(is.na(inj$Period))
+inj$Period_posix <- as.POSIXct(strptime(inj$Period, "%Y"))
 
+inj %>% ggplot(aes(x = Period_posix, y = Data_value, color = Severity)) + 
+  geom_point()
 
+summary(inj$Data_value)
+boxplot(inj$Data_value)
