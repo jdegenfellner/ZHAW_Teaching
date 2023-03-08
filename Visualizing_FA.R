@@ -1,5 +1,5 @@
 # Visualizing results of Factor Analysis
-# in progresss
+# in progress
 
 library(GPArotation)
 test.simple <- fa(item.sim(16), 2, rotate = "oblimin")
