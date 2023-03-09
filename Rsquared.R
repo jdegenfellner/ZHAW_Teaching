@@ -3,6 +3,8 @@
 n <- 1000
 r_squared <- rep(NA, 1000)
 
+plot(rnorm(1000), rnorm(1000))
+
 for(i in 1:n){
   x <- rnorm(1000)
   y <- rnorm(1000)
