@@ -11,3 +11,7 @@ brea <- read.csv("breast-cancer.data", header = FALSE, stringsAsFactors = TRUE)
 
 str(brea)
 View(brea)
+
+names <- c("Class", "age", "menopause", "tumor-size", "inv-nodes",
+           "node-caps", "deg-malig", "breast", "breast-quad", "irradiat")
+
