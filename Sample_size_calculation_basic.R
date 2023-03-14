@@ -93,12 +93,13 @@ df %>% filter(effect_sizes >= 0.2) %>%
 
 
 # 3) Sample size calculation for a multiple linear regression model-------------
+library(pwr)
 
 # Let's pretend we know the true model
-n <- 100
+n <- 25
 x1 <- rnorm(n = n, mean = 4, sd = 2)
-x2 <- rnorm(n = n, mean = 7, sd = 2.5)
-y <- 2*x1 - 2.7*x2 + rnorm(n = n, mean = 0, sd = 10) # Add relatively strong noise
+x2 <- rnorm(n = n, mean = 7, sd = 2.3)
+y <- 2*x1 - 2.7*x2 + rnorm(n = n, mean = 0, sd = 10) # Create outcome y and add relatively strong noise
 df <- data.frame(x1 = x1, x2 = x2, y = y)
 mod <- lm(y ~ x1 + x2, data = df)
 summary(mod)
@@ -110,22 +111,16 @@ summary(mod_x1)
 mod_x2 <- lm(y ~ x2, data = df)
 summary(mod_x2)
 
-# find out power for 
-Rsquared <- 0.90
-
-library(pwr)
-
 # Cohens f2:
 # see e.g. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3328081/
 
 # Cohens f^2 for global (!) effect size
+Rsquared <- summary(mod)$r.squared
 (f_2 <- Rsquared/(1 - Rsquared))
-
 pwr.f2.test(u = 2, v = n - 2 - 1, f2 = f_2, sig.level = 0.05, power = NULL) # degrees of freedom see also summary() output!
 
 # Cohens f^2 for: x2 explains a percentage more than x1 alone:
-# ...
-(f_2_x2 <- )
+(f_2_x2 <- (summary(mod)$r.squared - summary(mod_x1)$r.squared)/(1 - summary(mod)$r.squared))
 
 # Check via simulation----
-
+pwr.f2.test(u = 1, v = n - 1 - 1, f2 = f_2, sig.level = 0.05, power = NULL)
