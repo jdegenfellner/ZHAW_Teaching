@@ -1,5 +1,5 @@
 # Sample size calculations # 
-# Some thoughts and basic examples # 
+# Some basic examples # 
 
 # Some helpful links/books:
 # https://med.und.edu/research/daccota/_files/pdfs/berdc_resource_pdfs/sample_size_r_module.pdf and maybe
@@ -13,8 +13,20 @@
 
 
 # 1) Mini-Example from QM1 Script, p. 176---------------------------------------
-power.t.test(delta = 0.5, sd = 1, power = 0.8, type = "one.sample", alternative = "one.sided")
+power.t.test(delta = 0.5, sd = 1, power = 0.8, type = "two.sample", alternative = "one.sided")
+# -> n = 50 required
+n_required <- 50
 
+# __Check via simulation:----
+n <- 1000
+p_vals <- rep(NA, n)
+for(i in 1:n){
+  x1 <- rnorm(n_required, mean = 2.5, sd = 1) # hence, effect size = (2.5 - 2.0)/1
+  x2 <- rnorm(n_required, mean = 2.0, sd = 1)
+  test <- t.test(x1, x2, alternative = "greater")
+  p_vals[i] <- test$p.value
+}
+sum(p_vals < 0.05)/n # = power --> worked!!
 
 
 # 2) Real-life-Example: two-armed RCT: -----------------------------------------
