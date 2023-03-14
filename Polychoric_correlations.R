@@ -3,7 +3,13 @@
 # in progress
 
 # https://www.r-bloggers.com/2021/11/calculate-polychoric-correlation-in-r/
+# https://www.r-bloggers.com/2021/02/how-does-polychoric-correlation-work-aka-ordinal-to-ordinal-correlation/
 
+# Polychoric correlation assumes that each ordinal 
+# data point represents a binned continuous value 
+# from a normal distribution, and then tries to 
+# estimate the correlation coefficient on that 
+# assumption.
 
 library(polycor)
 company1 <- c(2, 2, 3, 1, 3, 2, 3, 3, 2, 1, 3, 1, 1, 3, 3, 1, 3, 1, 3, 2)
