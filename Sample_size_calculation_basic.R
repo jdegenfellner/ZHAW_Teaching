@@ -6,7 +6,7 @@
 # https://med.und.edu/research/daccota/_files/pdfs/berdc_resource_pdfs/sample_size_r_module_glmm2.pdf
 
 # Chapter 10 of: http://www.cs.uni.edu/~jacobson/4772/week11/R_in_Action.pdf
-# 4.4 of: https://link.springer.com/book/10.1007/978-3-319-19425-7
+# Chapter 4.4 of: https://link.springer.com/book/10.1007/978-3-319-19425-7
 
 
 
@@ -27,6 +27,8 @@ for(i in 1:n){
   p_vals[i] <- test$p.value
 }
 sum(p_vals < 0.05)/n # = power --> worked!!
+
+
 
 
 # 2) Real-life-Example: two-armed RCT: -----------------------------------------
@@ -88,3 +90,23 @@ df %>% filter(effect_sizes >= 0.2) %>%
   xlab("Effect size") + ylab("Sample size per group") + 
   theme_dark() + 
   theme(plot.title = element_text(hjust = 0.5))
+
+
+# 3) Sample size for a multiple linear regression model-------------------------
+
+# Let's pretend we know the true model
+n <- 15
+x1 <- rnorm(n = n, mean = 4, sd = 2)
+x2 <- rnorm(n = n, mean = 7, sd = 4)
+y <- 2*x1 - 3*x2 + rnorm(n = n, mean = 0, sd = 10) # add relatively heavy noise
+df <- data.frame(x1 = x1, x2 = x2, y = y)
+
+mod <- lm(y ~ x1 + x2, data = df)
+summary(mod)
+
+# find out power for 
+Rsquared <- 0.40
+
+library(pwr)
+f_2 <- Rsquared/(1 - Rsquared)
+pwr.f2.test(u = 2-1, v = n - 2 - 1, f2 = f_2, sig.level = 0.05, power = NULL)
