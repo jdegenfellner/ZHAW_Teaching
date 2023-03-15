@@ -114,13 +114,52 @@ summary(mod_x2)
 # Cohens f2:
 # see e.g. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3328081/
 
-# Cohens f^2 for global (!) effect size
+# __a) Cohen's f^2 for global (!) effect size----
 Rsquared <- summary(mod)$r.squared
-(f_2 <- Rsquared/(1 - Rsquared))
+(f_2 <- Rsquared/(1 - Rsquared)) # Ratio of explained vs. unexplained variance
 pwr.f2.test(u = 2, v = n - 2 - 1, f2 = f_2, sig.level = 0.05, power = NULL) # degrees of freedom see also summary() output!
+# This would mean that in 63% the null hypothesis that x1 and x2 explain nothing of y
+# is correctly rejected.
 
-# Cohens f^2 for: x2 explains a percentage more than x1 alone:
+# ___Check this via simulation.----
+library(broom)
+nn <- 1000
+p_vals <- rep(NA, n)
+for(i in 1:nn){
+  n <- 25
+  x1 <- rnorm(n = n, mean = 4, sd = 2)
+  x2 <- rnorm(n = n, mean = 7, sd = 2.3)
+  y <- 2*x1 - 2.7*x2 + rnorm(n = n, mean = 0, sd = 10) # Create outcome y and add relatively strong noise
+  df <- data.frame(x1 = x1, x2 = x2, y = y)
+  mod <- lm(y ~ x1 + x2, data = df)
+  p_vals[i] <- glance(mod)$p.value
+}
+sum(p_vals<0.05)/nn # = power # magnitude is correct :)
+
+# __b) Cohen's f^2 for: x2 explains a percentage more than x1 alone:----
 (f_2_x2 <- (summary(mod)$r.squared - summary(mod_x1)$r.squared)/(1 - summary(mod)$r.squared))
+pwr.f2.test(u = 1, v = n - 1 - 1, f2 = f_2_x2, sig.level = 0.05, power = NULL)
+# power = 0.7553003
 
-# Check via simulation----
-pwr.f2.test(u = 1, v = n - 1 - 1, f2 = f_2, sig.level = 0.05, power = NULL)
+# ___Check via simulation----
+nn <- 1000
+p_vals <- rep(NA, n)
+for(i in 1:nn){
+  n <- 25
+  x1 <- rnorm(n = n, mean = 4, sd = 2)
+  x2 <- rnorm(n = n, mean = 7, sd = 2.3)
+  y <- 2*x1 - 2.7*x2 + rnorm(n = n, mean = 0, sd = 10) # Create outcome y and add relatively strong noise
+  df <- data.frame(x1 = x1, x2 = x2, y = y)
+  mod <- lm(y ~ x1 + x2, data = df)
+  #summary(mod)
+  #plot(mod$residuals)
+  
+  mod_x1 <- lm(y ~ x1, data = df)
+  #summary(mod_x1)
+  mod_x2 <- lm(y ~ x2, data = df)
+  #summary(mod_x2)
+  
+  test <- anova(mod_x2, mod)
+  p_vals[i] <- test$`Pr(>F)`[2]
+}
+sum(p_vals<0.05)/nn # = power
