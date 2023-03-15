@@ -111,8 +111,9 @@ summary(mod_x1)
 mod_x2 <- lm(y ~ x2, data = df)
 summary(mod_x2)
 
-# Cohens f2:
-# see e.g. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3328081/
+# __Cohens f^2:----
+# see original book: https://www.utstat.toronto.edu/~brunner/oldclass/378f16/readings/CohenPower.pdf
+# https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3328081/
 
 # __a) Cohen's f^2 for global (!) effect size----
 Rsquared <- summary(mod)$r.squared
@@ -135,6 +136,8 @@ for(i in 1:nn){
   p_vals[i] <- glance(mod)$p.value
 }
 sum(p_vals<0.05)/nn # = power # magnitude is correct :)
+# not exactly correct since the global test has 
+# H_0: beta_1 = beta2 = ... = beta_p = 0 vs H_1: at least one is not = 0
 
 # __b) Cohen's f^2 for: x2 explains a percentage more than x1 alone:----
 (f_2_x2 <- (summary(mod)$r.squared - summary(mod_x1)$r.squared)/(1 - summary(mod)$r.squared))
