@@ -8,8 +8,8 @@
 # Chapter 10 of: http://www.cs.uni.edu/~jacobson/4772/week11/R_in_Action.pdf
 # Chapter 4.4 of: https://link.springer.com/book/10.1007/978-3-319-19425-7
 
-
-
+library(tidyverse)
+library(pwr)
 
 
 # 1) Mini-Example from QM1 Script, p. 176---------------------------------------
@@ -93,7 +93,6 @@ df %>% filter(effect_sizes >= 0.2) %>%
 
 
 # 3) Sample size calculation for a multiple linear regression model-------------
-library(pwr)
 
 # Let's pretend we know the true model
 n <- 25
@@ -117,7 +116,7 @@ summary(mod_x2)
 
 # __a) Cohen's f^2 for global (!) effect size----
 Rsquared <- summary(mod)$r.squared
-(f_2 <- Rsquared/(1 - Rsquared)) # Ratio of explained vs. unexplained variance
+(f_2 <- Rsquared/(1 - Rsquared)) # Ratio of explained vs. unexplained variance by the whole model
 pwr.f2.test(u = 2, v = n - 2 - 1, f2 = f_2, sig.level = 0.05, power = NULL) # degrees of freedom see also summary() output!
 # This would mean that in 63% the null hypothesis that x1 and x2 explain nothing of y
 # is correctly rejected.
@@ -135,7 +134,7 @@ for(i in 1:nn){
   mod <- lm(y ~ x1 + x2, data = df)
   p_vals[i] <- glance(mod)$p.value
 }
-sum(p_vals<0.05)/nn # = power # magnitude is correct :)
+sum(p_vals < 0.05)/nn # = power # magnitude is correct :)
 # not exactly correct since the global test has 
 # H_0: beta_1 = beta2 = ... = beta_p = 0 vs H_1: at least one is not = 0
 
