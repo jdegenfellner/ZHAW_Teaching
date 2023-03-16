@@ -95,7 +95,7 @@ df %>% filter(effect_sizes >= 0.2) %>%
 # 3) Sample size calculation for a multiple linear regression model-------------
 
 # Let's pretend we know the true model
-n <- 10000 # take larger n to determine (adjusted) R^2 exactly
+n <- 100000 # take larger n to determine (adjusted) R^2 exactly
 x1 <- rnorm(n = n, mean = 4, sd = 2)
 x2 <- rnorm(n = n, mean = 7, sd = 2.3)
 y <- 2*x1 - 2.7*x2 + rnorm(n = n, mean = 0, sd = 10) # Create outcome y and add relatively strong noise
@@ -117,6 +117,9 @@ summary(mod_x2)
 
 # __a) Cohen's f^2 for global (!) effect size----
 (Rsquared <- summary(mod)$r.squared)
+# use unbaised estimator of Rsquared:
+library(semEff)
+(Rsquared <- R2(mod, adj.type = "olkin-pratt")[2])
 
 # Per definition of f_2:
 (f_2 <- Rsquared/(1 - Rsquared)) # Ratio of explained vs. unexplained variance by the whole model
@@ -131,8 +134,8 @@ pwr.f2.test(u = 2, v = NULL, f2 = f_2, sig.level = 0.05, power = 0.8) # degrees 
 
 # ___Check this via simulation?----
 library(broom)
-nn <- 20000
-n_required <- 22
+nn <- 50000
+n_required <- 23
 p_vals <- rep(NA, nn)
 for(i in 1:nn){
   n <- n_required
@@ -143,7 +146,7 @@ for(i in 1:nn){
   mod_sim <- lm(y ~ x1 + x2, data = df)
   p_vals[i] <- glance(mod_sim)$p.value
 }
-sum(p_vals < 0.05)/nn # = power ... differing results
+sum(p_vals <= 0.05)/nn # = power ... slightly differing results, why?
 # not exactly correct since the global test has 
 # H_0: beta_1 = beta2 = ... = beta_p = 0 vs H_1: at least one is not = 0
 
