@@ -118,12 +118,12 @@ summary(mod_x2)
 Rsquared <- summary(mod)$r.squared
 (f_2 <- Rsquared/(1 - Rsquared)) # Ratio of explained vs. unexplained variance by the whole model
 pwr.f2.test(u = 2, v = n - 2 - 1, f2 = f_2, sig.level = 0.05, power = NULL) # degrees of freedom see also summary() output!
-# This would mean that in 63% the null hypothesis that x1 and x2 explain nothing of y
+# This would mean that in ~85% the null hypothesis that x1 and x2 explain nothing of y
 # is correctly rejected.
 
-# ___Check this via simulation.----
+# ___Check this via simulation?----
 library(broom)
-nn <- 1000
+nn <- 10000
 p_vals <- rep(NA, n)
 for(i in 1:nn){
   n <- 25
