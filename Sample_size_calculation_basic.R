@@ -95,15 +95,16 @@ df %>% filter(effect_sizes >= 0.2) %>%
 # 3) Sample size calculation for a multiple linear regression model-------------
 
 # Let's pretend we know the true model
-n <- 25
+n <- 10000 # take larger n to determine (adjusted) R^2 exactly
 x1 <- rnorm(n = n, mean = 4, sd = 2)
 x2 <- rnorm(n = n, mean = 7, sd = 2.3)
 y <- 2*x1 - 2.7*x2 + rnorm(n = n, mean = 0, sd = 10) # Create outcome y and add relatively strong noise
 df <- data.frame(x1 = x1, x2 = x2, y = y)
 mod <- lm(y ~ x1 + x2, data = df)
 summary(mod)
-confint(mod)
+#confint(mod)
 #plot(mod$residuals)
+# Multiple R-squared:  0.3729,	Adjusted R-squared:  0.3717
 
 mod_x1 <- lm(y ~ x1, data = df)
 summary(mod_x1)
@@ -115,35 +116,42 @@ summary(mod_x2)
 # https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3328081/
 
 # __a) Cohen's f^2 for global (!) effect size----
-Rsquared <- summary(mod)$r.squared
+(Rsquared <- summary(mod)$r.squared)
+
+# Per definition of f_2:
 (f_2 <- Rsquared/(1 - Rsquared)) # Ratio of explained vs. unexplained variance by the whole model
-pwr.f2.test(u = 2, v = n - 2 - 1, f2 = f_2, sig.level = 0.05, power = NULL) # degrees of freedom see also summary() output!
-# This would mean that in ~85% the null hypothesis that x1 and x2 explain nothing of y
-# is correctly rejected.
+
+# Calculate f_2 alternatively as in daccota-slides (link above):
+(f_2 <- sqrt(summary(mod)$adj.r.squared))
+
+pwr.f2.test(u = 2, v = NULL, f2 = f_2, sig.level = 0.05, power = 0.8) # degrees of freedom see also summary() output!
+# n_required = v + 3 = 22.
+
+
 
 # ___Check this via simulation?----
 library(broom)
-nn <- 10000
-p_vals <- rep(NA, n)
+nn <- 20000
+n_required <- 22
+p_vals <- rep(NA, nn)
 for(i in 1:nn){
-  n <- 25
+  n <- n_required
   x1 <- rnorm(n = n, mean = 4, sd = 2)
   x2 <- rnorm(n = n, mean = 7, sd = 2.3)
   y <- 2*x1 - 2.7*x2 + rnorm(n = n, mean = 0, sd = 10) # Create outcome y and add relatively strong noise
   df <- data.frame(x1 = x1, x2 = x2, y = y)
-  mod <- lm(y ~ x1 + x2, data = df)
-  p_vals[i] <- glance(mod)$p.value
+  mod_sim <- lm(y ~ x1 + x2, data = df)
+  p_vals[i] <- glance(mod_sim)$p.value
 }
-sum(p_vals < 0.05)/nn # = power # magnitude is correct :)
+sum(p_vals < 0.05)/nn # = power ... differing results
 # not exactly correct since the global test has 
 # H_0: beta_1 = beta2 = ... = beta_p = 0 vs H_1: at least one is not = 0
 
 # __b) Cohen's f^2 for: x2 explains a percentage more than x1 alone:----
 (f_2_x2 <- (summary(mod)$r.squared - summary(mod_x1)$r.squared)/(1 - summary(mod)$r.squared))
-pwr.f2.test(u = 1, v = n - 1 - 1, f2 = f_2_x2, sig.level = 0.05, power = NULL)
-# power = 0.7553003
+pwr.f2.test(u = 1, v = NULL, f2 = f_2_x2, sig.level = 0.05, power = 0.8)
 
-# ___Check via simulation----
+# ___Check via simulation?----
 nn <- 1000
 p_vals <- rep(NA, n)
 for(i in 1:nn){
@@ -161,7 +169,7 @@ for(i in 1:nn){
   mod_x2 <- lm(y ~ x2, data = df)
   #summary(mod_x2)
   
-  test <- anova(mod_x2, mod)
+  test <- anova(mod_x1, mod)
   p_vals[i] <- test$`Pr(>F)`[2]
 }
-sum(p_vals<0.05)/nn # = power
+sum(p_vals < 0.05)/nn # = estimation of power
