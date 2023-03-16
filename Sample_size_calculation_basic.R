@@ -134,7 +134,7 @@ pwr.f2.test(u = 2, v = NULL, f2 = f_2, sig.level = 0.05, power = 0.8) # degrees 
 
 # ___Check this via simulation?----
 library(broom)
-nn <- 50000
+nn <- 10000
 n_required <- 23
 p_vals <- rep(NA, nn)
 for(i in 1:nn){
@@ -155,7 +155,7 @@ sum(p_vals <= 0.05)/nn # = power ... slightly differing results, why?
 pwr.f2.test(u = 1, v = NULL, f2 = f_2_x2, sig.level = 0.05, power = 0.8)
 
 # ___Check via simulation?----
-nn <- 1000
+nn <- 10000
 p_vals <- rep(NA, n)
 for(i in 1:nn){
   n <- 25
