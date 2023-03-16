@@ -95,7 +95,7 @@ df %>% filter(effect_sizes >= 0.2) %>%
 # 3) Sample size calculation for a multiple linear regression model-------------
 
 # Let's pretend we know the true model
-n <- 100000 # take larger n to determine (adjusted) R^2 exactly
+n <- 10000 # take larger n to determine (adjusted) R^2 exactly
 # formally, x1 and x2 should not be probabilistic, so let's choose them once:
 set.seed(122)
 x1 <- rnorm(n = n, mean = 4, sd = 2)
@@ -137,20 +137,25 @@ pwr.f2.test(u = 2, v = NULL, f2 = f_2, sig.level = 0.05, power = 0.8) # degrees 
 # ___Check this via simulation?----
 library(broom)
 nn <- 10000
-n_required <- 21
+n_required <- 22
 p_vals <- rep(NA, nn)
 for(i in 1:nn){
   n <- n_required
   #x1 <- rnorm(n = n, mean = 4, sd = 2) # where chosen once and remain fixed.
   #x2 <- rnorm(n = n, mean = 7, sd = 2.3)
-  y <- 2*x1 - 2.7*x2 + rnorm(n = n, mean = 0, sd = 10) # Create outcome y and add relatively strong noise
-  df <- data.frame(x1 = x1, x2 = x2, y = y)
+  x1_sim <- sample(x1, n_required)
+  x2_sim <- sample(x2, n_required)
+  y <- 2*x1_sim - 2.7*x2_sim + rnorm(n = n, mean = 0, sd = 10) # Create outcome y and add relatively strong noise
+  df <- data.frame(x1 = x1_sim, x2 = x2_sim, y = y)
   mod_sim <- lm(y ~ x1 + x2, data = df)
   p_vals[i] <- glance(mod_sim)$p.value
 }
 sum(p_vals <= 0.05)/nn # = power ... slightly differing results, why?
 # not exactly correct since the global test has 
 # H_0: beta_1 = beta2 = ... = beta_p = 0 vs H_1: at least one is not = 0
+
+
+
 
 # __b) Cohen's f^2 for: x2 explains a percentage more than x1 alone:----
 (f_2_x2 <- (summary(mod)$r.squared - summary(mod_x1)$r.squared)/(1 - summary(mod)$r.squared))
@@ -161,8 +166,8 @@ nn <- 10000
 p_vals <- rep(NA, n)
 for(i in 1:nn){
   n <- 19
-  x1 <- rnorm(n = n, mean = 4, sd = 2)
-  x2 <- rnorm(n = n, mean = 7, sd = 2.3)
+  #x1 <- rnorm(n = n, mean = 4, sd = 2) # x1, x2 fixed
+  #x2 <- rnorm(n = n, mean = 7, sd = 2.3)
   y <- 2*x1 - 2.7*x2 + rnorm(n = n, mean = 0, sd = 10) # Create outcome y and add relatively strong noise
   df <- data.frame(x1 = x1, x2 = x2, y = y)
   mod <- lm(y ~ x1 + x2, data = df)
