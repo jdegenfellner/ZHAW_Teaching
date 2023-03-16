@@ -96,6 +96,8 @@ df %>% filter(effect_sizes >= 0.2) %>%
 
 # Let's pretend we know the true model
 n <- 100000 # take larger n to determine (adjusted) R^2 exactly
+# formally, x1 and x2 should not be probabilistic, so let's choose them once:
+set.seed(122)
 x1 <- rnorm(n = n, mean = 4, sd = 2)
 x2 <- rnorm(n = n, mean = 7, sd = 2.3)
 y <- 2*x1 - 2.7*x2 + rnorm(n = n, mean = 0, sd = 10) # Create outcome y and add relatively strong noise
@@ -135,12 +137,12 @@ pwr.f2.test(u = 2, v = NULL, f2 = f_2, sig.level = 0.05, power = 0.8) # degrees 
 # ___Check this via simulation?----
 library(broom)
 nn <- 10000
-n_required <- 23
+n_required <- 21
 p_vals <- rep(NA, nn)
 for(i in 1:nn){
   n <- n_required
-  x1 <- rnorm(n = n, mean = 4, sd = 2)
-  x2 <- rnorm(n = n, mean = 7, sd = 2.3)
+  #x1 <- rnorm(n = n, mean = 4, sd = 2) # where chosen once and remain fixed.
+  #x2 <- rnorm(n = n, mean = 7, sd = 2.3)
   y <- 2*x1 - 2.7*x2 + rnorm(n = n, mean = 0, sd = 10) # Create outcome y and add relatively strong noise
   df <- data.frame(x1 = x1, x2 = x2, y = y)
   mod_sim <- lm(y ~ x1 + x2, data = df)
@@ -158,7 +160,7 @@ pwr.f2.test(u = 1, v = NULL, f2 = f_2_x2, sig.level = 0.05, power = 0.8)
 nn <- 10000
 p_vals <- rep(NA, n)
 for(i in 1:nn){
-  n <- 25
+  n <- 19
   x1 <- rnorm(n = n, mean = 4, sd = 2)
   x2 <- rnorm(n = n, mean = 7, sd = 2.3)
   y <- 2*x1 - 2.7*x2 + rnorm(n = n, mean = 0, sd = 10) # Create outcome y and add relatively strong noise
