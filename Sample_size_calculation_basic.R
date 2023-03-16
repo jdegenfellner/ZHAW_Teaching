@@ -11,6 +11,8 @@
 library(tidyverse)
 library(pwr)
 
+# Set working directory to source file location
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # 1) Mini-Example from QM1 Script, p. 176---------------------------------------
 power.t.test(delta = 0.5, sd = 1, power = 0.8, type = "two.sample", alternative = "one.sided")
