@@ -137,7 +137,7 @@ pwr.f2.test(u = 2, v = NULL, f2 = f_2, sig.level = 0.05, power = 0.8) # degrees 
 # ___Check this via simulation?----
 library(broom)
 nn <- 10000
-n_required <- 22
+n_required <- 23
 p_vals <- rep(NA, nn)
 for(i in 1:nn){
   n <- n_required
