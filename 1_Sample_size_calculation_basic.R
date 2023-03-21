@@ -215,14 +215,14 @@ library(semEff)
 (f_2 <- sqrt(summary(mod)$adj.r.squared))
 
 pwr.f2.test(u = 2, v = NULL, f2 = f_2, sig.level = 0.05, power = 0.8) # degrees of freedom see also summary() output!
-# n_required = v + 3 = 22. (see also 3.7.7 in the QM2 script for dof)
+# n_required = v + 3 = 22. (see also 3.7.7 in the QM2 script for degrees of freedom)
 
 
 
 # ___Check this via simulation?----
 library(broom)
 nn <- 10000
-n_required <- 23
+n_required <- 22
 p_vals <- rep(NA, nn)
 for(i in 1:nn){
   n <- n_required
