@@ -10,6 +10,7 @@
 
 library(tidyverse)
 library(pwr)
+library(rgl)
 
 # Set working directory to source file location
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -63,6 +64,7 @@ df %>% ggplot(aes(x = delta, y = power_vec)) +
   theme(plot.title = element_text(hjust = 0.5)) + 
   ylab("Power")
 
+# Both at the same time:
 
 
 
