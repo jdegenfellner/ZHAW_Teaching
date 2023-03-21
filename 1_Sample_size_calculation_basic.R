@@ -21,6 +21,12 @@ power.t.test(delta = 0.5, sd = 1, power = 0.8, type = "two.sample", alternative 
 # -> n = 50 required
 n_required <- 50
 
+pwr.t.test(n = NULL, d = 0.5, power = 0.8, sig.level = 0.05, type = "two.sample", alternative = "greater")
+
+# Difference?
+?power.t.test
+?pwr.t.test
+
 # Check out other variants:
 power.t.test(delta = 0.5, sd = 1, power = 0.8, type = "one.sample", alternative = "one.sided")
 power.t.test(delta = 0.5, sd = 1, power = 0.8, type = "two.sample", alternative = "two.sided")
@@ -177,25 +183,30 @@ x2 <- rnorm(n = n, mean = 7, sd = 2.3)
 y <- 2*x1 - 2.7*x2 + rnorm(n = n, mean = 0, sd = 10) # Create outcome y and add relatively strong noise
 df <- data.frame(x1 = x1, x2 = x2, y = y)
 mod <- lm(y ~ x1 + x2, data = df)
-summary(mod)
-#confint(mod)
-#plot(mod$residuals)
-# Multiple R-squared:  0.3729,	Adjusted R-squared:  0.3717
+summary(mod) # looks correct
+# Multiple R-squared:  0.3526,	Adjusted R-squared:  0.3525 
+confint(mod)
+plot(mod$residuals)
 
 mod_x1 <- lm(y ~ x1, data = df)
 summary(mod_x1)
 mod_x2 <- lm(y ~ x2, data = df)
 summary(mod_x2)
+# Simpson-Paradox does not seem to be a problem here, why?
+cor(df$x1, df$x2) # almost uncorrelated, that's why.
+
 
 # __Cohens f^2:----
-# see original book: https://www.utstat.toronto.edu/~brunner/oldclass/378f16/readings/CohenPower.pdf
+# see original book (free): https://www.utstat.toronto.edu/~brunner/oldclass/378f16/readings/CohenPower.pdf
+
+# "A Practical Guide to Calculating Cohen’s f2, a Measure of Local Effect Size..."
 # https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3328081/
 
 # __a) Cohen's f^2 for global (!) effect size----
 (Rsquared <- summary(mod)$r.squared)
-# use unbaised estimator of Rsquared:
+# use unbiased estimator of Rsquared:
 library(semEff)
-(Rsquared <- R2(mod, adj.type = "olkin-pratt")[2])
+(Rsquared <- R2(mod, adj.type = "olkin-pratt")[2]) # almost identical here...
 
 # Per definition of f_2:
 (f_2 <- Rsquared/(1 - Rsquared)) # Ratio of explained vs. unexplained variance by the whole model
@@ -204,7 +215,7 @@ library(semEff)
 (f_2 <- sqrt(summary(mod)$adj.r.squared))
 
 pwr.f2.test(u = 2, v = NULL, f2 = f_2, sig.level = 0.05, power = 0.8) # degrees of freedom see also summary() output!
-# n_required = v + 3 = 22.
+# n_required = v + 3 = 22. (see also 3.7.7 in the QM2 script for dof)
 
 
 
