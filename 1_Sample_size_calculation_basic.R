@@ -10,7 +10,7 @@
 
 library(tidyverse)
 library(pwr)
-#library(rgl)
+library(rgl)
 library(plot3D)
 
 # Set working directory to source file location
@@ -82,7 +82,6 @@ persp3D(x = n, y = delta, z = power_matrix, xlab = "Sample Size (n)", ylab = "Ef
 
 
 # __Interactive plot----
-
 n <- 10:100
 delta <- seq(from = 0.1, to = 0.9, by = 0.01)
 power_matrix <- matrix(0, nrow = length(n), ncol = length(delta))
@@ -94,11 +93,9 @@ for (i in 1:length(n)) {
   }
 }
 
-# Convert the matrix into a long format data frame
 power_df <- expand.grid(n = n, delta = delta)
 power_df$power <- as.vector(power_matrix)
 
-# Create an interactive 3D plot
 plot3d(power_df$n, power_df$delta, power_df$power, xlab = "Sample Size (n)", ylab = "Effect Size (delta)", zlab = "Power",
        col = rainbow(n = 100, start = 0, end = 1)[cut(power_df$power, breaks = 100)],
        type = "s", size = 1, box = TRUE, axes = TRUE)
@@ -114,9 +111,9 @@ power <- 0.8
 
 # __Determine sample size----
 # ES rate - Jennings 2015
-(effect_size <- (14.1-17.5)/12.5) # approx equal variances
+(effect_size <- (14.1 - 17.5)/12.5) # approx equal variances
 # C-reactive protein - Niedermann 2013
-(effect_size <- (4.95-6.27)/7.8) # approx equal variances
+(effect_size <- (4.95 - 6.27)/7.8) # approx equal variances
 
 # ES rate - Jennings 2015
 # https://thenewstatistics.com/itns/2021/06/17/which-standardised-effect-size-measure-is-best-when-variances-are-unequal/
