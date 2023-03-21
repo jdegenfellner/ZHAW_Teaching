@@ -5,7 +5,7 @@
 # https://med.und.edu/research/daccota/_files/pdfs/berdc_resource_pdfs/sample_size_r_module.pdf and maybe
 # https://med.und.edu/research/daccota/_files/pdfs/berdc_resource_pdfs/sample_size_r_module_glmm2.pdf
 
-# Chapter 10 of: http://www.cs.uni.edu/~jacobson/4772/week11/R_in_Action.pdf
+# (free) Chapter 10 of: http://www.cs.uni.edu/~jacobson/4772/week11/R_in_Action.pdf
 # Chapter 4.4 of: https://link.springer.com/book/10.1007/978-3-319-19425-7
 
 library(tidyverse)
@@ -37,7 +37,7 @@ for(i in 1:n){
 }
 sum(p_vals < 0.05)/n # = power --> worked!!
 
-# __Create power-curve for varying sample size (n) manually:----
+# __Create power-curve for varying sample size (n):----
 n <- 10:100
 power_vec <- rep(0, length(n))
 for(i in 1:length(n)){
@@ -51,7 +51,7 @@ df %>% ggplot(aes(x = n, y = power_vec)) +
   theme(plot.title = element_text(hjust = 0.5)) + 
   ylab("Power")
 
-# __Create Power curve for varying effect-size:----
+# __Create Power curve for varying effect-sizes:----
 delta <- seq(from = 0.1, to = 0.9, by = 0.01)
 power_vec <- rep(0, length(delta))
 for(i in 1:length(delta)){
@@ -65,7 +65,7 @@ df %>% ggplot(aes(x = delta, y = power_vec)) +
   theme(plot.title = element_text(hjust = 0.5)) + 
   ylab("Power")
 
-# __Both at the same time:-----------
+# __Vary both at the same time:-----------
 n <- 10:100
 delta <- seq(from = 0.1, to = 0.9, by = 0.01)
 power_matrix <- matrix(0, nrow = length(n), ncol = length(delta))
@@ -110,6 +110,8 @@ alpha <- 0.05
 power <- 0.8
 
 # __Determine sample size----
+
+# Previous studies give and indication of differences:
 # ES rate - Jennings 2015
 (effect_size <- (14.1 - 17.5)/12.5) # approx equal variances
 # C-reactive protein - Niedermann 2013
