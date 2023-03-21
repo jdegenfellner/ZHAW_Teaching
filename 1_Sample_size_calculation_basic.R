@@ -10,7 +10,8 @@
 
 library(tidyverse)
 library(pwr)
-library(rgl)
+#library(rgl)
+library(plot3D)
 
 # Set working directory to source file location
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -64,7 +65,43 @@ df %>% ggplot(aes(x = delta, y = power_vec)) +
   theme(plot.title = element_text(hjust = 0.5)) + 
   ylab("Power")
 
-# Both at the same time:
+# __Both at the same time:-----------
+n <- 10:100
+delta <- seq(from = 0.1, to = 0.9, by = 0.01)
+power_matrix <- matrix(0, nrow = length(n), ncol = length(delta))
+
+for (i in 1:length(n)) {
+  for (j in 1:length(delta)) {
+    test <- power.t.test(delta = delta[j], sd = 1, n = n[i], power = NULL, type = "two.sample", alternative = "one.sided")
+    power_matrix[i, j] <- test$power
+  }
+}
+
+persp3D(x = n, y = delta, z = power_matrix, xlab = "Sample Size (n)", ylab = "Effect Size (delta)", zlab = "Power",
+        main = "Power depending on sample size (n) and effect size (delta)", col = "lightblue", shade = 0.5)
+
+
+# __Interactive plot----
+
+n <- 10:100
+delta <- seq(from = 0.1, to = 0.9, by = 0.01)
+power_matrix <- matrix(0, nrow = length(n), ncol = length(delta))
+
+for (i in 1:length(n)) {
+  for (j in 1:length(delta)) {
+    test <- power.t.test(delta = delta[j], sd = 1, n = n[i], power = NULL, type = "two.sample", alternative = "one.sided")
+    power_matrix[i, j] <- test$power
+  }
+}
+
+# Convert the matrix into a long format data frame
+power_df <- expand.grid(n = n, delta = delta)
+power_df$power <- as.vector(power_matrix)
+
+# Create an interactive 3D plot
+plot3d(power_df$n, power_df$delta, power_df$power, xlab = "Sample Size (n)", ylab = "Effect Size (delta)", zlab = "Power",
+       col = rainbow(n = 100, start = 0, end = 1)[cut(power_df$power, breaks = 100)],
+       type = "s", size = 1, box = TRUE, axes = TRUE)
 
 
 
