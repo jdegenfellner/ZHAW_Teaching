@@ -35,10 +35,10 @@ for(i in 1:n){
 }
 sum(p_vals < 0.05)/n # = power --> worked!!
 
-# Create power-curve for varying sample size (n) manually:
+# __Create power-curve for varying sample size (n) manually:----
 n <- 10:100
-power_vec <- rep(0, length(n_required))
-for(i in 1:length(n_required)){
+power_vec <- rep(0, length(n))
+for(i in 1:length(n)){
   test <- power.t.test(delta = 0.5, sd = 1, n = n[i], power = NULL, type = "two.sample", alternative = "one.sided")
   power_vec[i] <- test$power
 }
@@ -49,7 +49,20 @@ df %>% ggplot(aes(x = n, y = power_vec)) +
   theme(plot.title = element_text(hjust = 0.5)) + 
   ylab("Power")
 
-# Create Power curve for varying effect-size:
+# __Create Power curve for varying effect-size:----
+delta <- seq(from = 0.1, to = 0.9, by = 0.01)
+power_vec <- rep(0, length(delta))
+for(i in 1:length(n_required)){
+  test <- power.t.test(delta = delta[i], sd = 1, n = 50, power = NULL, type = "two.sample", alternative = "one.sided")
+  power_vec[i] <- test$power
+}
+df <- data.frame(n = n, power = power_vec)
+df %>% ggplot(aes(x = n, y = power_vec)) + 
+  geom_line() + 
+  ggtitle("Power Curve for t-Test with varying effect size (delta)") + 
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  ylab("Power")
+
 
 
 # 2) Real-life-Example: Two-armed RCT: -----------------------------------------
