@@ -242,19 +242,36 @@ sum(p_vals <= 0.05)/nn # = power ... slightly differing results, why?
 
 
 
-# __b) Cohen's f^2 for: x2 explains a percentage more than x1 alone:----
+# __b) Cohen's f^2 for: x2 explains a certain percentage more than x1 alone:----
 (f_2_x2 <- (summary(mod)$r.squared - summary(mod_x1)$r.squared)/(1 - summary(mod)$r.squared))
-pwr.f2.test(u = 1, v = NULL, f2 = f_2_x2, sig.level = 0.05, power = 0.8)
+pwr.f2.test(u = 2, v = NULL, f2 = f_2_x2, sig.level = 0.05, power = 0.8)
+
+
+# try:
+cohen_f2 <- function(fit, fit2){
+  R2 <- summary(fit)$r.squared
+  if(missing(fit2)) {
+    R2/(1 - R2)
+  } else {
+    R2B <- summary(fit2)$r.squared
+    (R2B - R2)/(1 - R2B)
+  }
+}
+cohen_f2(mod_x1, mod)
+
+library(sensemakr)
+partial_f2(mod, covariate = "x2")
+
 
 # ___Check via simulation?----
 nn <- 10000
 p_vals <- rep(NA, n)
 for(i in 1:nn){
-  n <- 19
-  #x1 <- rnorm(n = n, mean = 4, sd = 2) # x1, x2 fixed
-  #x2 <- rnorm(n = n, mean = 7, sd = 2.3)
-  y <- 2*x1 - 2.7*x2 + rnorm(n = n, mean = 0, sd = 10) # Create outcome y and add relatively strong noise
-  df <- data.frame(x1 = x1, x2 = x2, y = y)
+  n_required <- 30
+  x1_sim <- sample(x1, n_required)
+  x2_sim <- sample(x2, n_required)
+  y <- 2*x1_sim - 2.7*x2_sim + rnorm(n = n_required, mean = 0, sd = 10) # Create outcome y and add relatively strong noise
+  df <- data.frame(x1 = x1_sim, x2 = x2_sim, y = y)
   mod <- lm(y ~ x1 + x2, data = df)
   #summary(mod)
   #plot(mod$residuals)
