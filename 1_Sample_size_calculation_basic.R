@@ -52,16 +52,18 @@ df %>% ggplot(aes(x = n, y = power_vec)) +
 # __Create Power curve for varying effect-size:----
 delta <- seq(from = 0.1, to = 0.9, by = 0.01)
 power_vec <- rep(0, length(delta))
-for(i in 1:length(n_required)){
+for(i in 1:length(delta)){
   test <- power.t.test(delta = delta[i], sd = 1, n = 50, power = NULL, type = "two.sample", alternative = "one.sided")
   power_vec[i] <- test$power
 }
-df <- data.frame(n = n, power = power_vec)
-df %>% ggplot(aes(x = n, y = power_vec)) + 
+df <- data.frame(delta = delta, power = power_vec)
+df %>% ggplot(aes(x = delta, y = power_vec)) + 
   geom_line() + 
   ggtitle("Power Curve for t-Test with varying effect size (delta)") + 
   theme(plot.title = element_text(hjust = 0.5)) + 
   ylab("Power")
+
+
 
 
 
