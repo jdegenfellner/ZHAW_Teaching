@@ -19,21 +19,40 @@ power.t.test(delta = 0.5, sd = 1, power = 0.8, type = "two.sample", alternative 
 # -> n = 50 required
 n_required <- 50
 
-# __Check via simulation:----
+# Check out other variants:
+power.t.test(delta = 0.5, sd = 1, power = 0.8, type = "one.sample", alternative = "one.sided")
+power.t.test(delta = 0.5, sd = 1, power = 0.8, type = "two.sample", alternative = "two.sided")
+
+
+# __Check 1) via simulation:----
 n <- 1000
 p_vals <- rep(NA, n)
 for(i in 1:n){
-  x1 <- rnorm(n_required, mean = 2.5, sd = 1) # hence, effect size = (2.5 - 2.0)/1
+  x1 <- rnorm(n_required, mean = 2.5, sd = 1) # hence, effect size = (2.5 - 2.0)/1 = 0.5
   x2 <- rnorm(n_required, mean = 2.0, sd = 1)
-  test <- t.test(x1, x2, alternative = "greater")
+  test <- t.test(x1, x2, alternative = "greater", paired = FALSE)
   p_vals[i] <- test$p.value
 }
 sum(p_vals < 0.05)/n # = power --> worked!!
 
+# Create power-curve for varying sample size (n) manually:
+n <- 10:100
+power_vec <- rep(0, length(n_required))
+for(i in 1:length(n_required)){
+  test <- power.t.test(delta = 0.5, sd = 1, n = n[i], power = NULL, type = "two.sample", alternative = "one.sided")
+  power_vec[i] <- test$power
+}
+df <- data.frame(n = n, power = power_vec)
+df %>% ggplot(aes(x = n, y = power_vec)) + 
+  geom_line() + 
+  ggtitle("Power Curve for t-Test with varying sample size (n)") + 
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  ylab("Power")
+
+# Create Power curve for varying effect-size:
 
 
-
-# 2) Real-life-Example: two-armed RCT: -----------------------------------------
+# 2) Real-life-Example: Two-armed RCT: -----------------------------------------
 
 # __Determine alpha and power----
 alpha <- 0.05
