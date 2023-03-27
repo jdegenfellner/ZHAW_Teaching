@@ -1,5 +1,7 @@
 # ICC, some thoughts:
 
+# in progress # 
+
 # How does the ICC behave if we change the factor between the two variances?
 n <- c(seq(0.01, 1, by = 0.01), 1:20)
 sigma_e <- 1
