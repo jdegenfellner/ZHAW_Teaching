@@ -104,3 +104,4 @@ wide_data <- df_ICC %>%
   pivot_wider(names_from = Index1, values_from = c(trans1, trans2))
 
 psych::ICC(wide_data %>% dplyr::select(trans1_1, trans1_2))
+# Reason for error???
