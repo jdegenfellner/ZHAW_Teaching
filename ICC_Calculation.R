@@ -11,6 +11,8 @@ library(devtools)
 library(performance)
 #install_remote("https://github.com/easystats/performance/blob/HEAD/R/icc.R", dependencies = TRUE)
 
+# Note, There are also other packages with an ICC function, like psych, see lecture
+
 # Set working directory to source file location
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
@@ -36,17 +38,18 @@ icc(df_icc, model = "oneway", type = "consistency", unit = "single")
 # ICC(1) = 0.764
 
 # ICC manually------------------------------------------------------------------
-# see: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6645485/pdf/pone.0219854.pdf.  p.9, Fig.1
-
+# see: 
+# https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6645485/pdf/pone.0219854.pdf.  
+# p.9, Fig.1
 # Note that the formula in Fig.1 does NOT use information from the estimated 
 # LMM, but only uses information from the data matrix at hand.
 
 # The package performance has a function icc which let's you choose the formula
-# for the LMM
+# for the LMM.
 # see also: https://easystats.github.io/performance/reference/icc.html for usage
 
 
-# 1) Data transformation
+# 1) Data transformation----
 df1 <- df %>% select(-id,-trans2)
 df1$Index1 <- factor(df1$Index1)
 df1 <- df1 %>% spread(Index1, trans1)
@@ -54,14 +57,14 @@ colnames(df1) <- c("patcode", "Measurement1", "Measurement2")
 df1 <- df1 %>% mutate(Mean = (Measurement1 + Measurement2)/2)
 colnames(df1) <- c("patcode", "Measurement1", "Measurement2", "Mean_M1_M2")
 
-# 2) Estimate correct model 
+# 2) Estimate correct model ----
 model1 <- lmer(trans1 ~ (1|patcode), data = df) # this should be the correct 
                                                 # model, since it's consistent with the other ICC-value
 
 performance::icc(model1) # ICC: 0.764
 
 
-# 3) Calculate sum of squares and so on (4 Letter abbreviations in paper)
+# 3) Calculate sum of squares and so on (4 Letter abbreviations in paper)----
 # k = 2 measurements
 # MSBS = Mean square between subjects
 # MSWS = Mean square within subjects
@@ -89,6 +92,6 @@ SSWS <- sum(df2$sum_2)
 MSWS <- SSWS/(n*(k-1))
 
 
-# 4) Calculate versions of ICC (use formulas from Fig. 1)
+# 4) Calculate versions of ICC (use formulas from Fig. 1)----
 # ICC(1) = 
 (MSBS - MSWS)/(MSBS + (k-1)*MSWS) # 0.7641323 # same result!

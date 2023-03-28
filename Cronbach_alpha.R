@@ -16,7 +16,7 @@ cronbach.alpha(data) # 0.773
 # Calculate manually:
 # https://de.wikipedia.org/wiki/Cronbachsches_Alpha
 
-# Formula 1:
+# Formula 1:----
 # alpha = N*r_bar/(1+(N-1)*r_bar)
 
 N <- dim(data)[2]
@@ -29,7 +29,7 @@ r_bar <- mean(c(cor1,cor2,cor3))
 N*r_bar/(1+(N-1)*r_bar) # 0.774291 # not too bad. small error?
 
 
-# Formula 2:
+# Formula 2:----
 # alpha = N/(N-1)*(1-sum(sigma_Yi^2)/sigma_X^2)
 
 N <- 3
