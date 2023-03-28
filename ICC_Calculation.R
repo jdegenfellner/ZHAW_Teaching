@@ -97,6 +97,8 @@ MSWS <- SSWS/(n*(k-1))
 # ICC(1) = 
 (MSBS - MSWS)/(MSBS + (k-1)*MSWS) # 0.7641323 # same result!
 
+
+
 # in progress # 
 # 5) psych::ICC----
 df_ICC <- df %>% dplyr::select(-patcode)
