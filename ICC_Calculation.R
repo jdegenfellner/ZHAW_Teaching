@@ -10,6 +10,7 @@ library(remotes)
 library(devtools)
 library(performance)
 #install_remote("https://github.com/easystats/performance/blob/HEAD/R/icc.R", dependencies = TRUE)
+library(psych)
 
 # Note, There are also other packages with an ICC function, like psych, see lecture
 
@@ -20,7 +21,7 @@ set.seed(2332)
 
 # 5.2 Example ------------------------------------------------------------------
 
-df <- read_sav("chapter 5_assignment 1_4_long.sav")
+df <- read_sav("./Data/chapter 5_assignment 1_4_long.sav")
 df <- df %>% filter(patcode %in% sample(1:155, 50, replace = FALSE))
 length(unique(df$patcode))
 df <- as.data.table(df)
