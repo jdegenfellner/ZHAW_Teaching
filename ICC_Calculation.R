@@ -98,9 +98,9 @@ MSWS <- SSWS/(n*(k-1))
 (MSBS - MSWS)/(MSBS + (k-1)*MSWS) # 0.7641323 # same result!
 
 # in progress # 
-# 5) psych
+# 5) psych::ICC----
 df_ICC <- df %>% dplyr::select(-patcode)
 wide_data <- df_ICC %>%
   pivot_wider(names_from = Index1, values_from = c(trans1, trans2))
 
-psych::ICC(df_ICC[,c(3,4)])
+psych::ICC(wide_data %>% dplyr::select(trans1_1, trans1_2))
