@@ -103,4 +103,4 @@ df_ICC <- df %>% dplyr::select(-patcode)
 wide_data <- df_ICC %>%
   pivot_wider(names_from = Index1, values_from = c(trans1, trans2))
 
-psych::ICC(wide_data[,c(2,3)])
+psych::ICC(df_ICC[,c(3,4)])
