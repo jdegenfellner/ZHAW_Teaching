@@ -100,5 +100,7 @@ MSWS <- SSWS/(n*(k-1))
 # in progress # 
 # 5) psych
 df_ICC <- df %>% dplyr::select(-patcode)
-pivot_wider(df_ICC, )
-psych::ICC()
+wide_data <- df_ICC %>%
+  pivot_wider(names_from = Index1, values_from = c(trans1, trans2))
+
+psych::ICC(wide_data[,c(2,3)])
