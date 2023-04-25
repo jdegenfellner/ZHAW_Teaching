@@ -36,26 +36,45 @@ data2 <- data.frame(x, y2)
 data3 <- data.frame(x, y3)
 data4 <- data.frame(x, y4)
 
-# Train the neural networks
-nn1 <- neuralnet(y1 ~ x, data1, hidden = 3, linear.output = TRUE)
-nn2 <- neuralnet(y2 ~ x, data2, hidden = 3, linear.output = TRUE)
-nn3 <- neuralnet(y3 ~ x, data3, hidden = 3, linear.output = TRUE)
-nn4 <- neuralnet(y4 ~ x, data4, hidden = 3, linear.output = TRUE)
+
+hidden_activations <- function(nn, data) {
+  # Extract weights
+  w1 <- nn$weights[[1]][[1]]
+  w2 <- nn$weights[[1]][[2]]
+  
+  # Compute the hidden layer activations
+  z <- data %*% w1
+  a <- tanh(z)  # Apply tanh activation
+  
+  return(a)
+}
+
+nn1 <- neuralnet(y1 ~ x, data1, hidden = 3, linear.output = TRUE, act.fct = "tanh")
+nn2 <- neuralnet(y2 ~ x, data2, hidden = 3, linear.output = TRUE, act.fct = "tanh")
+nn3 <- neuralnet(y3 ~ x, data3, hidden = 3, linear.output = TRUE, act.fct = "tanh")
+nn4 <- neuralnet(y4 ~ x, data4, hidden = 3, linear.output = TRUE, act.fct = "tanh")
+
+activations1 <- hidden_activations(nn1, cbind(1, x))
+activations2 <- hidden_activations(nn2, cbind(1, x))
+activations3 <- hidden_activations(nn3, cbind(1, x))
+activations4 <- hidden_activations(nn4, cbind(1, x))
 
 predictions1 <- compute(nn1, data1)$net.result
 predictions2 <- compute(nn2, data2)$net.result
 predictions3 <- compute(nn3, data3)$net.result
 predictions4 <- compute(nn4, data4)$net.result
 
-library(ggplot2)
-library(gridExtra)
 
-generate_plot <- function(x, y, predictions, title) {
-  df <- data.frame(x, y, predictions)
-  colnames(df) <- c("x", "y", "predictions")
+generate_plot <- function(x, y, predictions, activations, title) {
+  df <- data.frame(x, y, predictions, activations)
+  colnames(df) <- c("x", "y", "predictions", "hidden1", "hidden2", "hidden3")
+  
   p <- ggplot(df, aes(x = x)) +
     geom_point(aes(y = y), color = "blue") +
     geom_line(aes(y = predictions), color = "red") +
+    geom_line(aes(y = hidden1), color = "green", linetype = "dashed") +
+    geom_line(aes(y = hidden2), color = "purple", linetype = "dashed") +
+    geom_line(aes(y = hidden3), color = "orange", linetype = "dashed") +
     ylim(-1, 1) +
     ggtitle(title) +
     theme_minimal() +
@@ -63,10 +82,10 @@ generate_plot <- function(x, y, predictions, title) {
   return(p)
 }
 
-plot1 <- generate_plot(x, y1, predictions1[, 1], "f(x) = x^2")
-plot2 <- generate_plot(x, y2, predictions2[, 1], "f(x) = sin(x)")
-plot3 <- generate_plot(x, y3, predictions3[, 1], "f(x) = abs(x)")
-plot4 <- generate_plot(x, y4, predictions4[, 1], "f(x) = H(x)")
+plot1 <- generate_plot(x, y1, predictions1[, 1], activations1, "f(x) = x^2")
+plot2 <- generate_plot(x, y2, predictions2[, 1], activations2, "f(x) = sin(x)")
+plot3 <- generate_plot(x, y3, predictions3[, 1], activations3, "f(x) = abs(x)")
+plot4 <- generate_plot(x, y4, predictions4[, 1], activations4, "f(x) = H(x)")
 
 grid.arrange(plot1, plot2, plot3, plot4, nrow = 2, ncol = 2)
 
