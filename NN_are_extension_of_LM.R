@@ -1,6 +1,6 @@
 # Neuronal networks are extensions of linear regression models
 
-#[this script was partially created using GPT-4]
+#v[this script was partially created using GPT-4]
 
 library(nnet)
 library(tidyverse)
@@ -22,3 +22,11 @@ nn <- neuralnet(y ~ x1 + x2, data = data,
                 act.fct = "logistic")
 
 plot(nn)
+
+
+# Exercises:
+
+# a) What happens if linear.output = FALSE?
+# b) Experiment with different activation functions, e.g. ReLu.
+# c) Try to create a very complicated function y = f(x1,...,xn) and try
+#.   to approximate it using neuralnet. 
