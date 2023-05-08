@@ -1,6 +1,6 @@
 # Neuronal networks are extensions of linear regression models
 
-#[this script was partially created using GPT4]
+#[this script was partially created using GPT-4]
 
 library(nnet)
 library(tidyverse)
@@ -13,10 +13,12 @@ x2 <- rnorm(100)
 y <- 2 + 3 * x1 + 4 * x2 + rnorm(100, sd = 0.5)
 data <- data.frame(x1 = x1, x2 = x2, y = y)
 
-formula <- y ~ x1 + x2
-mod <- lm(formula = formula, data = data)
+mod <- lm(y ~ x1 + x2, data = data)
 summary(mod)
 
-nn <- neuralnet(formula, data, hidden = 0, linear.output = TRUE)
+nn <- neuralnet(y ~ x1 + x2, data = data, 
+                hidden = 0, 
+                linear.output = TRUE, # If act.fct should not be applied to the output neurons set linear output to TRUE, otherwise to FALSE.
+                act.fct = "logistic")
 
 plot(nn)
