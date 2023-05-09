@@ -6,16 +6,20 @@
 
 # Instruction to GPT-4:
 
-# Write R code to show the capability of a multi-layer perceptron (3 hidden units) to approximate four different functions. 
+# Write R code to show the capability of a multi-layer perceptron 
+# (3 hidden units) to approximate four different functions. 
 # a) f(x) = x^2
 # b) f(x) = sin(x)
 # c) f(x) = abs(x)
 # d) f(x) = H(x), where H is the Heavside step function.
 
-# N = 50 data points, shown as blue dots, have been samples uniformly in x over the interval (-1,1) and the corresponding values of f(x) evaluated. 
+# N = 50 data points, shown as blue dots, have been samples uniformly in x 
+# over the interval (-1,1) and the corresponding values of f(x) evaluated. 
 
 #install.packages("neuralnet")
 library(neuralnet)
+library(tidyverse)
+library(gridExtra)
 
 N <- 50
 x <- seq(-1, 1, length.out = N)
