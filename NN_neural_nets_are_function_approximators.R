@@ -1,8 +1,11 @@
 # Recreating plot in Bishop 2006, p.231 - showing the capability of
-# neural nets to be function approximators.
+# neural nets (feed forward and single hidden layer) to be function approximators.
 
 # For a proof see Hornik 1989.
 # https://www.cs.cmu.edu/~epxing/Class/10715/reading/Kornick_et_al.pdf
+
+# easy depiction of the basic idea of the proof:
+# https://www.youtube.com/watch?v=Ijqkc7OLenI&ab_channel=MichaelNielsen
 
 # Instruction to GPT-4:
 
