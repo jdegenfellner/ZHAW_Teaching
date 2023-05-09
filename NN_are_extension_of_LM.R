@@ -15,9 +15,10 @@ data <- data.frame(x1 = x1, x2 = x2, y = y)
 
 mod <- lm(y ~ x1 + x2, data = data)
 summary(mod)
+plot(residuals(mod)) # looks good
 
 nn <- neuralnet(y ~ x1 + x2, data = data, 
-                hidden = 0, 
+                hidden = 0, # number of hidden layers
                 linear.output = TRUE, # If act.fct should not be applied to the output neurons set linear output to TRUE, otherwise to FALSE.
                 act.fct = "logistic")
 
@@ -27,6 +28,7 @@ plot(nn)
 # Exercises:
 
 # a) What happens if linear.output = FALSE?
-# b) Experiment with different activation functions, e.g. ReLu.
-# c) Try to create a very complicated function y = f(x1,...,xn) and try
+# b) Experiment with different activation functions (?neurlanet), e.g. ReLu.
+# c) Try adding more layers and compare the results.
+# d) Try to create a very complicated function y = f(x1,...,xn) and try
 #.   to approximate it using neuralnet. 

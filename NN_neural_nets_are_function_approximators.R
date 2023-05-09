@@ -1,11 +1,12 @@
-# Recreating plot in Bishop 2006, p231 - showing the capability of
+# Recreating plot in Bishop 2006, p.231 - showing the capability of
 # neural nets to be function approximators.
 
 # For a proof see Hornik 1989.
+# https://www.cs.cmu.edu/~epxing/Class/10715/reading/Kornick_et_al.pdf
 
-# GPT-4
+# Instruction to GPT-4:
 
-# Write R code to sho the capability of a multilayer perceptron (3 hidden units) to approximate four different functions. 
+# Write R code to show the capability of a multi-layer perceptron (3 hidden units) to approximate four different functions. 
 # a) f(x) = x^2
 # b) f(x) = sin(x)
 # c) f(x) = abs(x)
