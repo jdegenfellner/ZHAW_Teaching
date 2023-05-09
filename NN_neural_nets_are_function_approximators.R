@@ -19,7 +19,6 @@
 # N = 50 data points, shown as blue dots, have been samples uniformly in x 
 # over the interval (-1,1) and the corresponding values of f(x) evaluated. 
 
-#install.packages("neuralnet")
 library(neuralnet)
 library(tidyverse)
 library(gridExtra)
