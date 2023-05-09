@@ -6,6 +6,7 @@
 
 # easy depiction of the basic idea of the proof:
 # https://www.youtube.com/watch?v=Ijqkc7OLenI&ab_channel=MichaelNielsen
+# https://www.youtube.com/watch?v=FWrju8jrNZ4&ab_channel=DrAnneHsu
 
 # Instruction to GPT-4:
 
