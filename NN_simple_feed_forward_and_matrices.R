@@ -75,9 +75,15 @@ weights_to_node6 <- W1[3, ]  # 3rd row of W1
 input_to_node6 <- sum(X * weights_to_node6)
 
 # Add the bias for node 6
-(value_of_node6 <- input_to_node6 + b1[3])
+(value_of_node6 <- input_to_node6 + b1[3]) # = 4.5
 
 
 # manually:
-1*0.3 + 2*0.6 + 3*0.9 + b1[3] # check
+1*0.3 + 2*0.6 + 3*0.9 + b1[3] # =4.5, check
 
+
+
+
+# Exercises:
+# a) How can you express what the network does using matrix-operations if 
+#    there are now biases?
