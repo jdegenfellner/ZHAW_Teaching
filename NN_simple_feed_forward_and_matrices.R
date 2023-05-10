@@ -2,7 +2,7 @@
 # Matrix operations (multiplication and addition):
 
 
-# Instruction to GPT-4:
+# Initial (not the only) instruction to GPT-4:
 # "I want to show my students that a simple feed forward network without 
 # activation functions is equivalent to matrix operations.
 # So, let's make up a neural network with 3 input nodes, 2 hidden layers 
@@ -30,32 +30,49 @@ Output <- W3 %*% H2 + b3
 
 library(DiagrammeR)
 
+# Define the weights and biases as vectors for easy access
+weights <- c(W1, W2, W3)
+biases <- c(b1, b2, b3)
+
 # Create a blank graph
 g <- create_graph() %>%
-  add_n_nodes(n = 3, label = TRUE, type = "input") %>%
-  add_n_nodes(n = 3, label = TRUE, type = "hidden1") %>%
-  add_n_nodes(n = 4, label = TRUE, type = "hidden2") %>%
-  add_n_nodes(n = 2, label = TRUE, type = "output")
+  add_n_nodes(n = 3, type = "input") %>%
+  add_n_nodes(n = 3, type = "hidden1") %>%
+  add_n_nodes(n = 4, type = "hidden2") %>%
+  add_n_nodes(n = 2, type = "output")
 
-# Add edges between the nodes
+# Add edges between the nodes with weights as labels
+edge_index = 1
 for(i in 1:3){
   for(j in 4:6){
-    g <- g %>% add_edge(from = i, to = j)
+    g <- g %>% add_edge(from = i, to = j, edge_aes = edge_aes(label = weights[edge_index]))
+    edge_index = edge_index + 1
   }
 }
 
 for(i in 4:6){
   for(j in 7:10){
-    g <- g %>% add_edge(from = i, to = j)
+    g <- g %>% add_edge(from = i, to = j, edge_aes = edge_aes(label = weights[edge_index]))
+    edge_index = edge_index + 1
   }
 }
 
 for(i in 7:10){
   for(j in 11:12){
-    g <- g %>% add_edge(from = i, to = j)
+    g <- g %>% add_edge(from = i, to = j, edge_aes = edge_aes(label = weights[edge_index]))
+    edge_index = edge_index + 1
   }
 }
 
 # Render the graph
 render_graph(g)
+
+
+# Try calculating a numerical input:
+X <- matrix(c(11, 12, 43), nrow=3)
+H1 <- W1 %*% X + b1
+H2 <- W2 %*% H1 + b2
+Output <- W3 %*% H2 + b3
+Output
+
 
