@@ -97,4 +97,5 @@ plot4 <- generate_plot(x, y4, predictions4[, 1], activations4, "f(x) = H(x)")
 
 grid.arrange(plot1, plot2, plot3, plot4, nrow = 2, ncol = 2)
 
+plot(nn1)
 

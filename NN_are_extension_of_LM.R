@@ -28,7 +28,9 @@ plot(nn)
 # Exercises:
 
 # a) What happens if linear.output = FALSE?
-# b) Experiment with different activation functions (?neurlanet), e.g. ReLu.
+# b) Experiment with different activation functions (?neuralnet), e.g. ReLu.
 # c) Try adding more layers and compare the results.
 # d) Try to create a very complicated function y = f(x1,...,xn) and try
 #.   to approximate it using neuralnet. 
+# e) What happens if we try to model a non-linear relationship, 
+#    e.g. y = x_1^2 + x_2^3 with the same model (without the activation function?)
