@@ -68,11 +68,16 @@ for(i in 7:10){
 render_graph(g)
 
 
-# Try calculating a numerical input:
-X <- matrix(c(11, 12, 43), nrow=3)
-H1 <- W1 %*% X + b1
-H2 <- W2 %*% H1 + b2
-Output <- W3 %*% H2 + b3
-Output
+# Get the weights associated with the connections to node 6
+weights_to_node6 <- W1[3, ]  # 3rd row of W1
 
+# Compute the dot product of the inputs and these weights
+input_to_node6 <- sum(X * weights_to_node6)
+
+# Add the bias for node 6
+(value_of_node6 <- input_to_node6 + b1[3])
+
+
+# manually:
+1*0.3 + 2*0.6 + 3*0.9 + b1[3] # check
 
