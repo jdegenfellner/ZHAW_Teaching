@@ -1,5 +1,7 @@
 # Autoencoder
 
+# in progress # 
+
 # GPT-4: I want to show the principle of Autoencoder networks to my 
 # students using R. Could you create a nice example plus vizualization?
 
@@ -46,7 +48,7 @@ autoencoder %>% compile(optimizer = 'adadelta', loss = 'binary_crossentropy')
 
 # Train the model
 autoencoder %>% fit(x_train, x_train, 
-                    epochs = 50, 
+                    epochs = 150, 
                     batch_size = 256,
                     shuffle = TRUE,
                     validation_data = list(x_test, x_test))
