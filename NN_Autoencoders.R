@@ -1,7 +1,5 @@
 # Autoencoder
 
-# in progress # 
-
 # GPT-4: I want to show the principle of Autoencoder networks to my 
 # students using R. Could you create a nice example plus vizualization?
 
@@ -44,11 +42,12 @@ decoded <- encoded %>%
 autoencoder <- keras_model(input = input_img, output = decoded)
 
 # Compile the model
-autoencoder %>% compile(optimizer = 'adadelta', loss = 'binary_crossentropy')
+#autoencoder %>% compile(optimizer = 'adadelta', loss = 'binary_crossentropy') # Does not result in nice reconstructions...
+autoencoder %>% compile(optimizer = optimizer_adadelta(learning_rate = 1.0), loss = 'mean_squared_error')
 
 # Train the model
 autoencoder %>% fit(x_train, x_train, 
-                    epochs = 150, 
+                    epochs = 250, 
                     batch_size = 256,
                     shuffle = TRUE,
                     validation_data = list(x_test, x_test))
