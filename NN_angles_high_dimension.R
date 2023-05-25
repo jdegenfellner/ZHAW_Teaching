@@ -7,11 +7,11 @@
 # [base code was extended using GPT-4]
 
 sim_number <- 500
-n <- 10 # dim, try more...
+n <- 10000 # dim, try more...
 
 angle <- rep(NA, sim_number)
 for(i in 1:sim_number){
-  x <- runif(n, -1,1)
+  x <- runif(n, -1,1) # TODO make sure it is on the surface
   y <- runif(n, -1,1)
   angle[i] <- acos((x %*% y)/(norm(x, type="2")*norm(y, type="2") ))*180/pi
 }

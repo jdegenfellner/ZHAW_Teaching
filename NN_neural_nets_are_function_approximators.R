@@ -67,10 +67,10 @@ activations2 <- hidden_activations(nn2, cbind(1, x))
 activations3 <- hidden_activations(nn3, cbind(1, x))
 activations4 <- hidden_activations(nn4, cbind(1, x))
 
-predictions1 <- compute(nn1, data1)$net.result
-predictions2 <- compute(nn2, data2)$net.result
-predictions3 <- compute(nn3, data3)$net.result
-predictions4 <- compute(nn4, data4)$net.result
+predictions1 <- neuralnet::compute(nn1, data1)$net.result
+predictions2 <- neuralnet::compute(nn2, data2)$net.result
+predictions3 <- neuralnet::compute(nn3, data3)$net.result
+predictions4 <- neuralnet::compute(nn4, data4)$net.result
 
 
 generate_plot <- function(x, y, predictions, activations, title) {

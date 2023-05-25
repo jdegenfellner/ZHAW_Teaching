@@ -20,7 +20,7 @@ plot(residuals(mod)) # looks good
 nn <- neuralnet(y ~ x1 + x2, data = data, 
                 hidden = 0, # number of hidden layers
                 linear.output = TRUE, # If act.fct should not be applied to the output neurons set linear output to TRUE, otherwise to FALSE.
-                act.fct = "logistic")
+                act.fct = "logistic") # not active right now.
 
 plot(nn)
 
