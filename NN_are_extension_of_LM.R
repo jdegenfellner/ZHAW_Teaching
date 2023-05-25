@@ -17,10 +17,18 @@ mod <- lm(y ~ x1 + x2, data = data)
 summary(mod)
 plot(residuals(mod)) # looks good
 
+# Try different act.fcts:
+relu <- function(x) sapply(x, function(z) max(0,z)) # error...
+# see: https://stackoverflow.com/questions/34532878/package-neuralnet-in-r-rectified-linear-unit-relu-activation-function
+
+sigmoid <- function(x) {
+  1 / (1 + exp(-x))
+}
+
 nn <- neuralnet(y ~ x1 + x2, data = data, 
                 hidden = 0, # number of hidden layers
-                linear.output = TRUE, # If act.fct should NOT be applied to the output neurons set linear output to TRUE, otherwise to FALSE.
-                act.fct = "logistic") # not active right now.
+                linear.output = FALSE, # If act.fct should NOT be applied to the output neurons set linear output to TRUE, otherwise to FALSE.
+                act.fct = sigmoid) # not active right now.
 
 plot(nn)
 data$y - predict(nn, newdata = data) # residuals
