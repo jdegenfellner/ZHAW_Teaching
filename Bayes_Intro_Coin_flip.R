@@ -1,6 +1,6 @@
 # Intro Bayes with Coin flip:
 
-# in progres # 
+# in progress # 
 
 # VERSION 1 -> no updating
 

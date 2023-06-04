@@ -48,7 +48,6 @@ mcmc_dens(model_bayes, pars=c("chas1"))+
 mcmc_dens(model_bayes, pars=c("dis"))+
   vline_at(-0.244, col="red")
 
-
 # Now how can we evaluate the model parameters? The answer is by analyzing 
 # the posteriors using some specific statistics. To get the full statistics 
 # provided by bayestestR package, we make use of the function describe_posterior
