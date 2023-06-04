@@ -1,6 +1,6 @@
 # Neuronal networks are extensions of linear regression models
 
-#v[this script was partially created using GPT-4]
+#[this script was partially created using GPT-4]
 
 library(nnet)
 library(tidyverse)
