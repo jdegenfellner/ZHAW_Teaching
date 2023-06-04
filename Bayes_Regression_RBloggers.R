@@ -54,3 +54,9 @@ mcmc_dens(model_bayes, pars=c("dis"))+
 
 library(flextable)
 flextable(describe_posterior(model_bayes))
+
+
+
+# Aufgabe:
+# Versuche mit anderen priors zu arbeiten und prüfe inwiefern sich die Ergebnisse
+# von der klassischen Regression unterscheiden.
