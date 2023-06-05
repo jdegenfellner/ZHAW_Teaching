@@ -60,7 +60,7 @@ flextable(describe_posterior(model_bayes,
 
 hdi(model_bayes)
 plot(p_direction(model_bayes))
-
+pd_to_p(0.81925)
 
 # Aufgabe:-----
 # Versuche mit anderen priors zu arbeiten (z.B. uninformative oder schiefen 
