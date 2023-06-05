@@ -24,7 +24,7 @@ summary(bost)
 # 1) Classical linear regression model----
 model_freq <- lm(medv ~., data = bost)
 summary(model_freq)
-
+confint(model_freq) # recht aehnlich wie Bayes
 
 # 2) Bayesian regression----
 model_bayes<- stan_glm(medv ~., data = bost, seed = 111)
@@ -54,8 +54,12 @@ mcmc_dens(model_bayes, pars=c("dis"))+
 # provided by bayestestR package, we make use of the function describe_posterior
 
 library(flextable)
-flextable(describe_posterior(model_bayes))
+flextable(describe_posterior(model_bayes, 
+                             ci_method = "HDI", # Highest Density Interval (HDI), All points within this interval have a higher probability density than points outside the interval. The HDI can be used in the context of uncertainty characterisation of posterior distributions as Credible Interval (CI).
+                             rope_range = "default")) # = sd(bost$medv)*0.1 ... If "default", the bounds are set to x +- 0.1*SD(response)
 
+hdi(model_bayes)
+plot(p_direction(model_bayes))
 
 
 # Aufgabe:-----
