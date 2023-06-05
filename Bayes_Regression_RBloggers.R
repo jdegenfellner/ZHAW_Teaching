@@ -32,6 +32,14 @@ model_bayes<- stan_glm(medv ~., data = bost, seed = 111)
 print(model_bayes, digits = 3)
 prior_summary(model_bayes)
 
+# Predict
+df <- data.frame(medv = 76.5, age = 34, dis = 5.03, chas = 1)
+df$chas <- as.factor(df$chas)
+
+predict(model_bayes, newdata = df) # 34.17305 
+predict(model_freq, newdata = df) # 34.15939 
+
+
 # The Median estimate is the median computed from the MCMC simulation, 
 # and MAD_SD is the median absolute deviation computed from the same 
 # simulation. To well understand how getting these outputs let’s plot the 
