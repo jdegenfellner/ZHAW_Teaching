@@ -21,15 +21,16 @@ summary(bost)
 # chas	Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)
 
 
-# 1) Classical linear regression model
+# 1) Classical linear regression model----
 model_freq <- lm(medv ~., data = bost)
 summary(model_freq)
 
 
-# 2) Bayesian regression
+# 2) Bayesian regression----
 model_bayes<- stan_glm(medv ~., data = bost, seed = 111)
 
 print(model_bayes, digits = 3)
+prior_summary(model_bayes)
 
 # The Median estimate is the median computed from the MCMC simulation, 
 # and MAD_SD is the median absolute deviation computed from the same 
@@ -57,6 +58,7 @@ flextable(describe_posterior(model_bayes))
 
 
 
-# Aufgabe:
-# Versuche mit anderen priors zu arbeiten und prüfe inwiefern sich die Ergebnisse
+# Aufgabe:-----
+# Versuche mit anderen priors zu arbeiten (z.B. uninformative oder schiefen 
+# Verteilungen) und prüfe inwiefern sich die Ergebnisse
 # von der klassischen Regression unterscheiden.
