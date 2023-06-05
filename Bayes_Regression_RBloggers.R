@@ -70,7 +70,35 @@ hdi(model_bayes)
 plot(p_direction(model_bayes))
 pd_to_p(0.81925)
 
+
+# Posterior Predictive Check:
+ppc_data <- posterior_predict(model_bayes) # Generate posterior predictive data
+ppc_dens_overlay(y = bost$medv, yrep = ppc_data) # Plot
+# The posterior_predict function is used to generate new data based on 
+# the model, and then ppc_dens_overlay is used to compare the density of 
+# the observed data and the simulated data.
+
+# Further vizualisations
+# https://easystats.github.io/see/articles/bayestestR.html
+result <- estimate_density(model_bayes, select=c("dis","chas"))
+plot(result)
+plot(result, stack = FALSE, priors = TRUE)
+
+result <- describe_posterior(model_bayes)
+plot(result)
+result <- p_direction(model_bayes)
+plot(result)
+
+result <- p_direction(model_bayes)
+plot(result, priors = TRUE)
+
+result <- p_significance(model_bayes)
+result
+plot(result)
+
+
 # Aufgabe:-----
+
 # Versuche mit anderen priors zu arbeiten (z.B. uninformative oder schiefen 
 # Verteilungen) und prüfe inwiefern sich die Ergebnisse
 # von der klassischen Regression unterscheiden.
