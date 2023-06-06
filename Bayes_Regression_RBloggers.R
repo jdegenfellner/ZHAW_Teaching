@@ -99,6 +99,8 @@ plot(result)
 
 # Aufgabe:-----
 
-# Versuche mit anderen priors zu arbeiten (z.B. uninformative oder schiefen 
-# Verteilungen) und prüfe inwiefern sich die Ergebnisse
+# Versuche mit anderen priors zu arbeiten (z.B. mit
+# a) uninformative (prior = NULL) oder b) 
+# b) schiefen Verteilungen (z.B. Beta-Verteilung mit alpha = 2, beta = 5)
+# und prüfe inwiefern sich die Ergebnisse
 # von der klassischen Regression unterscheiden.
