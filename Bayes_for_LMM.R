@@ -35,13 +35,15 @@ summary(lmm_bayes)
 coef(lmm_bayes)
 plot(lmm_bayes, pars = c("(Intercept)", "timeNum"))
 
-mcmc_dens(lmm_bayes, pars = c("timeNum"))+
+# Plot density of POSTERIOR distributions (after applying MCMC)
+mcmc_dens(lmm_bayes, pars = c("timeNum")) +
   vline_at(1.5223, col="red")
 
-mcmc_dens(lmm_bayes, pars = c("(Intercept)"))+
+mcmc_dens(lmm_bayes, pars = c("(Intercept)")) +
   vline_at(20.2 , col="red")
 
-point_estimate(lmm_bayes)
+point_estimate(lmm_bayes, centrality = "all") # centrality: The point-estimates (centrality indices) to compute. Character (vector) or list with one or more of these options: "median", "mean", "MAP" or "all".
+# MAP = Maximum a posteriori estimation = Mode of the distribution
 plot(point_estimate(lmm_bayes)) # https://easystats.github.io/see/articles/bayestestR.html
 hdi(lmm_bayes, ci = c(0.5, 0.75, 0.89, 0.95))
 
@@ -56,9 +58,9 @@ plot(rope(lmm_bayes, ci = c(0.9, 0.95)), rope_color = "red") +
 
 
 # Posterior predictive check:-----
-# performs a posterior predictive check, which is a way to validate a 
-# Bayesian model. The idea is to generate new data from the model using 
-# the posterior distributions of the parameters, and compare these to the observed data.
+# a way to validate a Bayesian model. The idea is to generate new data from 
+# the model using the posterior distributions of the parameters, and compare 
+# these to the observed data.
 
 # Description of pp_check():
 # 1) For each sample from the posterior distribution of the model parameters, 
