@@ -88,15 +88,20 @@ stan_diag(lmm_bayes) # Diagnostics of the MCMC algorithm....
 lmm_bayes2 <- stan_glmer(response ~ timeNum + (timeNum | subject), data = d.lmm, family = gaussian())
 loo1 <- loo(lmm_bayes)
 loo2 <- loo(lmm_bayes2)
-loo_compare(loo1, loo2) # For models fit using MCMC, compute approximate leave-one-out cross-validation (LOO, LOOIC) or, less preferably, the Widely Applicable Information Criterion (WAIC) using the loo package.
+loo_compare(loo1, loo2) # For models fit using MCMC, compute approximate
+# leave-one-out cross-validation (LOO, LOOIC) or, less preferably, 
+# the Widely Applicable Information Criterion (WAIC) using the loo package.
+
 # Info: The Expected Log Predictive Density (ELPD) is a measure of the 
 # expected log pointwise predictive density, which is used to compare 
 # different models in terms of their predictive accuracy. The log 
 # pointwise predictive density is the logarithm of the predictive 
 # density of a new observation given the observed data.
+
 # ELPD is a key part of the Widely Applicable Information Criterion (WAIC) 
 # and Leave-One-Out Cross-Validation (LOO-CV), two popular methods of model 
-# comparison and selection. In both of these methods, a higher ELPD value indicates a model that is expected to be better at prediction.
+# comparison and selection. In both of these methods, a higher ELPD value
+# indicates a model that is expected to be better at prediction.
 
 # Baysian hypothesis testing!-------
 hypothesis(lmm_bayes, "timeNum = 0") # uses package brms
