@@ -110,8 +110,29 @@ plot(result)
 # Aufgabe:-----
 
 # Versuche mit anderen priors zu arbeiten (z.B. mit
+
 # a) uninformative (prior = NULL) oder b) 
+model_bayes_uninf_prior <- stan_glm(medv ~., data = bost, 
+                                    prior = NULL, 
+                                    prior_intercept = NULL)
+#summary(model_bayes_uninf_prior)
+coef(model_bayes)
+#summary(model_bayes)
+coef(model_bayes_uninf_prior)
+
 # b) schiefen Verteilungen (z.B. Beta-Verteilung mit alpha = 2, beta = 5)
+model_bayes_skewed_prior <- stan_glm(medv ~., data = bost, 
+                                    prior = list(beta(2,5),beta(2,5),beta(2,5)), # TODO
+                                    prior_intercept = NULL)
+model_bayes_skewed_prior <- stan_glm(
+  medv ~ ., 
+  data = bost, 
+  prior = student_t(3, 0, 10), 
+  prior_intercept = NULL
+)
+coef(model_bayes_skewed_prior)
+coef(model_bayes)
+
 
 # und prüfe inwiefern sich die Ergebnisse
 # von der klassischen Regression unterscheiden.
