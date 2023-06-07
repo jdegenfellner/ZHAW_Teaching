@@ -130,6 +130,7 @@ model_bayes_skewed_prior <- stan_glm(
   prior = student_t(3, 0, 10), 
   prior_intercept = NULL
 )
+
 coef(model_bayes_skewed_prior)
 coef(model_bayes)
 
