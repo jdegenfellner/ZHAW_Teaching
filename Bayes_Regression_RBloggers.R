@@ -32,7 +32,7 @@ model_bayes<- stan_glm(medv ~., data = bost, seed = 111)
 print(model_bayes, digits = 3)
 prior_summary(model_bayes)
 
-# Predict
+# Predict individual observation
 df <- data.frame(medv = 76.5, age = 34, dis = 5.03, chas = 1)
 df$chas <- as.factor(df$chas)
 
@@ -45,7 +45,7 @@ predict(model_freq, newdata = df) # 34.15939
 # simulation. To well understand how getting these outputs let’s plot the 
 # MCMC simulation of each predictor using bayesplot
 
-mcmc_dens(model_bayes, pars = c("age"))+
+mcmc_dens(model_bayes, pars = c("age"))+ # von der posterior
   vline_at(-0.143, col="red")
 
 # As you see the point estimate of age falls on the median of this 
@@ -55,7 +55,8 @@ mcmc_dens(model_bayes, pars=c("chas1"))+
   vline_at(7.496, col="red")
 
 mcmc_dens(model_bayes, pars=c("dis"))+
-  vline_at(-0.244, col="red")
+  vline_at(-0.244, col="red") + 
+  ggtitle("posterior distribution of chas1")
 
 # Now how can we evaluate the model parameters? The answer is by analyzing 
 # the posteriors using some specific statistics. To get the full statistics 
@@ -66,9 +67,9 @@ flextable(describe_posterior(model_bayes,
                              ci_method = "HDI", # Highest Density Interval (HDI), All points within this interval have a higher probability density than points outside the interval. The HDI can be used in the context of uncertainty characterisation of posterior distributions as Credible Interval (CI).
                              rope_range = "default", # = sd(bost$medv)*0.1 ... If "default", the bounds are set to x +- 0.1*SD(response)
                              diagnostic = NULL))
-hdi(model_bayes)
+hdi(model_bayes, ci = 0.99)
 plot(p_direction(model_bayes))
-pd_to_p(0.81925)
+pd_to_p(0.81925) # nicht ganz exakt ... 
 
 
 # Posterior Predictive Check:
@@ -95,6 +96,15 @@ plot(result, priors = TRUE)
 result <- p_significance(model_bayes)
 result
 plot(result)
+# probability of Practical Significance (ps), which can be conceptualized 
+# as a unidirectional equivalence test. It returns the probability that 
+# effect is above a given threshold corresponding to a negligible effect in 
+# the median's direction. Mathematically, it is defined as the proportion of 
+# the posterior distribution of the median sign above the threshold.
+
+
+
+
 
 
 # Aufgabe:-----
@@ -102,5 +112,6 @@ plot(result)
 # Versuche mit anderen priors zu arbeiten (z.B. mit
 # a) uninformative (prior = NULL) oder b) 
 # b) schiefen Verteilungen (z.B. Beta-Verteilung mit alpha = 2, beta = 5)
+
 # und prüfe inwiefern sich die Ergebnisse
 # von der klassischen Regression unterscheiden.
