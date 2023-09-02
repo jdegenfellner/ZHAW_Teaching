@@ -44,7 +44,7 @@ write_xlsx()
 # Konkrete Modelle schaetzen (Regression und co)
 
 # 6) Workspace oder einzelne Objekte speichern-----
-# a) Workspace
+# a) Workspace (inkl. Variablen)
 save.image("my_workspace.RData")
 load("my_workspace.RData")
 # b) einzelne Objekte
