@@ -19,19 +19,18 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # bliebte sind folgende:
 library(tidyverse) # https://tidyverse.tidyverse.org/
 library(readxl)
-library(writexl) # einlesen und ausgeben von Excel-Files
-library(DataExplorer) # Erstellt einen kurzen, schnellen ueberblick ueber den Datensatz
+library(writexl) # Einlesen und ausgeben von Excel-Files
+library(DataExplorer) # Erstellt einen kurzen, schnellen Ueberblick ueber den Datensatz
 library(gtsummary) # Creates presentation-ready tables 
 library(table1) # schoene Table 1
 library(flextable) # schoenere Tabellen
 library(utils)
-# und viele viele mehr
+# ...und viele viele mehr
 
 # 4) Daten einlesen----
 # a) csv/tsv/txt-Files, dies sind einfach normale Textdateien mit unterschiedlichen
 # Trennzeichen fuer die Spalten
 ?read.csv
-# Bsp:
 read.csv("Davis.csv", sep = ",", stringsAsFactors=TRUE, header = TRUE)
 # b) Excel Dateien:
 ?read_excel
