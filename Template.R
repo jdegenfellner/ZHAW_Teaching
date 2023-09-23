@@ -43,11 +43,10 @@ read.csv("Davis.csv", sep = ",", stringsAsFactors = TRUE, header = TRUE)
 write_xlsx()
 
 # 5) Datenmanipulation-----
-# Deskriptive Statistiken
-# Data-Cleaning (Outlier)
-# Handling of Missing values
-# Exploratory Data Analysis (EDA)
-# Konkrete Modelle schaetzen (Regression und co)
+# - Data-Cleaning (Outlier)
+# - Deskriptive Statistiken, Explorative Datenanalyse (EDA)
+# - Handling of Missing values
+# - Konkrete Modelle schaetzen (Regression und co)
 
 # 6) Workspace oder einzelne Objekte speichern-----
 # a) Workspace (inkl. Variablen)
