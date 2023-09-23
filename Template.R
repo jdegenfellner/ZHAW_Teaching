@@ -17,21 +17,27 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # 3) libraries laden-----
 # bliebte sind folgende:
-library(tidyverse) # https://tidyverse.tidyverse.org/
-library(readxl)
-library(writexl) # Einlesen und ausgeben von Excel-Files
-library(DataExplorer) # Erstellt einen kurzen, schnellen Ueberblick ueber den Datensatz
-library(gtsummary) # Creates presentation-ready tables 
-library(table1) # schoene Table 1
-library(flextable) # schoenere Tabellen
-library(utils)
+library(pacman) # Installiert und ladet Packages automatisch
+pacman::p_load(tidyverse, # https://tidyverse.tidyverse.org/
+readxl,
+writexl, # Einlesen und ausgeben von Excel-Files
+DataExplorer, # Erstellt einen kurzen, schnellen Ueberblick ueber den Datensatz
+gtsummary, # Creates presentation-ready tables 
+table1, # schoene Table 1
+flextable, # schoenere Tabellen
+utils)
 # ...und viele viele mehr
 
 # 4) Daten einlesen----
+
 # a) csv/tsv/txt-Files, dies sind einfach normale Textdateien mit unterschiedlichen
 # Trennzeichen fuer die Spalten
 ?read.csv
-read.csv("Davis.csv", sep = ",", stringsAsFactors=TRUE, header = TRUE)
+read.csv("Davis.csv", sep = ",", stringsAsFactors = TRUE, header = TRUE)
+# sep = "," definiert, wie die Spalten getrennt sind im Textfile (csv)
+# header = TRUE, heisst, dass die erste Zeile fuer die Spaltennamen verwendet wird.
+# stringsAsFactors = TRUE, Strings werden direkt als Faktoren in R definiert und nicht nur als Character (also Text)
+
 # b) Excel Dateien:
 ?read_excel
 write_xlsx()
