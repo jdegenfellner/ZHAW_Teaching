@@ -1,0 +1,32 @@
+\begin{thebibliography}{MWG21}
+
+\bibitem[BL01]{Bender2001}
+R~Bender and S~Lange.
+\newblock Adjusting for multiple testing--when and how?
+\newblock {\em J Clin Epidemiol}, 54(4):343--349, Apr 2001.
+
+\bibitem[Goo08]{Goodman2008}
+Steven Goodman.
+\newblock A dirty dozen: Twelve p-value misconceptions.
+\newblock {\em Seminars in Hematology}, 45(3):135--140, 2008.
+\newblock Interpretation of Quantitative Research.
+
+\bibitem[Kru13]{Kruschke2013}
+J.K. Kruschke.
+\newblock Bayesian estimation supersedes the t test.
+\newblock {\em Journal of Experimental Psychology: General}, 142(2):573--603,
+  May 2013.
+\newblock Epub 2012 Jul 9.
+
+\bibitem[MWG21]{MultipleTesting}
+Otília Menyhart, Boglárka Weltz, and Balázs Győrffy.
+\newblock Multipletesting.com: A tool for life science researchers for multiple
+  hypothesis testing correction.
+\newblock {\em PLOS ONE}, 16(6):1--12, 06 2021.
+
+\bibitem[WSL19]{Wasserstein2019}
+Ronald~L. Wasserstein, Allen~L. Schirm, and Nicole~A. Lazar.
+\newblock Moving to a world beyond “p \textless{} 0.05”.
+\newblock {\em The American Statistician}, 73(sup1):1--19, 2019.
+
+\end{thebibliography}
