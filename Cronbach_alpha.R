@@ -2,6 +2,10 @@
 
 # in progresss # 
 
+# Note: There are other packages with Cronbach's alpha:
+# https://search.r-project.org/CRAN/refmans/DescTools/html/CronbachAlpha.html
+# https://www.rdocumentation.org/packages/psych/versions/2.3.6/topics/alpha
+
 library(ltm)
 
 # Enter survey responses as a data frame
@@ -39,3 +43,4 @@ sigma_X <- sqrt(var(data$sum_score))
 sum_Yi_sq <- var(data$Q1) + var(data$Q2) + var(data$Q3)
 
 N/(N-1)*(1-sum_Yi_sq/sigma_X^2) # 0.7734375
+
