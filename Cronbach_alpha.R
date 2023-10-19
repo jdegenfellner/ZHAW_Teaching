@@ -2,7 +2,8 @@
 
 # in progresss # 
 
-# Note: There are other packages with Cronbach's alpha:
+# Note: There are different packages with Cronbach's alpha:
+# https://www.rdocumentation.org/packages/ltm/versions/1.2-0/topics/cronbach.alpha
 # https://search.r-project.org/CRAN/refmans/DescTools/html/CronbachAlpha.html
 # https://www.rdocumentation.org/packages/psych/versions/2.3.6/topics/alpha
 
@@ -14,8 +15,12 @@ data <- data.frame(Q1 = c(1, 2, 2, 3, 2, 2, 3, 3, 2, 3),
                    Q3 = c(1, 1, 2, 1, 2, 3, 3, 3, 2, 3))
 
 # Calculate Cronbach's Alpha
+# ltm-package
 cronbach.alpha(data) # 0.773
-alpha(data)
+# psych-package
+res <- alpha(data)
+res
+res$item.stats
 
 # Calculate manually:
 # https://de.wikipedia.org/wiki/Cronbachsches_Alpha
