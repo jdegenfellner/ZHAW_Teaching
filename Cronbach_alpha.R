@@ -6,7 +6,7 @@
 # https://search.r-project.org/CRAN/refmans/DescTools/html/CronbachAlpha.html
 # https://www.rdocumentation.org/packages/psych/versions/2.3.6/topics/alpha
 
-library(ltm)
+library(ltm, psych, DescTools)
 
 # Enter survey responses as a data frame
 data <- data.frame(Q1 = c(1, 2, 2, 3, 2, 2, 3, 3, 2, 3),
@@ -15,7 +15,7 @@ data <- data.frame(Q1 = c(1, 2, 2, 3, 2, 2, 3, 3, 2, 3),
 
 # Calculate Cronbach's Alpha
 cronbach.alpha(data) # 0.773
-
+alpha(data)
 
 # Calculate manually:
 # https://de.wikipedia.org/wiki/Cronbachsches_Alpha
