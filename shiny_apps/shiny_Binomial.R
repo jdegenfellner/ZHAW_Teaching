@@ -1,5 +1,5 @@
 library(pacman)
-p_load(shiny)
+p_load(shiny, ShinyApps)
 
 # Erstelle die Shiny App
 shinyApp(
@@ -22,7 +22,7 @@ shinyApp(
     )
   ),
   
-  # Definiere den Server-Teil
+# Definiere den Server-Teil
   server = function(input, output) {
     output$binomPlot <- renderPlot({
       # Erstelle einen Vektor von x-Werten
