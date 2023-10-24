@@ -13,7 +13,7 @@ library(ltm, psych, DescTools)
 data <- data.frame(Q1 = c(1, 2, 2, 3, 2, 2, 3, 3, 2, 3),
                    Q2 = c(1, 1, 1, 2, 3, 3, 2, 3, 3, 3),
                    Q3 = c(1, 1, 2, 1, 2, 3, 3, 3, 2, 3))
-
+data
 # Calculate Cronbach's Alpha
 # ltm-package
 cronbach.alpha(data) # 0.773
