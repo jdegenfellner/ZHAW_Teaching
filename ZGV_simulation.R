@@ -2,10 +2,10 @@
 
 # Schreibe mir ein R skript, das den zentralen Grenzverteilungssatz 
 # illustriert. Man startet mit irgendeiner Verteilung (z.B. Gamma und 
-# wählbaren Parametern) und einer sample size und einer anzahl an widerholungen 
+# wählbaren Parametern) und einer sample size und einer Anzahl an Wiederholungen 
 # und dann soll am Ende die verteilung von \frac{\bar{X}-\mu}{\sigma/\sqrt{n}} 
 # geplottet werden (mit ggplot), sodass man sieht, dass es sich gegen eine 
-# standardnormalverteilung annähert.
+# Standardnormalverteilung N(0,1) annähert.
 
 # Set working directory to source file location
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -65,5 +65,5 @@ ggplot(df, aes(x = z_values)) +
   theme(plot.background = element_rect(fill = "white"))
 
 
-ggsave(paste("Z_Distribution_SampleSize_", sample_size, "_Repetitions_", repetitions, "_Shape_", shape, "_Rate_", rate,"n_",repetitions, ".png"))
+ggsave(paste("./images/Z_Distribution_SampleSize_", sample_size, "_Repetitions_", repetitions, "_Shape_", shape, "_Rate_", rate,"n_",repetitions, ".png"))
 
