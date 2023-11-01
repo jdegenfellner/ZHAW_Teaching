@@ -8,12 +8,13 @@
 # wurde.
 
 # 2) Relative Pfade----
+# R-File muss gespeichert sein.
 # Entweder geht man auf "Session" -> "Set Working Directory" -> "To Source File Location"
 # oder man fuehrt folgenden Befehl aus:
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-# um das Arbeitsverzeichnis dorthin zu legen, wo das R-File liegt (dieses muss 
-# natuerlich vorher abgespeichert werden)
+# um das Arbeitsverzeichnis dorthin zu legen, wo das R-File liegt.
 # Anm.: Man kann auch mit R-Projekten arbeiten, wenn man moechte. 
+# Mein Tipp: Jedes Projekt in einem Ordner mit Unterordnern.
 
 # 3) libraries laden-----
 # bliebte sind folgende:
@@ -38,7 +39,7 @@ read.csv("Davis.csv", sep = ",", stringsAsFactors = TRUE, header = TRUE)
 # header = TRUE, heisst, dass die erste Zeile fuer die Spaltennamen verwendet wird.
 # stringsAsFactors = TRUE, Strings werden direkt als Faktoren in R definiert und nicht nur als Character (also Text)
 
-# b) Excel Dateien:
+# b) Excel Dateien lesen/schreiben:
 ?read_excel
 write_xlsx()
 
