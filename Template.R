@@ -15,6 +15,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # um das Arbeitsverzeichnis dorthin zu legen, wo das R-File liegt.
 # Anm.: Man kann auch mit R-Projekten arbeiten, wenn man moechte. 
 # Mein Tipp: Jedes Projekt in einem Ordner mit Unterordnern.
+getwd() # get working directory...
 
 # 3) libraries laden-----
 # bliebte sind folgende:
@@ -50,10 +51,10 @@ write_xlsx()
 # - Konkrete Modelle schaetzen (Regression und co)
 
 # 6) Workspace oder einzelne Objekte speichern-----
-# a) Workspace (inkl. Variablen)
+# _a) Workspace (inkl. Variablen)----
 save.image("my_workspace.RData")
 load("my_workspace.RData")
-# b) einzelne Objekte
+# _b) einzelne Objekte----
 saveRDS(...Variable oder Object, ...Pfad bzw. Dateiname...)
 readRDS()
 

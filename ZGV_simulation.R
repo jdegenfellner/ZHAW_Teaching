@@ -13,7 +13,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(ggplot2)
 
 # Einstellbare Parameter
-sample_size <- 30   # Größe einer Stichprobe
+sample_size <- 60   # Größe einer Stichprobe
 repetitions <- 5000 # Anzahl der Wiederholungen
 
 # Parameter der Gamma-Verteilung
@@ -29,7 +29,7 @@ gamma_data <- rgamma(10000, shape = shape, rate = rate)
 df_gamma <- data.frame(gamma_data)
 
 ggplot(df_gamma, aes(x = gamma_data)) +
-  geom_histogram(aes(y = ..density..), bins = 50, fill = "green", alpha = 0.7) +
+  geom_histogram(aes(y = ..density..), bins = 50, fill = "blue", alpha = 0.7) +
   ggtitle(paste("Gamma-Verteilung mit Shape", shape, "und Rate", rate)) +
   xlab("Wert") +
   ylab("Dichte") +
