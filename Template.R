@@ -18,9 +18,11 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 getwd() # get working directory...
 
 # 3) libraries laden-----
-# bliebte sind folgende:
-library(pacman) # Installiert und ladet Packages automatisch
-pacman::p_load(tidyverse, # https://tidyverse.tidyverse.org/
+if (!require(pacman)) {
+  install.packages("pacman")
+  library(pacman) # Installiert und ladet Packages automatisch
+}
+pacman::p_load(tidyverse, # https://tidyverse.tidyverse.org/ - beihnaltet u.a. ggplot
 readxl,
 writexl, # Einlesen und ausgeben von Excel-Files
 DataExplorer, # Erstellt einen kurzen, schnellen Ueberblick ueber den Datensatz
