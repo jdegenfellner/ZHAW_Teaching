@@ -43,7 +43,7 @@ read.csv("Davis.csv", sep = ",", stringsAsFactors = TRUE, header = TRUE)
 # stringsAsFactors = TRUE, Strings werden direkt als Faktoren in R definiert und nicht nur als Character (also Text)
 
 # b) Excel Dateien lesen/schreiben:
-?read_excel
+?read_xlsx
 write_xlsx()
 
 # 5) Datenmanipulation-----

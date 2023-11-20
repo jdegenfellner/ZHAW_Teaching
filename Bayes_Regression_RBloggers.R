@@ -10,6 +10,7 @@ suppressPackageStartupMessages(library(insight))
 suppressPackageStartupMessages(library(broom))
 data("BostonHousing")
 str(BostonHousing)
+library(tidyverse)
 
 bost <- BostonHousing[,c("medv","age","dis","chas")]
 summary(bost)
@@ -56,7 +57,7 @@ mcmc_dens(model_bayes, pars=c("chas1"))+
 
 mcmc_dens(model_bayes, pars=c("dis"))+
   vline_at(-0.244, col="red") + 
-  ggtitle("posterior distribution of chas1")
+  ggtitle("posterior distribution of dis")
 
 # Now how can we evaluate the model parameters? The answer is by analyzing 
 # the posteriors using some specific statistics. To get the full statistics 
@@ -79,7 +80,7 @@ ppc_dens_overlay(y = bost$medv, yrep = ppc_data) # Plot
 # the model, and then ppc_dens_overlay is used to compare the density of 
 # the observed data and the simulated data.
 
-# Further vizualisations
+# Further visualizations
 # https://easystats.github.io/see/articles/bayestestR.html
 result <- estimate_density(model_bayes, select=c("dis","chas"))
 plot(result)
@@ -122,7 +123,7 @@ coef(model_bayes_uninf_prior)
 
 # b) schiefen Verteilungen (z.B. Beta-Verteilung mit alpha = 2, beta = 5)
 model_bayes_skewed_prior <- stan_glm(medv ~., data = bost, 
-                                    prior = list(beta(2,5),beta(2,5),beta(2,5)), # TODO
+                                    prior = list(beta(2,5),beta(2,5),beta(2,5)), # ERROR...TODO
                                     prior_intercept = NULL)
 model_bayes_skewed_prior <- stan_glm(
   medv ~ ., 

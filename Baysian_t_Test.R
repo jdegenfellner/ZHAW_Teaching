@@ -2,7 +2,11 @@ library(report)
 library(Bolstad)
 #devtools::install_github("rasmusab/bayesian_first_aid")
 
+# Ex 1.:
 bayes.t.test(1:10, y = c(7:20)) 
+
+# Ex 2.:
+?sleep
 bayes.t.test(extra ~ group, data = sleep)
 
 
