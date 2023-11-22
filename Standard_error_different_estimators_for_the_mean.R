@@ -79,4 +79,6 @@ ggplot(estimates_long, aes(x = Estimate, fill = Estimator)) +
            hjust = 1.1, vjust = 1, size = 3.5, color = "blue")
 
 
+# Note, that one could expand this example to other estimators for other 
+# parameters and other distributions
 
