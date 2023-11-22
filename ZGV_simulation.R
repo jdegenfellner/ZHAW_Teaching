@@ -10,10 +10,11 @@
 # Set working directory to source file location
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-library(ggplot2)
+library(pacman)
+p_load(tidyverse)
 
 # Einstellbare Parameter
-sample_size <- 60   # Größe einer Stichprobe
+sample_size <- 70   # Größe einer Stichprobe
 repetitions <- 5000 # Anzahl der Wiederholungen
 
 # Parameter der Gamma-Verteilung
