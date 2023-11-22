@@ -55,11 +55,15 @@ estimates <- replicate(n_sim, estimate_means(n))
 estimates_df <- as.data.frame(t(estimates))
 colnames(estimates_df) <- c("arithm_Mittel", "Mittelwert_Min_Max")
 
-# Standardfehler aus Simulation:
+# Standardfehler ----
+
+# _Schaetzer 1:----
+# aus Simulation:
 (std_dev_x1 <- sd(estimates_df$arithm_Mittel))
 # vgl. Standardfehler laut Formel se(\bar{X} = \frac{s}{\sqrt(n)})
 sd(x)/sqrt(length(x)) # very close (hier wurde nur eine sample genommen)
 
+# _Schaetzer 2:----
 (std_dev_x2 <- sd(estimates_df$Mittelwert_Min_Max))
 sd(x)/sqrt(2) # wrong, why?
 
