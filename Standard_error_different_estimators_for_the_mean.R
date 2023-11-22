@@ -9,7 +9,8 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # Generiere eine sample aus einer Zufallszahl (wir wissen hier, wie diese----
 # verteilt ist):
-x <- rnorm(10000, mean = 23.4, sd = 5.6)
+n <- 10000
+x <- rnorm(n, mean = 23.4, sd = 5.6)
 df <- data.frame(values = x)
 
 p2 <- ggplot(df, aes(x = values)) +
@@ -41,22 +42,23 @@ abs(x2-23.4) # z.B. 0.5289857
 set.seed(0)
 
 # Function to perform the estimation process
-estimate_means <- function() {
-  x <- rnorm(10000, mean = 23.4, sd = 5.6)
+estimate_means <- function(n) {
+  x <- rnorm(n, mean = 23.4, sd = 5.6)
   x1 <- mean(x)
   x2 <- mean(c(min(x), max(x)))
   return(c(x1, x2))
 }
 
-# Perform the process 1000 times and store the results
-estimates <- replicate(1000, estimate_means())
+# Perform the process n_sim times and store the results
+n_sim <- 1000
+estimates <- replicate(n_sim, estimate_means(n))
 estimates_df <- as.data.frame(t(estimates))
 colnames(estimates_df) <- c("arithm_Mittel", "Mittelwert_Min_Max")
 
 # Standardfehler aus Simulation:
 (std_dev_x1 <- sd(estimates_df$arithm_Mittel))
 # vgl. Standardfehler laut Formel se(\bar{X} = \frac{s}{\sqrt(n)})
-sd(x)/sqrt(length(x)) # very close
+sd(x)/sqrt(length(x)) # very close (hier wurde nur eine sample genommen)
 
 (std_dev_x2 <- sd(estimates_df$Mittelwert_Min_Max))
 
@@ -69,14 +71,15 @@ ggplot(estimates_long, aes(x = Estimate, fill = Estimator)) +
   geom_histogram(aes(y = after_stat(density)), position = 'identity', alpha = 0.7, bins = 30) +
   facet_wrap(~Estimator, scales = 'free_y') +
   theme_minimal() +
-  labs(title = "", 
+  labs(title = paste0("n_sample = ",n,"; ","n_sim = ",n_sim), 
        x = "Estimated Value", 
        y = "Density") + 
   theme(plot.title = element_text(hjust = 0.5)) + 
   annotate("text", x = Inf, y = Inf, label = sprintf("Std.fehler arithm.Mittel: %0.2f", std_dev_x1),
            hjust = 1.1, vjust = 2, size = 3.5, color = "red") +
   annotate("text", x = Inf, y = Inf, label = sprintf("Std.fehler MinMax: %0.2f", std_dev_x2),
-           hjust = 1.1, vjust = 1, size = 3.5, color = "blue")
+           hjust = 1.1, vjust = 1, size = 3.5, color = "blue") + 
+  theme(plot.title = element_text(hjust = 0.5))
 
 
 # Note, that one could expand this example to other estimators for other 
