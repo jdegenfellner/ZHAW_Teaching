@@ -24,16 +24,17 @@ p2 <- ggplot(df, aes(x = values)) +
   theme(plot.title = element_text(hjust = 0.5))
 p2
 
-# Wir wollen den wahren Mittelwert 23.4 schaetzen:----
+# Wir wollen den wahren Mittelwert von 23.4 schaetzen:----
 
 # Schaetzer 1: arithmetisches Mittel
-(x1 <- mean(x))
-abs(x1-23.4) # z.B. 0.0551746
+(x1 <- mean(x)) # not bad
+abs(x1-23.4) # abs. Fehler: z.B. 0.0551746
 
 # Schaetzer 2: Mittelwert aus groesster und kleinster Beobachtung
 (x2 <- mean(c(min(x), max(x))))
-abs(x2-23.4) # z.B. 0.5289857
+abs(x2-23.4) # abs. Fehler: z.B. 0.5289857
 
+abs(x2-23.4)/abs(x1-23.4) # z.B. 66 mal so gross.
 
 # Das machen wir jetzt 1000 mal, damit wir einen Eindruck davon bekommen,
 # wie gut die beiden Schaetzer sind.
@@ -41,7 +42,6 @@ abs(x2-23.4) # z.B. 0.5289857
 # Set the seed for reproducibility
 set.seed(0)
 
-# Function to perform the estimation process
 estimate_means <- function(n) {
   x <- rnorm(n, mean = 23.4, sd = 5.6)
   x1 <- mean(x)
