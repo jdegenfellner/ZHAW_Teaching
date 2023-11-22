@@ -53,9 +53,13 @@ estimates <- replicate(1000, estimate_means())
 estimates_df <- as.data.frame(t(estimates))
 colnames(estimates_df) <- c("arithm_Mittel", "Mittelwert_Min_Max")
 
-# Standardfehler:
+# Standardfehler aus Simulation:
 (std_dev_x1 <- sd(estimates_df$arithm_Mittel))
+# vgl. Standardfehler laut Formel se(\bar{X} = \frac{s}{\sqrt(n)})
+sd(x)/sqrt(length(x)) # very close
+
 (std_dev_x2 <- sd(estimates_df$Mittelwert_Min_Max))
+
 
 # Convert the data frame to long format using pivot_longer from the tidyr package
 estimates_long <- pivot_longer(estimates_df, cols = everything(), names_to = "Estimator", values_to = "Estimate")
