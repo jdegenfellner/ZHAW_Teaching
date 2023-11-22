@@ -67,6 +67,9 @@ sd(x)/sqrt(length(x)) # very close (hier wurde nur eine sample genommen)
 (std_dev_x2 <- sd(estimates_df$Mittelwert_Min_Max))
 sd(x)/sqrt(2) # wrong, why?
 
+
+
+
 # Convert the data frame to long format using pivot_longer from the tidyr package
 estimates_long <- pivot_longer(estimates_df, cols = everything(), names_to = "Estimator", values_to = "Estimate")
 
