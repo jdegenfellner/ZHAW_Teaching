@@ -1,5 +1,4 @@
-# ad Standardfehler - vergleiche zwei Schaetzer für den Erwartungswert.
-# Wie gross ist jeweils die Streuung?
+# Density plot with boxplot below
 
 library(pacman)
 p_load(tidyverse)
