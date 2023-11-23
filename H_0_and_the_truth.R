@@ -44,6 +44,7 @@ df %>% ggplot(aes(x = p, y = prob_truth)) +
 # 0.125
 
 # Irrespective of p, looking at the 4 possible decisions,
-# the probability of a correct decision would be:
-(1 - alpha + 1- beta)/(1 - alpha + 1- beta + alpha + beta)
+# the probability of a incorrect decision would be:
+1 - (1 - alpha + 1- beta)/(1 - alpha + 1- beta + alpha + beta)
 # the same as tossing a coin if H_0 is true or not.
+
