@@ -15,21 +15,26 @@ graph <- ToDiagrammeRGraph(tree)
 render_graph(graph)
 
 
-alpha <- 0.05
-beta <- 0.2
-p <- seq(0,1,length.out=100)
+alpha <- 0.05 # Type I decision probability
+beta <- 0.2 # 1 - Power
+# Probability that the H_0 is true
+p <- seq(
+  from = 0,
+  to = 1,
+  length.out = 100
+)
 
 
 # Probability of making the right decision (depending on p) ----
-prob_truth_f <- function(p){
-  (p*(1-alpha)+(1-p)*(1-beta))/(p*(1-alpha)+(1-p)*(1-beta) + p*alpha + (1-p)*beta)
+prob_truth_f <- function(p) {
+  (p * (1 - alpha) + (1 - p) * (1 - beta)) / (p * (1 - alpha) + (1 - p) * (1 - beta) + p * alpha + (1 - p) * beta)
 }
 
 
 df <- data.frame(p = p, prob_truth = prob_truth_f(p))
-df %>% ggplot(aes(x = p, y = prob_truth)) + 
-  geom_point() + 
-  ggtitle("Probability to make the correct decision") + 
+df %>% ggplot(aes(x = p, y = prob_truth)) +
+  geom_line() +
+  ggtitle("Probability to make the correct decision") +
   theme(plot.title = element_text(hjust = 0.5))
 
 # Example -----
@@ -38,5 +43,7 @@ df %>% ggplot(aes(x = p, y = prob_truth)) +
 1 - prob_truth_f(p = 0.5) # Many people would think it is 5%
 # 0.125
 
-
-
+# Irrespective of p, looking at the 4 possible decisions,
+# the probability of a correct decision would be:
+(1 - alpha + 1- beta)/(1 - alpha + 1- beta + alpha + beta)
+# the same as tossing a coin if H_0 is true or not.
