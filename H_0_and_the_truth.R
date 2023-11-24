@@ -1,4 +1,6 @@
 # H_0 and the truth:
+# see also the paper "Why Most Published Research Findings Are False"
+# https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.0020124
 
 library(pacman)
 p_load(DiagrammeR, data.tree, tidyverse)
