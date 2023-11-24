@@ -1,6 +1,9 @@
 # ad Standardfehler - vergleiche zwei Schaetzer für den Erwartungswert.
 # Wie gross ist jeweils die Streuung?
 
+# From:
+# https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Standard_error_different_estimators_for_the_mean.R
+
 library(pacman)
 p_load(tidyverse)
 
