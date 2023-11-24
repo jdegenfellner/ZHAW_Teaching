@@ -3,7 +3,7 @@
 # https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.0020124
 
 # From:
-#https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/H_0_and_the_truth.R
+# https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/H_0_and_the_truth.R
 
 library(pacman)
 p_load(DiagrammeR, data.tree, tidyverse)
