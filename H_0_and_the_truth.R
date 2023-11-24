@@ -29,11 +29,18 @@ p <- seq(
 prob_truth_f <- function(p) {
   (p * (1 - alpha) + (1 - p) * (1 - beta)) / (p * (1 - alpha) + (1 - p) * (1 - beta) + p * alpha + (1 - p) * beta)
 }
+# Note, the denominator simplifies to 1:
+prob_truth_f_simpl <- function (p){
+  1 + p*(beta - alpha) - beta
+}
 
 
-df <- data.frame(p = p, prob_truth = prob_truth_f(p))
-df %>% ggplot(aes(x = p, y = prob_truth)) +
-  geom_line() +
+df <- data.frame(p = p, 
+                 prob_truth = prob_truth_f(p), 
+                 prob_truth_simpl = prob_truth_f_simpl(p))
+ggplot(df, aes(x = p)) +
+  geom_line(aes(y = prob_truth), color = "blue", size=1) +  
+  geom_point(aes(y = prob_truth_simpl), color = "red", size=0.2) + 
   ggtitle("Probability to make the correct decision") +
   theme(plot.title = element_text(hjust = 0.5))
 
