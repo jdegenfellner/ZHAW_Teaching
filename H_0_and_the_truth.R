@@ -29,7 +29,7 @@ p <- seq(
   to = 1,
   length.out = 100
 )
-
+p
 
 # Probability of making the right decision (depending on p) ----
 prob_truth_f <- function(p) {
