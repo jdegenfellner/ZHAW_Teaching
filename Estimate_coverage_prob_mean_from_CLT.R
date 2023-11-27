@@ -41,7 +41,11 @@ for(i in 1:length(sizes)){
                                                   sample_size = sizes[i])
 }
 
-df %>% ggplot(aes(x=sizes, y=cov_prob)) + 
+df %>% ggplot(aes(x = sizes, y = cov_prob)) + 
   geom_line() + 
   geom_smooth() +
-  geom_hline(yintercept = 0.95)
+  geom_hline(yintercept = 0.95) + 
+  ggtitle("(Simulated) Coverage probability of the CI for the mean (from CLT)") + 
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  ylab("Simulated coverage probability") + xlab("sample size (n)")
+  
