@@ -2,6 +2,8 @@
 # from the central limit theorem (CLT)
 
 # GPT4 used.
+library(pacman)
+p_load(tidyverse)
 
 estimate_coverage_probability <- function(distr, params, 
                                           sample_size, 
@@ -29,14 +31,20 @@ estimate_coverage_probability <- function(distr, params,
   coverage_probability <- coverage_count / num_simulations
   return(coverage_probability)
 }
-# Example
-estimate_coverage_probability("rnorm", list(mean = 0, sd = 1), sample_size = 60)
+# Example:
+estimate_coverage_probability("rnorm", list(mean = 0, sd = 1), sample_size = 10)
 
-sizes <- 10:100
+# Look at different sample sizes:
+sizes <- seq(from = 10, to = 200, by = 2)
 df <- data.frame(sizes = sizes, 
                  cov_prob = sizes)
 
-for(i in sizes){
+for(i in 1:length(sizes)){
   df$cov_prob[i] <- estimate_coverage_probability("rnorm", list(mean = 0, sd = 1), 
-                                                  sample_size = i)
+                                                  sample_size = sizes[i])
 }
+
+df %>% ggplot(aes(x=sizes, y=cov_prob)) + 
+  geom_line() + 
+  geom_smooth() +
+  geom_hline(yintercept = 0.95)
