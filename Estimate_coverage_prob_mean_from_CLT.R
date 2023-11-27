@@ -29,9 +29,14 @@ estimate_coverage_probability <- function(distr, params,
   coverage_probability <- coverage_count / num_simulations
   return(coverage_probability)
 }
-
+# Example
 estimate_coverage_probability("rnorm", list(mean = 0, sd = 1), sample_size = 60)
 
 sizes <- 10:100
+df <- data.frame(sizes = sizes, 
+                 cov_prob = sizes)
 
-df <- data.frame(sizes = sizes, cov_prob = estimate_coverage_probability("rnorm", list(mean = 0, sd = 1), sample_size = sizes))
+for(i in sizes){
+  df$cov_prob[i] <- estimate_coverage_probability("rnorm", list(mean = 0, sd = 1), 
+                                                  sample_size = i)
+}
