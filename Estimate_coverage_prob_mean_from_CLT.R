@@ -1,6 +1,8 @@
 # Estimating coverage probability of the confidence interval for the mean
 # from the central limit theorem (CLT)
 
+# in progress #
+
 # GPT4 used.
 library(pacman)
 p_load(tidyverse)
@@ -34,7 +36,7 @@ estimate_coverage_probability("rnorm", list(mean = 0, sd = 1), sample_size = 10)
 # Look at different sample sizes:----
 # _1) Standard normal N(0,1)----
 # Note that we would have an exact CI here (since exactly t-distributed)
-sizes <- seq(from = 10, to = 200, by = 2)
+sizes <- seq(from = 10, to = 200, by = 5)
 df <- data.frame(sizes = sizes, 
                  cov_prob = sizes)
 
