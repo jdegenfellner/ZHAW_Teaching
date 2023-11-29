@@ -31,7 +31,7 @@ p <- seq(
 )
 p
 
-# Probability of making the right decision (depending on p) ----
+# Probability of making the right decision (depending on p, see tree) ----
 prob_truth_f <- function(p) {
   # Note that p is not the p-value, but the probability that H_0 is true
   (p * (1 - alpha) + (1 - p) * (1 - beta)) / (p * (1 - alpha) + (1 - p) * (1 - beta) + p * alpha + (1 - p) * beta)
