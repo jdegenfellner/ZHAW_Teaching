@@ -58,7 +58,7 @@ ggplot(df, aes(x = p)) +
 # 0.125 # Many people would think it is 5%
 
 # Irrespective of p, looking at the 4 possible decisions,
-# the probability of a incorrect decision would be:
+# the probability of an incorrect decision would be:
 1 - (1 - alpha + 1 - beta)/(1 - alpha + 1- beta + alpha + beta)
 # 0.125 # the same as tossing a coin if H_0 is true or not.
 
