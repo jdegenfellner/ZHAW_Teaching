@@ -63,7 +63,8 @@ ggplot(df, aes(x = z_values)) +
   xlab(expression((bar(x) - mu) / (sigma / sqrt(n)))) +
   ylab("Dichte") +
   theme_minimal() + 
-  theme(plot.background = element_rect(fill = "white"))
+  theme(plot.background = element_rect(fill = "white")) + 
+  theme(plot.title = element_text(hjust = 0.5, size = 9))
 
 
 ggsave(paste("./images/Z_Distribution_SampleSize_", sample_size, "_Repetitions_", repetitions, "_Shape_", shape, "_Rate_", rate,"n_",repetitions, ".png"))
