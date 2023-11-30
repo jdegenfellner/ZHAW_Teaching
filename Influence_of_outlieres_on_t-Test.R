@@ -1,4 +1,4 @@
-# This problem was proposed to me by Matthias Templ :)
+# This problem was proposed to me by my friend Matthias Templ :)
 
 # Consider the t-Test
 gr1 <- rnorm(40, mean = 0, sd = 1)
