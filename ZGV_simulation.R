@@ -14,16 +14,16 @@ library(pacman)
 p_load(tidyverse)
 
 # Einstellbare Parameter
-sample_size <- 70   # Größe einer Stichprobe
-repetitions <- 5000 # Anzahl der Wiederholungen
+sample_size <- 500   # Größe einer Stichprobe
+repetitions <- 50000 # Anzahl der Wiederholungen
 
 # Parameter der Gamma-Verteilung
 shape <- 2 # Formparameter
 rate <- 1  # Ratenparameter
 
 # Erwartungswert (Mittelwert) und Standardabweichung der Gamma-Verteilung
-mu <- shape / rate
-sigma <- sqrt(shape / (rate ^ 2))
+mu <- shape / rate # Erwartungswert mue
+sigma <- sqrt(shape / (rate ^ 2)) # Standardabweichung sigma
 
 # Original-Gamma-Verteilung plotten
 gamma_data <- rgamma(10000, shape = shape, rate = rate)
