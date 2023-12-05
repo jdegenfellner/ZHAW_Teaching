@@ -18,7 +18,7 @@ plot_t_density <- function(dof = 8, t_value = -2.683282){
 
 # Let's start with the
 
-# One Sample t-Test----
+# 1) One Sample t-Test----
 # see also: https://de.wikipedia.org/wiki/Einstichproben-t-Test
 mu0 <- 14
 X <- c(10, 10, 12, 10, 14, 14, 12, 16, 10)
@@ -44,10 +44,9 @@ pt(t_value, df = n - 1) # check
 
 
 # _Confidence Interval----
-ci <- mean_X + c(-1, 1) * qt(.975, n - 1) * se
-cat("Confidence Interval:", ci, "\n")
+(ci <- mean_X + c(-1, 1) * qt(.975, n - 1) * se)
 
-# Two Independent Samples
+# 2) Two-sample t-Test for two independent samples----
 # Assuming 'sleep' dataset is available
 attach(sleep)
 plot(extra ~ group, data = sleep)

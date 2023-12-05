@@ -24,10 +24,10 @@ x2 <- rnorm(n, mean = 1, sd = 1)
 plot_random_variables(x1, x2)
 t.test(x1, x2, alternative = "two.sided") # correct decision
 
-# 1) Change x1:
+# 1) Change x1:----
 x1 <- rt(n, df = 4, ncp = 4)
-x2 <- rnorm(n, mean = 1, sd = 1)
-x1 <- x1 - mean(x1) # mean difference roughly 1 still
+x2 <- rnorm(n, mean = mean(x1)+1, sd = 1)
+
 plot_random_variables(x1, x2)
 t.test(x1, x2, alternative = "two.sided") # large p.value
 
