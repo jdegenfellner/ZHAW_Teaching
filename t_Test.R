@@ -1,12 +1,28 @@
 library(pacman)
 p_load(tidyverse)
 
+# Functions:
+plot_t_density <- function(dof = 8, t_value = -2.683282){
 
-# Hypothesis Testing with One Sample
+  t_values <- seq(from = qt(0.001, dof), to = qt(0.999, dof), length.out = 100)
+  densities <- dt(t_values, dof)
+  
+  ggplot(data.frame(t_values, densities), aes(x = t_values, y = densities)) +
+    geom_line() +
+    geom_vline(xintercept = t_value, color = "red", linetype = "dashed") +
+    ggtitle(paste("t-Distribution with df =", dof, 
+                  "and vertical line at t_value =", round(t_value,2))) +
+    xlab("t value") + ylab("Density") + 
+    theme(plot.title = element_text(hjust = 0.5, size = 8))
+}
+
+
+# One Sample----
 # see also: https://de.wikipedia.org/wiki/Einstichproben-t-Test
 mu0 <- 14
 X <- c(10, 10, 12, 10, 14, 14, 12, 16, 10)
 
+# _Manually----
 (mean_X <- mean(X))
 (n <- length(X))
 (s2 <- var(X))
@@ -15,12 +31,18 @@ X <- c(10, 10, 12, 10, 14, 14, 12, 16, 10)
 (t_value <- (mean_X - mu0) / se)
 
 # Under H_0, the test-statistik is t-distributed with n-1 degrees of freedom (dof)
+plot_t_density(dof = n - 1, t_value = t_value)
+
+# _Direct t-test----
+t.test(X, mu = mu0, alternative = "two.sided")
+# How do I get the p-value?
+pt(t_value, df = n - 1)*2 # because two-sided alternative!
+# How about one-sided?
+t.test(X, mu = mu0, alternative = "less")
+pt(t_value, df = n - 1) # check
 
 
-# Direct t-test
-t.test(X, mu = mu0)
-
-# Confidence Interval
+# _Confidence Interval----
 ci <- mean_X + c(-1, 1) * qt(.975, n - 1) * se
 cat("Confidence Interval:", ci, "\n")
 
