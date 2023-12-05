@@ -8,7 +8,7 @@
 library(pacman)
 p_load(DiagrammeR, data.tree, tidyverse)
 
-# GPT4:
+# Thanks GPT4:
 # Create the tree structure
 tree <- Node$new("H_0 True?")
 tree$AddChild("P")
