@@ -1,6 +1,9 @@
 library(pacman)
 p_load(tidyverse)
 
+# From:
+# https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/t_Test.R
+
 # Functions:
 plot_t_density <- function(dof = 8, t_value = -2.683282){
 
