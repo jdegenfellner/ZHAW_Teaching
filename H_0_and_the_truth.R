@@ -23,7 +23,7 @@ render_graph(graph)
 
 alpha <- 0.05 # Type I decision probability
 beta <- 0.2 # 1 - Power
-# Probability that the H_0 is true
+# Probabilities that the H_0 is true
 p <- seq(
   from = 0,
   to = 1,
@@ -37,6 +37,7 @@ prob_truth_f <- function(p) {
   (p * (1 - alpha) + (1 - p) * (1 - beta)) / (p * (1 - alpha) + (1 - p) * (1 - beta) + p * alpha + (1 - p) * beta)
 }
 # Note, the denominator simplifies to 1:
+# (because either H_0 is true or not and one can decide for or against H_0)
 prob_truth_f_simpl <- function (p){
   1 + p*(beta - alpha) - beta
 }
