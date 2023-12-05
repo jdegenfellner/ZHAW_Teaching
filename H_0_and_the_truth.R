@@ -47,16 +47,16 @@ df <- data.frame(p = p,
                  prob_truth = prob_truth_f(p), 
                  prob_truth_simpl = prob_truth_f_simpl(p))
 ggplot(df, aes(x = p)) +
-  geom_line(aes(y = prob_truth), color = "blue", size=1) +  
-  geom_point(aes(y = prob_truth_simpl), color = "red", size=0.2) + 
+  geom_line(aes(y = prob_truth), color = "blue", size = 1) +  
+  geom_point(aes(y = prob_truth_simpl), color = "red", size = 0.2) + # just to check
   ggtitle("Probability to make the correct decision") +
   theme(plot.title = element_text(hjust = 0.5))
 
 # Example -----
-# if you do not have any clue about p, let us assume p = 0.5
+# If you do not have any clue about p, let us assume p = 0.5
 # Probability, to make the wrong decision is:
 1 - prob_truth_f(p = 0.5) 
-# 0.125 # Many people would think it is 5%
+# 0.125 # Many people would think it is 5% !
 
 # Irrespective of p, looking at the 4 possible decisions,
 # the probability of an incorrect decision would be:
