@@ -73,10 +73,11 @@ Y <- rnorm(20, 7, 2)
 df <- data.frame(X, Y)
 
 # Plot
-matplot(rbind(X, Y), type = "b", xaxt = "n", xlab = "Time", ylab = "Outcome") # xact = x axis type, "n" = none
+matplot(rbind(X, Y), type = "b", xaxt = "n", xlab = "Time", ylab = "Outcome") # xact = x axis type, "n" = none; type = "b" Points and lines plot
 axis(1, at = c(1, 2))
+
 
 # _Paired t-test----
 (test4 <- t.test(X, Y, paired = TRUE))
-(test5 <- t.test(Y - X))
+(test5 <- t.test(Y - X)) # mu = 0, alternative = "two.sided"
 
