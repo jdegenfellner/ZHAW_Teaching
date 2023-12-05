@@ -16,8 +16,9 @@ plot_t_density <- function(dof = 8, t_value = -2.683282){
     theme(plot.title = element_text(hjust = 0.5, size = 8))
 }
 
+# Let's start with the
 
-# One Sample----
+# One Sample t-Test----
 # see also: https://de.wikipedia.org/wiki/Einstichproben-t-Test
 mu0 <- 14
 X <- c(10, 10, 12, 10, 14, 14, 12, 16, 10)
@@ -30,7 +31,7 @@ X <- c(10, 10, 12, 10, 14, 14, 12, 16, 10)
 (se <- s / sqrt(n))
 (t_value <- (mean_X - mu0) / se)
 
-# Under H_0, the test-statistik is t-distributed with n-1 degrees of freedom (dof)
+# Under H_0, the test-statistic is t-distributed with n-1 degrees of freedom (dof)
 plot_t_density(dof = n - 1, t_value = t_value)
 
 # _Direct t-test----
