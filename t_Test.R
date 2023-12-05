@@ -49,33 +49,34 @@ pt(t_value, df = n - 1) # check
 # 2) Two-sample t-Test for two independent samples----
 # Assuming 'sleep' dataset is available
 attach(sleep)
-plot(extra ~ group, data = sleep)
-aggregate(extra, by = list(group), FUN = "mean")
+ggplot(sleep, aes(x = group, y = extra)) +
+  geom_boxplot() +
+  ggtitle("Extra Sleep in Pharmacology Groups") +
+  xlab("Group") + ylab("Extra Sleep (hours)") + 
+  theme(plot.title = element_text(hjust = 0.5, size = 10))
+
+sleep %>% group_by(group) %>%
+  summarise(group_mean = mean(extra))
 
 # Two-sample t-tests
-test1 <- t.test(extra ~ group, var.equal = FALSE)
-test2 <- t.test(extra ~ group, var.equal = TRUE)
-cat("Two Sample t-tests (unequal and equal variances):\n")
-print(test1)
-print(test2)
+(test1 <- t.test(extra ~ group, var.equal = FALSE))
+(test2 <- t.test(extra ~ group, var.equal = TRUE))
 
-# ANOVA
-test3 <- aov(extra ~ group, data = sleep)
+# ANOVA (see QM2)
+test3 <- aov(extra ~ group, data = sleep) # same as with var.equal=TRUE
 summary(test3)
 
-# Paired Data
+# 3) Paired Data----
 set.seed(3)
 X <- rnorm(20, 4, 2)
 Y <- rnorm(20, 7, 2)
 df <- data.frame(X, Y)
 
 # Plot
-matplot(rbind(X, Y), type = "b", xaxt = "n", xlab = "Time", ylab = "Outcome")
+matplot(rbind(X, Y), type = "b", xaxt = "n", xlab = "Time", ylab = "Outcome") # xact = x axis type, "n" = none
 axis(1, at = c(1, 2))
 
-# Paired t-test
-test4 <- t.test(X, Y, paired = TRUE)
-test5 <- t.test(Y - X)
-cat("Paired t-tests:\n")
-print(test4)
-print(test5)
+# _Paired t-test----
+(test4 <- t.test(X, Y, paired = TRUE))
+(test5 <- t.test(Y - X))
+
