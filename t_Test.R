@@ -34,7 +34,8 @@ X <- c(10, 10, 12, 10, 14, 14, 12, 16, 10)
 (se <- s / sqrt(n))
 (t_value <- (mean_X - mu0) / se)
 
-# Under H_0, the test-statistic is t-distributed with n-1 degrees of freedom (dof)
+# Under H_0, the test-statistic is t-distributed with 
+# n-1 degrees of freedom (dof)
 plot_t_density(dof = n - 1, t_value = t_value)
 
 # _Direct t-test----
@@ -76,7 +77,8 @@ Y <- rnorm(20, 7, 2)
 df <- data.frame(X, Y)
 
 # Plot
-matplot(rbind(X, Y), type = "b", xaxt = "n", xlab = "Time", ylab = "Outcome") # xact = x axis type, "n" = none; type = "b" Points and lines plot
+matplot(rbind(X, Y), type = "b", xaxt = "n", 
+        xlab = "Time", ylab = "Outcome") # xact = x axis type, "n" = none; type = "b" Points and lines plot
 axis(1, at = c(1, 2))
 
 
