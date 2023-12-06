@@ -88,6 +88,7 @@ axis(1, at = c(1, 2))
 (test5 <- t.test(Y - X)) # mu = 0, alternative = "two.sided"
 
 # Power of the t-test----
+# _Example----
 delta = 1.5 - 1# Cohen's d; effect size (=standardized difference)
 power.t.test(n = 20, 
              delta = 0.5, 
@@ -95,8 +96,24 @@ power.t.test(n = 20,
              type = "one.sample",
              alternative = "one.sided")
 
-# power is a function of n, delta, sd.
-deltas <- seq(from = 0, to = 3, by = 0.05)
+# _a function of n:----
+ns <- 3:100
+powers <- c()
+for (i in ns) {
+  test <- power.t.test(n = i, 
+                       delta = 0.5, 
+                       sd = 1,
+                       type = "one.sample",
+                       alternative = "one.sided")
+  powers <- append(powers, test$power)
+}
+df <- data.frame(power = powers, n = ns)
+df %>% ggplot(aes(x = n, y = power)) + 
+  geom_line() + 
+  xlab("n")
+
+# _a function of delta:----
+deltas <- seq(from = 0, to = 1.5, by = 0.05)
 powers <- c()
 for (i in deltas) {
   test <- power.t.test(n = 20, 
@@ -107,9 +124,23 @@ for (i in deltas) {
   powers <- append(powers, test$power)
 }
 df <- data.frame(power = powers, delta = deltas)
-df %>% ggplot(aes(x=delta, y=power)) + 
+df %>% ggplot(aes(x = delta, y = power)) + 
   geom_line() + 
   xlab("effect size (Cohen's d)")
 
+# _a function of sd:----
+sds <- seq(from = 0.1, to = 3, by = 0.05)
+powers <- c()
+for (i in sds) {
+  test <- power.t.test(n = 20, 
+                       delta = 0.5, 
+                       sd = i,
+                       type = "one.sample",
+                       alternative = "one.sided")
+  powers <- append(powers, test$power)
+}
+df <- data.frame(power = powers, sd = sds)
+df %>% ggplot(aes(x = sd, y = power)) + 
+  geom_line() + 
+  xlab("sd")
 
-# TODO for other 2
