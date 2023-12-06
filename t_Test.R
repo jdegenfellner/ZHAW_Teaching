@@ -51,7 +51,6 @@ pt(t_value, df = n - 1) # check
 (ci <- mean_X + c(-1, 1) * qt(.975, n - 1) * se)
 
 # 2) Two-sample t-Test for two independent samples----
-# Assuming 'sleep' dataset is available
 attach(sleep)
 ggplot(sleep, aes(x = group, y = extra)) +
   geom_boxplot() +
