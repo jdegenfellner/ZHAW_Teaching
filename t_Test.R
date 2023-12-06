@@ -31,20 +31,23 @@ X <- c(10, 10, 12, 10, 14, 14, 12, 16, 10)
 (n <- length(X))
 (s2 <- var(X))
 (s <- sd(X))
-(se <- s / sqrt(n))
+(se <- s / sqrt(n)) # se(\bar{X}), standard error of the arithmetic mean
 (t_value <- (mean_X - mu0) / se)
 
 # Under H_0, the test-statistic is t-distributed with 
 # n-1 degrees of freedom (dof)
 plot_t_density(dof = n - 1, t_value = t_value)
+qt(0.025, n-1)
 
 # _Direct t-test----
 t.test(X, mu = mu0, alternative = "two.sided")
 # How do I get the p-value?
 pt(t_value, df = n - 1)*2 # because two-sided alternative!
+qt(0.025, df = n - 1) # former: in tables...
 # How about one-sided?
 t.test(X, mu = mu0, alternative = "less")
 pt(t_value, df = n - 1) # check
+qt(0.05, df = n -1) # cut off
 
 
 # _Confidence Interval----
