@@ -95,3 +95,21 @@ power.t.test(n = 20,
              type = "one.sample",
              alternative = "one.sided")
 
+# power is a function of n, delta, sd.
+deltas <- seq(from = 0, to = 3, by = 0.05)
+powers <- c()
+for (i in deltas) {
+  test <- power.t.test(n = 20, 
+                       delta = i, 
+                       sd = 1,
+                       type = "one.sample",
+                       alternative = "one.sided")
+  powers <- append(powers, test$power)
+}
+df <- data.frame(power = powers, delta = deltas)
+df %>% ggplot(aes(x=delta, y=power)) + 
+  geom_line() + 
+  xlab("effect size (Cohen's d)")
+
+
+# TODO for other 2
