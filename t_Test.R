@@ -144,5 +144,5 @@ df %>% ggplot(aes(x = sd, y = power)) +
   geom_line() + 
   xlab("sd")
 
-# TODO 3 over 2 surface plots
+# TODO (3 over 2 = ) 3 surface plots
 
