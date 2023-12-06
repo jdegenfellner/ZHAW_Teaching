@@ -52,6 +52,8 @@ pt(t_value, df = n - 1) # check
 
 # 2) Two-sample t-Test for two independent samples----
 attach(sleep)
+head(sleep)
+str(sleep)
 ggplot(sleep, aes(x = group, y = extra)) +
   geom_boxplot() +
   ggtitle("Extra Sleep in Pharmacology Groups") +
@@ -84,4 +86,12 @@ axis(1, at = c(1, 2))
 # _Paired t-test----
 (test4 <- t.test(X, Y, paired = TRUE))
 (test5 <- t.test(Y - X)) # mu = 0, alternative = "two.sided"
+
+# Power of the t-test----
+delta = 1.5 - 1# Cohen's d; effect size (=standardized difference)
+power.t.test(n = 20, 
+             delta = 0.5, 
+             sd = 1,
+             type = "one.sample",
+             alternative = "one.sided")
 
