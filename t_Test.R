@@ -1,5 +1,5 @@
 library(pacman)
-p_load(tidyverse)
+p_load(tidyverse) # add packages on demand....
 
 # From:
 # https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/t_Test.R
@@ -63,7 +63,7 @@ ggplot(sleep, aes(x = group, y = extra)) +
   xlab("Group") + ylab("Extra Sleep (hours)") + 
   theme(plot.title = element_text(hjust = 0.5, size = 10))
 
-sleep %>% group_by(group) %>%
+sleep %>% group_by(group) %>% # pipe-operator
   summarise(group_mean = mean(extra))
 
 # Two-sample t-tests
@@ -71,8 +71,10 @@ sleep %>% group_by(group) %>%
 (test2 <- t.test(extra ~ group, var.equal = TRUE))
 
 # ANOVA (see QM2)
-test3 <- aov(extra ~ group, data = sleep) # same as with var.equal=TRUE
-summary(test3)
+#test3 <- aov(extra ~ group, data = sleep) # same as with var.equal=TRUE
+#summary(test3)
+
+# TODO manually!
 
 # 3) Paired Data----
 set.seed(3)
@@ -92,7 +94,7 @@ axis(1, at = c(1, 2))
 
 # Power of the t-test----
 # _Example----
-delta = 1.5 - 1# Cohen's d; effect size (=standardized difference)
+(delta = (1.5 - 1)/1) # Cohen's d; effect size (=standardized difference)
 power.t.test(n = 20, 
              delta = 0.5, 
              sd = 1,
