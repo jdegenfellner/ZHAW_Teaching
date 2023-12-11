@@ -25,3 +25,4 @@ diffs <- outer(x-y, x-y, "+")
 diffs <- sort(diffs[!lower.tri(diffs)]) / 2
 # ESTIMATE = 
 c("(pseudo)median" = median(diffs))
+# small deviations...?
