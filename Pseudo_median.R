@@ -13,7 +13,7 @@ res <- wilcox.test(x, y, paired = TRUE, conf.int = TRUE)
 #wilcox.test(x - y, conf.int = TRUE)
 res$estimate
 # compare to:
-median(x - y) # since symmetric
+median(x - y) # very similar if symmetric
 
 # Reproduce?:----
 # _Hodges-Lehmann estimator for paired data----
