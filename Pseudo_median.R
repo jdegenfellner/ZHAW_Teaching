@@ -19,7 +19,8 @@ res$estimate
 # compare to:
 median(x - y) # should be very similar if symmetric
 
-# _in wilcox.test()-code (we should be in the one-sample case for x-y): ----
+# Reproduce manually: ----
+# In wilcox.test()-code (we should be in the one-sample case for x-y):
 diffs <- outer(x-y, x-y, "+")
 diffs <- sort(diffs[!lower.tri(diffs)]) / 2
 # ESTIMATE = 
