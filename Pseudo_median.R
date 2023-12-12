@@ -21,6 +21,7 @@ median(x - y) # should be very similar if symmetric
 
 # Reproduce manually: ----
 # In wilcox.test()-code (we should be in the one-sample case for x-y):
+# see: https://github.com/SurajGupta/r-source/blob/master/src/library/stats/R/wilcox.test.R
 diffs <- outer(x-y, x-y, "+")
 diffs <- sort(diffs[!lower.tri(diffs)]) / 2
 # ESTIMATE = 
