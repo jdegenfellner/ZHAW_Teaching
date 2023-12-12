@@ -8,7 +8,7 @@
 
 # Example----
 x <- rnorm(4000)
-y <- rnorm(4000, mean = 0.5)
+y <- rnorm(4000, mean = 0.5) # ...maybe choose skewed data
 res <- wilcox.test(x, y, paired = TRUE, conf.int = TRUE)
 #wilcox.test(x - y, conf.int = TRUE)
 res$estimate
@@ -27,4 +27,5 @@ diffs <- outer(x-y, x-y, "+")
 diffs <- sort(diffs[!lower.tri(diffs)]) / 2
 # ESTIMATE = 
 c("(pseudo)median" = median(diffs))
+
 # small deviations...?
