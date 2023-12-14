@@ -58,5 +58,8 @@ ggplot(data.frame(Z=Z), aes(x=Z)) +
   stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color = "red", size = 1) +
   ggtitle("Histogram with Standard Normal Density") +
   theme_minimal() +
-  theme(plot.title = element_text(hjust = 0.5), legend.title = element_blank())
+  theme(plot.title = element_text(hjust = 0.5), legend.title = element_blank()) +
+  annotate("text", x = Inf, y = Inf, label = paste("Mean(Z):", 
+           round(mean(Z), 6), "\nSD(Z):", round(sd(Z), 6)),
+           hjust = 1.1, vjust = 1.1, size = 3, color = "black")
 
