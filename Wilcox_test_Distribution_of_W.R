@@ -9,7 +9,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # load packages-----------------------------------------------------------------
 library(pacman)
-pacman::p_load(tidyverse)
+pacman::p_load(tidyverse, tictoc)
 
 shape <- 2
 scale <- 2
@@ -32,8 +32,9 @@ ggplot(data, aes(x = Value, fill = Group)) +
         legend.title = element_blank())  # Center the title
 
 W_results <- c()
-n_sim <- 100000
+n_sim <- 1000000
 n <- 1000
+tic()
 for(i in 1:n_sim){
   #x <- rgamma(n, shape, scale)
   #y <- rgamma(n, shape, scale)
@@ -47,13 +48,15 @@ for(i in 1:n_sim){
   W <- ifelse(runif(1)>0.5, Wminus, Wplus)
   W_results <- append(W_results, W)
 }
+toc()
 EW <- 1/4*n*(n+1)
 VarW <- n*(n+1)*(2*n+1)/24
 Z <- (W_results - EW)/sqrt(VarW)
 
 ggplot(data.frame(Z=Z), aes(x=Z)) + 
-  geom_histogram(aes(y = ..density..), bins = 30, fill = "blue", color = "black") + 
+  geom_histogram(aes(y = ..density..), fill = "blue", color = "black") + 
   stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color = "red", size = 1) +
   ggtitle("Histogram with Standard Normal Density") +
   theme_minimal() +
   theme(plot.title = element_text(hjust = 0.5), legend.title = element_blank())
+
