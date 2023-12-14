@@ -32,7 +32,7 @@ ggplot(data, aes(x = Value, fill = Group)) +
         legend.title = element_blank())  # Center the title
 
 W_results <- c()
-n_sim <- 10000
+n_sim <- 100000
 n <- 1000
 for(i in 1:n_sim){
   #x <- rgamma(n, shape, scale)
