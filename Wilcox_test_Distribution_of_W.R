@@ -1,3 +1,4 @@
+# From: https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Wilcox_test_Distribution_of_W.R
 # Distribution of:
 # W in :
 # https://de.wikipedia.org/wiki/Wilcoxon-Vorzeichen-Rang-Test
