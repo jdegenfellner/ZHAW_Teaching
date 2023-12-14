@@ -26,7 +26,7 @@ ggplot(data, aes(x = Value, fill = Group)) +
   geom_vline(xintercept = median_x, color = "blue", linetype = "dashed", size = 1) +
   geom_vline(xintercept = median_y, color = "red", linetype = "dashed", size = 1) +
   scale_fill_manual(values = c("blue", "red")) +
-  ggtitle("Combined Histogram of Gamma Distributed Random Numbers") +
+  ggtitle("H_0 is true") +
   theme_minimal() +
   theme(plot.title = element_text(hjust = 0.5, size = 9),
         legend.title = element_blank())  # Center the title
