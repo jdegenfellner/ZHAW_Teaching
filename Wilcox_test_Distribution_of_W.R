@@ -15,7 +15,7 @@ shape <- 2
 scale <- 2
 
 x <- rgamma(1000, shape, scale)
-y <- rgamma(1000, shape, scale)
+y <- rgamma(1000, shape, scale) # H_0 true, no location shift.
 data <- data.frame(Value = c(x, y), 
                    Group = factor(rep(c("X", "Y"), each = 1000)))
 median_x <- median(x)
@@ -36,10 +36,10 @@ n_sim <- 10000
 n <- 1000
 tic()
 for(i in 1:n_sim){
-  #x <- rgamma(n, shape, scale)
-  #y <- rgamma(n, shape, scale)
-  x <- rnorm(n, mean = 10, sd = 3) # H_0 is true.
-  y <- rnorm(n, mean = 10, sd = 3)
+  x <- rgamma(n, shape, scale)
+  y <- rgamma(n, shape, scale)
+  #x <- rnorm(n, mean = 10, sd = 3) # H_0 is true.
+  #y <- rnorm(n, mean = 10, sd = 3)
   D <- (x - y) 
   R <- rank(abs(D))
   Wplus <- sum(R[D > 0]) 
@@ -64,4 +64,5 @@ ggplot(data.frame(Z=Z), aes(x=Z)) +
   annotate("text", x = Inf, y = Inf, label = paste("Mean(Z):", 
            round(mean(Z), 6), "\nSD(Z):", round(sd(Z), 6)),
            hjust = 1.1, vjust = 1.1, size = 3, color = "black")
+# -> It seems that symmetry does not play a major role in terms of distribution
 
