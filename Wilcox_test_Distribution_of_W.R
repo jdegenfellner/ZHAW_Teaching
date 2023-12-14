@@ -47,14 +47,14 @@ for(i in 1:n_sim){
   Wminus <- sum(R[D < 0]) 
   #W <- min(Wplus, Wminus) # this results in only negative Z!
   #W <- ifelse(runif(1)>0.5, Wminus, Wplus)
-  #W <- Wplus # works too, see https://epub.ub.uni-muenchen.de/25569/1/BA_Steinherr.pdf
-  W <- Wminus # works too
+  W <- Wplus # works too, see https://epub.ub.uni-muenchen.de/25569/1/BA_Steinherr.pdf
+  #W <- Wminus # works too
   W_results <- append(W_results, W)
 }
 toc() # n_sim <- 100000 24.025 sec elapsed
 EW <- 1/4*n*(n+1)
 VarW <- n*(n+1)*(2*n+1)/24
-Z <- (W_results - EW)/sqrt(VarW)
+Z <- (W_results - EW)/sqrt(VarW) # appr. N(0,1)
 
 ggplot(data.frame(Z=Z), aes(x=Z)) + 
   geom_histogram(aes(y = ..density..), fill = "blue", color = "black") + 
