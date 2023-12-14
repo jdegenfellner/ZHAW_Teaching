@@ -32,7 +32,7 @@ ggplot(data, aes(x = Value, fill = Group)) +
         legend.title = element_blank())  # Center the title
 
 W_results <- c()
-n_sim <- 100000
+n_sim <- 10000
 n <- 1000
 tic()
 for(i in 1:n_sim){
@@ -44,8 +44,10 @@ for(i in 1:n_sim){
   R <- rank(abs(D))
   Wplus <- sum(R[D > 0]) 
   Wminus <- sum(R[D < 0]) 
-  #W <- min(Wplus, Wminus) # this results in only negative Z
-  W <- ifelse(runif(1)>0.5, Wminus, Wplus)
+  #W <- min(Wplus, Wminus) # this results in only negative Z!
+  #W <- ifelse(runif(1)>0.5, Wminus, Wplus)
+  #W <- Wplus # works too, see https://epub.ub.uni-muenchen.de/25569/1/BA_Steinherr.pdf
+  W <- Wminus
   W_results <- append(W_results, W)
 }
 toc() # n_sim <- 100000 24.025 sec elapsed
@@ -56,7 +58,7 @@ Z <- (W_results - EW)/sqrt(VarW)
 ggplot(data.frame(Z=Z), aes(x=Z)) + 
   geom_histogram(aes(y = ..density..), fill = "blue", color = "black") + 
   stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color = "red", size = 1) +
-  ggtitle("Histogram with Standard Normal Density") +
+  ggtitle("Standardized W") +
   theme_minimal() +
   theme(plot.title = element_text(hjust = 0.5), legend.title = element_blank()) +
   annotate("text", x = Inf, y = Inf, label = paste("Mean(Z):", 
