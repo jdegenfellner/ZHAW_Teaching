@@ -44,7 +44,7 @@ for(i in 1:n_sim){
   R <- rank(abs(D))
   Wplus <- sum(R[D > 0]) 
   Wminus <- sum(R[D < 0]) 
-  #W <- min(Wplus, Wminus)
+  #W <- min(Wplus, Wminus) # this results in only negative Z
   W <- ifelse(runif(1)>0.5, Wminus, Wplus)
   W_results <- append(W_results, W)
 }
