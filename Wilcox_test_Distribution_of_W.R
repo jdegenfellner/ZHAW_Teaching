@@ -2,6 +2,8 @@
 # W in :
 # https://de.wikipedia.org/wiki/Wilcoxon-Vorzeichen-Rang-Test
 
+# in progress # 
+
 # Set working directory to source file location
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
@@ -29,23 +31,29 @@ ggplot(data, aes(x = Value, fill = Group)) +
   theme(plot.title = element_text(hjust = 0.5, size = 9),
         legend.title = element_blank())  # Center the title
 
-
 W_results <- c()
-n_sim <- 1000
+n_sim <- 10000
 n <- 1000
-EW <- 1/4*n*(n+1)
-VarW <- n*(n+1)*(2*n+1)/24
 for(i in 1:n_sim){
-  x <- rgamma(n, shape, scale)
-  y <- rgamma(n, shape, scale)
-  D <- (x - y) # differences
-  R <- rank(abs(D)) # ordered abs. diffs
-  Wplus <- sum(R[D > 0]) # stat1
-  Wminus <- sum(R[D < 0]) # stat2
-  W <- min(Wplus, Wminus)
+  #x <- rgamma(n, shape, scale)
+  #y <- rgamma(n, shape, scale)
+  x <- rnorm(n, mean = 10, sd = 3)
+  y <- rnorm(n, mean = 10, sd = 3)
+  D <- (x - y) 
+  R <- rank(abs(D))
+  Wplus <- sum(R[D > 0]) 
+  Wminus <- sum(R[D < 0]) 
+  #W <- min(Wplus, Wminus)
+  W <- ifelse(runif(1)>0.5, Wminus, Wplus)
   W_results <- append(W_results, W)
 }
+EW <- 1/4*n*(n+1)
+VarW <- n*(n+1)*(2*n+1)/24
 Z <- (W_results - EW)/sqrt(VarW)
 
 ggplot(data.frame(Z=Z), aes(x=Z)) + 
-  geom_histogram()
+  geom_histogram(aes(y = ..density..), bins = 30, fill = "blue", color = "black") + 
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color = "red", size = 1) +
+  ggtitle("Histogram with Standard Normal Density") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5), legend.title = element_blank())
