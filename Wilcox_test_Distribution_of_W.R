@@ -32,13 +32,13 @@ ggplot(data, aes(x = Value, fill = Group)) +
         legend.title = element_blank())  # Center the title
 
 W_results <- c()
-n_sim <- 1000000
+n_sim <- 100000
 n <- 1000
 tic()
 for(i in 1:n_sim){
   #x <- rgamma(n, shape, scale)
   #y <- rgamma(n, shape, scale)
-  x <- rnorm(n, mean = 10, sd = 3)
+  x <- rnorm(n, mean = 10, sd = 3) # H_0 is true.
   y <- rnorm(n, mean = 10, sd = 3)
   D <- (x - y) 
   R <- rank(abs(D))
@@ -48,7 +48,7 @@ for(i in 1:n_sim){
   W <- ifelse(runif(1)>0.5, Wminus, Wplus)
   W_results <- append(W_results, W)
 }
-toc()
+toc() # n_sim <- 100000 24.025 sec elapsed
 EW <- 1/4*n*(n+1)
 VarW <- n*(n+1)*(2*n+1)/24
 Z <- (W_results - EW)/sqrt(VarW)
