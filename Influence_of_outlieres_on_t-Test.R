@@ -6,6 +6,8 @@ gr2 <- rnorm(40, mean = 1, sd = 1)
 t.test(gr1, gr2)
 hist(gr2)
 
+(mittelwert_gr1 - mittelwert_gr)/sqrt(s_p^2/40 + s_p^2/40)
+
 # Introduce an outlier
 gr2[3] <- gr2[3] + 100
 mean(gr2)
