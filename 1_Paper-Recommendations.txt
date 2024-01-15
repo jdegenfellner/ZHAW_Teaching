@@ -1,7 +1,12 @@
 
+# p_Values:
 Moving to a World Beyond “p < 0.05”
 https://www.tandfonline.com/doi/full/10.1080/00031305.2019.1583913
 
+A Dirty Dozen: Twelve P-Value Misconceptions
+https://www.sciencedirect.com/science/article/pii/S0037196308000620?via%3Dihub
+
+# Bayes-Statistik
 Bayesian Estimation Supersedes the t Test
 https://jkkweb.sitehost.iu.edu/articles/Kruschke2013JEPG.pdf
 
