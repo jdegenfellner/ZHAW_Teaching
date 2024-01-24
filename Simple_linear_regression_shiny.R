@@ -1,4 +1,4 @@
-##linreg
+# https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Simple_linear_regression_shiny.R
 library(shiny)
 ui <- fluidPage(
   withMathJax(),
