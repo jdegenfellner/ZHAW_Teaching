@@ -71,3 +71,21 @@ ggplot(ARdata, aes(x = A, y = R)) +
   theme_minimal() + 
   theme(plot.title = element_text(hjust = 0.5))
 
+# page 8----
+new <- c(0.3, 0.9, 1.6)
+pred.frame <- data.frame(A = new)
+pred <- predict(modAR, newdata = pred.frame)
+prediction_data <- data.frame(new, pred)
+
+ggplot(ARdata, aes(x = A, y = R)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  geom_segment(aes(xend = A, yend = predicted), color = "red") + # Add vertical lines
+  labs(x = "A [Promille]", y = "R [ms]", 
+       title = "Alkoholkonzentration vs. Reaktionszeit") +
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5)) +
+  # Add red triangles for the predicted values
+  geom_point(data = prediction_data, aes(x = new, y = pred), 
+             shape = 17, color = "red", size = 4)
+
