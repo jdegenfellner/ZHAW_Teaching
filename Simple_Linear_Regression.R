@@ -16,6 +16,7 @@ p_load(plotly, tidyverse)
 # Let's look at formula (1.2.6) and use data from above
 df <- read.csv("https://raw.githubusercontent.com/jdegenfellner/ZHAW_Teaching/main/Data/regressionSimple.csv")
 str(df)
+plot(df$x,df$y)
 mod <- lm(y ~ x, data = df) # least squares method.
 summary(mod)
 
