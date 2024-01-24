@@ -2,7 +2,7 @@
 # From https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Simple_Linear_Regression.R
 # 24.1.24
 # QM2 
-# See also Script QM2 (Meichtry, S.2-13)
+# See also Script QM2 (Meichtry, pages.2-13)
 # See also https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Simple_linear_regression_shiny.R
 
 # Example data for simple linear regression----
