@@ -59,12 +59,15 @@ fitted(modAR)
 residuals(modAR)
 R - fitted(modAR)
 
-ggplot(df, aes(x = x, y = y)) +
+ARdata$predicted <- predict(modAR, ARdata)
+ARdata$residuals <- ARdata$R - ARdata$predicted
+
+ggplot(ARdata, aes(x = A, y = R)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
+  geom_segment(aes(xend = A, yend = predicted), color = "red") + # Add vertical lines
   labs(x = "A [Promille]", y = "R [ms]", 
        title = "Alkoholkonzentration vs. Reaktionszeit") +
   theme_minimal() + 
   theme(plot.title = element_text(hjust = 0.5))
-  
 
