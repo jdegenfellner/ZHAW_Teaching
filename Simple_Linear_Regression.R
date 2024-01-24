@@ -12,7 +12,7 @@
 library(pacman)
 p_load(plotly, tidyverse)
 
-# ad page 5 Script ----
+# Page 5 Script ----
 # Let's look at formula (1.2.6) and use data from above
 df <- read.csv("https://raw.githubusercontent.com/jdegenfellner/ZHAW_Teaching/main/Data/regressionSimple.csv")
 str(df)
@@ -30,11 +30,15 @@ sse_values <- outer(alpha_values, beta_values, Vectorize(function(a, b) sse(a, b
 fig <- plot_ly(x = ~alpha_values, y = ~beta_values, z = ~sse_values, type = "surface")
 fig
 
-# Highlight min
+# Highlight min----
 min_sse_index <- which(sse_values == min(sse_values), arr.ind = TRUE)
 min_alpha <- alpha_values[min_sse_index[1]]
 min_beta <- beta_values[min_sse_index[2]]
 min_sse <- min(sse_values)
+
+min_alpha
+min_beta
+coef(mod)
 
 fig <- fig %>% add_markers(x = ~min_alpha, y = ~min_beta, z = ~min_sse, 
                            marker = list(color = 'red', size = 10))
