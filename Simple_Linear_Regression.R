@@ -24,8 +24,8 @@ sse <- function(alpha, beta, data) {
   sum((data$y - predicted)^2)
 }
 
-alpha_values <- seq(-5, 5, length.out = 100)
-beta_values <- seq(-5, 5, length.out = 100)
+alpha_values <- seq(-5, 5, length.out = 1000)
+beta_values <- seq(-5, 5, length.out = 1000)
 sse_values <- outer(alpha_values, beta_values, Vectorize(function(a, b) sse(a, b, df)))
 fig <- plot_ly(x = ~alpha_values, y = ~beta_values, z = ~sse_values, type = "surface")
 fig
