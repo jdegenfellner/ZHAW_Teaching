@@ -89,3 +89,6 @@ ggplot(ARdata, aes(x = A, y = R)) +
   geom_point(data = prediction_data, aes(x = new, y = pred), 
              shape = 17, color = "red", size = 4)
 
+predict(modAR, newdata = pred.frame, interval = "prediction")
+
+# -> show shiny app.
