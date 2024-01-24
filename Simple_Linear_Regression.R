@@ -44,3 +44,14 @@ fig <- fig %>% add_markers(x = ~min_alpha, y = ~min_beta, z = ~min_sse,
                            marker = list(color = 'red', size = 10))
 fig
 
+# page 6----
+A <- c(0, 0.2, 0.5, 0.7, 1, 1.4, 1.8, 2.25, 2.5)
+R <- c(554, 581, 589, 628, 623, 687, 692, 734, 812)
+ARdata <- data.frame(Alkohol = A, Reaktionszeit = R)
+
+modAR <- lm(R ~ A, data = ARdata)
+modAR
+#summary(modAR)
+cov(R,A)/var(A)
+
+str(modAR)
