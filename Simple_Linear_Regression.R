@@ -55,3 +55,16 @@ modAR
 cov(R,A)/var(A)
 
 str(modAR)
+fitted(modAR)
+residuals(modAR)
+R - fitted(modAR)
+
+ggplot(df, aes(x = x, y = y)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "A [Promille]", y = "R [ms]", 
+       title = "Alkoholkonzentration vs. Reaktionszeit") +
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5))
+  
+
