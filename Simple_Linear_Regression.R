@@ -58,7 +58,7 @@ cov(R,A)/var(A)
 str(modAR)
 fitted(modAR)
 residuals(modAR)
-R - fitted(modAR)
+R - fitted(modAR) # residuals
 
 ARdata$predicted <- predict(modAR, ARdata)
 ARdata$residuals <- ARdata$R - ARdata$predicted
