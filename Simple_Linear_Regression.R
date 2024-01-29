@@ -1,4 +1,8 @@
 # Some code for simple linear regression
+
+# Set working directory to source file location
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
 # From https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Simple_Linear_Regression.R
 # 24.1.24
 # QM2 
@@ -19,30 +23,39 @@ str(df)
 plot(df$x,df$y)
 mod <- lm(y ~ x, data = df) # least squares method.
 summary(mod)
+sum((mod$fitted.values-df$y)^2) # true minium of SSE
+# 5.837053
 
 sse <- function(alpha, beta, data) {
   predicted <- alpha + beta * data$x
   sum((data$y - predicted)^2)
 }
 
-alpha_values <- seq(-5, 5, length.out = 1000)
-beta_values <- seq(-5, 5, length.out = 1000)
+alpha_values <- seq(-1, 1, length.out = 1000)
+beta_values <- seq(-1, 1, length.out = 1000)
 sse_values <- outer(alpha_values, beta_values, Vectorize(function(a, b) sse(a, b, df)))
 fig <- plot_ly(x = ~alpha_values, y = ~beta_values, z = ~sse_values, type = "surface")
 fig
 
 # Highlight min----
 min_sse_index <- which(sse_values == min(sse_values), arr.ind = TRUE)
-min_alpha <- alpha_values[min_sse_index[1]]
-min_beta <- beta_values[min_sse_index[2]]
-min_sse <- min(sse_values)
+(min_alpha <- alpha_values[min_sse_index[1]])
+(min_beta <- beta_values[min_sse_index[2]])
+(min_sse <- min(sse_values))
 
 min_alpha
 min_beta
-coef(mod)
+coef(mod) # match
 
-fig <- fig %>% add_markers(x = ~min_alpha, y = ~min_beta, z = ~min_sse, 
-                           marker = list(color = 'red', size = 10))
+fig <- fig %>% add_trace(
+  x = min_beta, 
+  y = min_alpha, 
+  z = min_sse, 
+  type = 'scatter3d', 
+  mode = 'markers',
+  marker = list(color = 'red', size = 3)
+)
+
 fig
 
 # page 6----
@@ -92,4 +105,5 @@ ggplot(ARdata, aes(x = A, y = R)) +
 
 predict(modAR, newdata = pred.frame, interval = "prediction")
 
-# -> show shiny app.
+# -> shiny app.
+# https://jdegenfellner.shinyapps.io/shiny-app-code_lm/
