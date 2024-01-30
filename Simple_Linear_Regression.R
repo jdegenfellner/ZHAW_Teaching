@@ -23,7 +23,7 @@ str(df)
 plot(df$x,df$y)
 mod <- lm(y ~ x, data = df) # least squares method.
 summary(mod)
-sum((mod$fitted.values-df$y)^2) # true minium of SSE
+sum((mod$fitted.values - df$y)^2) # true minium of SSE
 # 5.837053
 
 sse <- function(alpha, beta, data) {
@@ -53,7 +53,7 @@ fig <- fig %>% add_trace(
   z = min_sse, 
   type = 'scatter3d', 
   mode = 'markers',
-  marker = list(color = 'red', size = 3)
+  marker = list(color = 'red', size = 7)
 )
 
 fig
