@@ -7,7 +7,6 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 24.1.24
 # QM2 
 # See also Script QM2 (Meichtry, pages.2-13)
-# See also https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Simple_linear_regression_shiny.R
 
 # Example data for simple linear regression----
 # https://raw.githubusercontent.com/jdegenfellner/ZHAW_Teaching/main/Data/regressionSimple.csv
