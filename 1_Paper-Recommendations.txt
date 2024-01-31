@@ -10,7 +10,6 @@ https://www.sciencedirect.com/science/article/pii/S0037196308000620?via%3Dihub
 Bayesian Estimation Supersedes the t Test
 https://jkkweb.sitehost.iu.edu/articles/Kruschke2013JEPG.pdf
 
-
 # Reliability Studies: 
 ICC Paper:
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6645485/
@@ -22,3 +21,8 @@ https://link.springer.com/article/10.1007/s10742-022-00293-9
 The Basics of Item Response Theory Using R (enthält auch R-Code und Übungsbeispiele.)
 https://link.springer.com/book/10.1007/978-3-319-54205-8
 
+
+
+# General
+On the 12th Day of Christmas, a Statistician Sent to Me . . .
+https://www.bmj.com/content/379/bmj-2022-072883
