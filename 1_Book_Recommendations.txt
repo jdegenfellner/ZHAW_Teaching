@@ -1,0 +1,3 @@
+# Logistic Regression:
+Applied Logistic Regression, David W. Hosmer Jr., Stanley Lemeshow, Rodney X. Sturdivant
+https://onlinelibrary.wiley.com/doi/epub/10.1002/9781118548387
