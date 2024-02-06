@@ -1,9 +1,10 @@
 # Eine kategorielle und eine kontin. Eingangsgroesse
 
-library(tidyverse)
-library(flextable)
-library(gtsummary)
-library(performance)
+library(pacman)
+p_load(tidyverse,
+       flextable,
+       gtsummary,
+       performance)
 
 set.seed(10)
 n.groups <- 2
