@@ -110,3 +110,5 @@ predict(modAR, newdata = pred.frame, interval = "prediction")
 
 # -> shiny app.
 # https://jdegenfellner.shinyapps.io/shiny-app-code_lm/
+# Meaning/influence of parameters?
+# Refresh (often) to see what happens to Pr(>|t|)!
