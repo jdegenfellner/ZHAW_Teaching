@@ -1,8 +1,9 @@
-# https://github.com/jdegenfellner/ZHAW_Teaching
+# from: https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Zwei_kateg_Groessen.R
 
-library(tidyverse)
-library(flextable)
-library(gtsummary)
+library(pacman)
+p_load(tidyverse,
+       flextable,
+       gtsummary)
 
 
 # Slide 33, LM2.pdf
