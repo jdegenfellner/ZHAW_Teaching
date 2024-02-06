@@ -64,8 +64,9 @@ ARdata <- data.frame(Alkohol = A, Reaktionszeit = R)
 
 modAR <- lm(R ~ A, data = ARdata)
 modAR
-#summary(modAR)
-cov(R,A)/var(A)
+summary(modAR)
+cov(R,A)/var(A) # = beta_hat (1.2.6 Script)
+mean(R) - cov(R,A)/var(A) * mean(A) # = alpha_hat (1.2.7 Script)
 
 str(modAR)
 fitted(modAR)
