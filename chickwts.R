@@ -35,6 +35,8 @@ chickwts %>% ggplot(aes(x = feed, y = weight)) +
   geom_hline(yintercept = tot_mean, color = "red") # Add red line indicating the total mean
 
 # Side 13, LM2.pdf
+# Reference level of feed?
+levels(chickwts$feed) # reference is the first level of the factor -> levels(x)[1]
 mod <- lm(weight ~ feed, data = chickwts)
 summary(mod)
 tbl_regression(mod) # Shows reference level "casein" nicely
