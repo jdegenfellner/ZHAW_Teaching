@@ -23,15 +23,15 @@ plot(df$x,df$y)
 mod <- lm(y ~ x, data = df) # least squares method.
 summary(mod)
 sum((mod$fitted.values - df$y)^2) # true minimum of SSE
-# 5.837053
+# 5.837053 (=z_min in Plot below)
 
 sse <- function(alpha, beta, data) {
   predicted <- alpha + beta * data$x
   sum((data$y - predicted)^2)
 }
 
-alpha_values <- seq(-1, 1, length.out = 1000)
-beta_values <- seq(-1, 1, length.out = 1000)
+alpha_values <- seq(-2, 2, length.out = 1000)
+beta_values <- seq(-2, 2, length.out = 1000)
 sse_values <- outer(alpha_values, beta_values, Vectorize(function(a, b) sse(a, b, df)))
 fig <- plot_ly(x = ~alpha_values, y = ~beta_values, z = ~sse_values, type = "surface")
 fig
