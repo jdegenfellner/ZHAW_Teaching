@@ -24,8 +24,7 @@ chickwts %>%
 # Slide 12
 boxplot(weight ~ feed, data = chickwts)
 
-
-# Slide 12, LM2.pdf
+# same, a little more modern
 chickwts %>% ggplot(aes(x = feed, y = weight)) +
   geom_boxplot() + 
   geom_jitter(size = 0.4) + # Show points
