@@ -69,6 +69,8 @@ drop1(modOne, test = "F") # should the results include a test statistic relative
 mod0 <- lm(weight ~ 1, data = chickwts) # 1.. just take the mean as predictor
 anova(mod0, modOne)
 
+# What are the H0 and H1 here?
+
 
 
 # Slide 18-----
