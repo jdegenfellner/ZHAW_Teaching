@@ -22,7 +22,7 @@ str(df)
 plot(df$x,df$y)
 mod <- lm(y ~ x, data = df) # least squares method.
 summary(mod)
-sum((mod$fitted.values - df$y)^2) # true minium of SSE
+sum((mod$fitted.values - df$y)^2) # true minimum of SSE
 # 5.837053
 
 sse <- function(alpha, beta, data) {
