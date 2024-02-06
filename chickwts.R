@@ -1,6 +1,7 @@
-library(tidyverse)
-library(flextable) # nice tables
-library(gtsummary) # nice regression results
+library(pacman)
+p_load(tidyverse, 
+       flextable, # nice tables
+       gtsummary) # nice regression results
 
 str(chickwts)
 tot_mean <- mean(chickwts$weight)
