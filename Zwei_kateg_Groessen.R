@@ -11,8 +11,17 @@ set.seed(22)
 nage <- 3 ## Anzahl Kategorien Altersgruppe
 ntherapy <- 2 ## Anzahl Kategorien Therapieart
 n <- 200 ## Totale Sample Size
-age <- factor(sample(c("child", "young", "old"), size = n, replace = TRUE, prob = c(1, 2, 3)), levels = c("child", "young", "old")) 
-therapy <- factor(sample(c("Ctrl", "Trt"), size = n, replace = TRUE))
+
+age <- factor(sample(c("child", "young", "old"), 
+                     size = n, 
+                     replace = TRUE, 
+                     prob = c(1, 2, 3)), 
+              levels = c("child", "young", "old")) 
+
+therapy <- factor(sample(c("Ctrl", "Trt"), 
+                         size = n, 
+                         replace = TRUE))
+
 beta1 <- 40 ## Referenz
 betaAge <- c(10, 20) ## betaAge2 und betaAge3
 betaTr <- c(10) ## betaTreat
@@ -21,7 +30,7 @@ parameter <- c(beta1, betaAge, betaTr, alphabeta) ## Wahrer Parametervektor
 sigma <- 12 ## Noise SD
 epsilon <- rnorm(n, 0, sigma) ## Fehler
 X <- model.matrix(~age * therapy) ## Design-Matrix
-response <- as.numeric(X %*% parameter + epsilon) ## Y=Xbeta+epsilon, Daten ziehen aus Modell
+response <- as.numeric(X %*% parameter + epsilon) ## Y = X*beta + epsilon
 d.cat2 <- data.frame(response, age, therapy)
 
 str(d.cat2)
