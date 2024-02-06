@@ -38,7 +38,7 @@ chickwts %>% ggplot(aes(x = feed, y = weight)) +
 # Reference level of feed?
 levels(chickwts$feed) # reference is the first level of the factor -> levels(x)[1]
 mod <- lm(weight ~ feed, data = chickwts)
-summary(mod)
+summary(mod) # Effects relative to reference level (casein) mean!
 # Intercept manually:
 chickwts %>% 
   filter(feed == "casein") %>%
