@@ -1,7 +1,8 @@
 library(pacman)
 p_load(tidyverse, 
-       flextable, # nice tables
-       gtsummary) # nice regression results
+       emmeans, # Estimated marginal means (EMMs) for specified factors or factor combinations in a linear model
+       flextable, # Nice tables
+       gtsummary) # Nice regression results
 
 str(chickwts)
 tot_mean <- mean(chickwts$weight)
@@ -60,7 +61,6 @@ predict(mod, newdata = data.frame(feed = "horsebean"))
 predict(mod, newdata = data.frame(feed = "casein"))
 
 # Slide 18, LM2.pdf
-library(emmeans)
 em <- emmeans(mod, pairwise ~ feed) 
 summary(em, infer = c(TRUE, TRUE))$contrasts
 # Large differences from the boxplot above get rather low p-values
