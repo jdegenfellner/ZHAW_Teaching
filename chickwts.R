@@ -39,7 +39,12 @@ chickwts %>% ggplot(aes(x = feed, y = weight)) +
 levels(chickwts$feed) # reference is the first level of the factor -> levels(x)[1]
 mod <- lm(weight ~ feed, data = chickwts)
 summary(mod)
+# Intercept manually:
+chickwts %>% 
+  filter(feed == "casein") %>%
+  summarise(mean_casein = mean(weight))
 tbl_regression(mod) # Shows reference level "casein" nicely
+
 predict(mod, newdata = data.frame(feed = "sunflower")) # same as in Slide 11, LM2.pdf above
 # predict manually for "sunflower?
 # "casein" is the reference level, hence:
