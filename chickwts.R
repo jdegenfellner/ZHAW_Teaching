@@ -78,3 +78,6 @@ em <- emmeans(mod, pairwise ~ feed)
 summary(em, infer = c(TRUE, TRUE))$contrasts
 # Large differences from the boxplot above get rather low p-values
 # as expected.
+
+# Slide 19----
+plot(em$contrasts)
