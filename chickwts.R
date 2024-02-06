@@ -63,8 +63,9 @@ predict(modOne, newdata = data.frame(feed = "casein"))
 # Slide 15----
 mod0 <- update(modOne, . ~ . - feed)
 anova(mod0, modOne)
+drop1(modOne, test = "F") # should the results include a test statistic relative to the original model?
 
-# same, but possibly easier syntax:
+# Same, but possibly easier syntax:
 mod0 <- lm(weight ~ 1, data = chickwts) # 1.. just take the mean as predictor
 anova(mod0, modOne)
 
