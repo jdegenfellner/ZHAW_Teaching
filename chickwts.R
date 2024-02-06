@@ -5,12 +5,22 @@ p_load(tidyverse,
 
 str(chickwts)
 tot_mean <- mean(chickwts$weight)
-options(digits = 7)
+options(digits = 10) # The digits option controls how many digits are printed (by default); see also: https://www.burns-stat.com/the-options-mechanism-in-r/
 
 # Slide 11, LM2.pdf
 chickwts %>% group_by(feed) %>% 
   summarise(Durchschnitt = mean(weight),
             Effekt = mean(weight) - tot_mean)
+
+# below could be done more elegantly, I guess
+chickwts %>%
+  group_by(feed) %>%
+  summarise(
+    Durchschnitt = format(round(mean(weight), digits = 2), nsmall = 2),
+    Effekt = format(round(mean(weight) - tot_mean, digits = 2), nsmall = 2)
+  )
+
+
 # Slide 12
 boxplot(weight ~ feed, data = chickwts)
 
