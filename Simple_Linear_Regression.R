@@ -65,6 +65,8 @@ ARdata <- data.frame(Alkohol = A, Reaktionszeit = R)
 modAR <- lm(R ~ A, data = ARdata)
 modAR
 summary(modAR)
+
+# page 7----
 cov(R,A)/var(A) # = beta_hat (1.2.6 Script)
 mean(R) - cov(R,A)/var(A) * mean(A) # = alpha_hat (1.2.7 Script)
 
@@ -76,6 +78,7 @@ R - fitted(modAR) # residuals
 ARdata$predicted <- predict(modAR, ARdata)
 ARdata$residuals <- ARdata$R - ARdata$predicted
 
+# page 8----
 ggplot(ARdata, aes(x = A, y = R)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
@@ -85,7 +88,6 @@ ggplot(ARdata, aes(x = A, y = R)) +
   theme_minimal() + 
   theme(plot.title = element_text(hjust = 0.5))
 
-# page 8----
 new <- c(0.3, 0.9, 1.6)
 pred.frame <- data.frame(A = new)
 pred <- predict(modAR, newdata = pred.frame)
