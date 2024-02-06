@@ -93,6 +93,7 @@ pred.frame <- data.frame(A = new)
 pred <- predict(modAR, newdata = pred.frame)
 prediction_data <- data.frame(new, pred)
 
+# page 9----
 ggplot(ARdata, aes(x = A, y = R)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
