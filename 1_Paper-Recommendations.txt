@@ -22,6 +22,9 @@ The Basics of Item Response Theory Using R (enthält auch R-Code und Übungsbeis
 https://link.springer.com/book/10.1007/978-3-319-54205-8
 
 
+# The Abuse of Power
+https://www.tandfonline.com/doi/abs/10.1198/000313001300339897?casa_token=_vpm6U4PpFQAAAAA:3E0sxQHCv-t6uPWUO7aAnXVTobMFbZpW0qwpBVXaD05F6Hg1zT9qtNVwUnZtSN_V5EGGs02p43wgeyM
+
 
 # General
 On the 12th Day of Christmas, a Statistician Sent to Me . . .
