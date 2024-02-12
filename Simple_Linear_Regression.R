@@ -23,7 +23,7 @@ plot(df$x,df$y)
 mod <- lm(y ~ x, data = df) # least squares method.
 summary(mod)
 sum((mod$fitted.values - df$y)^2) # true minimum of SSE
-# 5.837053 (=z_min in Plot below)
+# 5.837053 (= z_min in Plot below)
 
 sse <- function(alpha, beta, data) {
   predicted <- alpha + beta * data$x
