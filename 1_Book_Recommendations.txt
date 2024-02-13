@@ -4,3 +4,6 @@ https://onlinelibrary.wiley.com/doi/epub/10.1002/9781118548387
 
 # Regression Modelling Strategies, Frank Harrell
 https://link.springer.com/book/10.1007/978-3-319-19425-7
+
+# The Elements of Statistical Learning (free)
+https://hastie.su.domains/Papers/ESLII.pdf
