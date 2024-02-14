@@ -11,11 +11,11 @@
 # Power could be estimated more precisely, 
 # small n and large sd should give low power for now.
 
-n <- 20
+n <- 13
 x1 <- rnorm(n, mean = 0, sd = 2)
 x2 <- rnorm(n, mean = 0, sd = 2.3)
 cor(x1,x2)
-y <- 1*x1 + 2*x2 + rnorm(n)
+y <- 1*x1 + 1.2*x2 + rnorm(n)
 df <- data.frame(x1=x1, x2=x2, y=y)
 
 mod <- lm(y ~ x1 + x2, data = df)
