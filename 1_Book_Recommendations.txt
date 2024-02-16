@@ -7,3 +7,6 @@ https://link.springer.com/book/10.1007/978-3-319-19425-7
 
 # The Elements of Statistical Learning (free)
 https://hastie.su.domains/Papers/ESLII.pdf
+
+# Applied Regression Analysis and Generalized Linear Models - John Fox
+https://us.sagepub.com/en-us/nam/applied-regression-analysis-and-generalized-linear-models/book237254
