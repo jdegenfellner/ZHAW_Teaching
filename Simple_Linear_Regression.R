@@ -12,6 +12,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # Example data for simple linear regression----
 # https://raw.githubusercontent.com/jdegenfellner/ZHAW_Teaching/main/Data/regressionSimple.csv
 # https://raw.githubusercontent.com/jdegenfellner/ZHAW_Teaching/main/Data/regression.csv
+# or just make up your own data...
 
 library(pacman)
 p_load(plotly, tidyverse)
@@ -38,13 +39,13 @@ fig <- plot_ly(x = ~alpha_values, y = ~beta_values, z = ~sse_values, type = "sur
        layout(title = "Sum of squared errors depending on alpha and beta")
 fig
 
-# Highlight min----
-min_sse_index <- which(sse_values == min(sse_values), arr.ind = TRUE)
+# Highlight min of this paraboloid (fig)----
+min_sse_index <- which(sse_values == min(sse_values), arr.ind = TRUE) # Find indices where error is smallest.
 (min_alpha <- alpha_values[min_sse_index[1]])
 (min_beta <- beta_values[min_sse_index[2]])
 (min_sse <- min(sse_values))
 
-min_alpha
+min_alpha # (= Intercept)
 min_beta
 coef(mod) # match
 
@@ -64,7 +65,7 @@ A <- c(0, 0.2, 0.5, 0.7, 1, 1.4, 1.8, 2.25, 2.5)
 R <- c(554, 581, 589, 628, 623, 687, 692, 734, 812)
 ARdata <- data.frame(Alkohol = A, Reaktionszeit = R)
 
-modAR <- lm(R ~ A, data = ARdata)
+modAR <- lm(R ~ A, data = ARdata) # Regress R on A
 modAR
 summary(modAR)
 
