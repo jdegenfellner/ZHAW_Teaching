@@ -116,3 +116,11 @@ predict(modAR, newdata = pred.frame, interval = "prediction")
 # https://jdegenfellner.shinyapps.io/shiny-app-code_lm/
 # Meaning/influence of parameters?
 # Refresh (often) to see what happens to Pr(>|t|)!
+
+
+# fuer die Interessierten:
+# (1.2.8) im Skript empirisch prüfen
+str(modAR)
+sum(modAR$fitted.values*modAR$residuals) # ~ 0
+sum(modAR$residuals) # ~ 0
+
