@@ -91,7 +91,8 @@ ggplot(ARdata, aes(x = A, y = R)) +
   theme_minimal() + 
   theme(plot.title = element_text(hjust = 0.5))
 
-new <- c(0.3, 0.9, 1.6)
+
+new <- c(0.3, 0.9, 1.6) # new A-values
 pred.frame <- data.frame(A = new)
 pred <- predict(modAR, newdata = pred.frame)
 prediction_data <- data.frame(new, pred)
