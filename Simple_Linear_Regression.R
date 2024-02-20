@@ -74,8 +74,8 @@ cov(R,A)/var(A) # = beta_hat (1.2.6 Script)
 mean(R) - cov(R,A)/var(A) * mean(A) # = alpha_hat (1.2.7 Script)
 
 str(modAR)
-fitted(modAR)
-residuals(modAR)
+fitted(modAR) # \hat{y}_i
+residuals(modAR) # y_i - \hat{y}_i
 R - fitted(modAR) # residuals
 
 ARdata$predicted <- predict(modAR, ARdata)
