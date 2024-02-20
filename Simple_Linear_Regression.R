@@ -34,7 +34,8 @@ sse <- function(alpha, beta, data) {
 alpha_values <- seq(-2, 2, length.out = 1000)
 beta_values <- seq(-2, 2, length.out = 1000)
 sse_values <- outer(alpha_values, beta_values, Vectorize(function(a, b) sse(a, b, df)))
-fig <- plot_ly(x = ~alpha_values, y = ~beta_values, z = ~sse_values, type = "surface")
+fig <- plot_ly(x = ~alpha_values, y = ~beta_values, z = ~sse_values, type = "surface") %>%
+       layout(title = "Sum of squared errors depending on alpha and beta")
 fig
 
 # Highlight min----
