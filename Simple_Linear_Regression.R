@@ -7,7 +7,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Simple_Linear_Regression.R
 # 24.1.24
 # QM2 
-# See also Script QM2 (Meichtry, pages.2-13)
+# See also Script QM2 (Meichtry 2022, pages.2-13)
 
 # Example data for simple linear regression----
 # https://raw.githubusercontent.com/jdegenfellner/ZHAW_Teaching/main/Data/regressionSimple.csv
@@ -23,7 +23,7 @@ str(df)
 plot(df$x,df$y)
 mod <- lm(y ~ x, data = df) # least squares method.
 summary(mod)
-sum((mod$fitted.values - df$y)^2) # true minimum of SSE
+sum((mod$fitted.values - df$y)^2) # true minimum of SSE (= sum of squared errors)
 # 5.837053 (= z_min in Plot below)
 
 sse <- function(alpha, beta, data) {
