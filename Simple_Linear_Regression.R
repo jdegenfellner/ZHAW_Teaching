@@ -3,7 +3,8 @@
 # Set working directory to source file location
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-# Current version see https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Simple_Linear_Regression.R
+# Current version see:
+# https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Simple_Linear_Regression.R
 # 24.1.24
 # QM2 
 # See also Script QM2 (Meichtry, pages.2-13)
