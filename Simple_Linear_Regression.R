@@ -121,6 +121,6 @@ predict(modAR, newdata = pred.frame, interval = "prediction")
 # fuer die Interessierten:
 # (1.2.8) im Skript empirisch prüfen
 str(modAR)
-sum(modAR$fitted.values*modAR$residuals) # ~ 0
+sum(modAR$fitted.values*modAR$residuals) # ~ 0 # https://de.wikipedia.org/wiki/Lineare_Einfachregression#Statistische_Eigenschaften_der_Kleinste-Quadrate-Sch%C3%A4tzer
 sum(modAR$residuals) # ~ 0
 
