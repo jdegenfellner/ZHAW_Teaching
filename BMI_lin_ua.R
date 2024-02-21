@@ -1,6 +1,7 @@
 # Folie BMI, Masse, Groesse sind nicht linear unabhaengig...
 
-library(pracma)
+library(pacman)
+p_load(pracma, plm)
 
 # using: # https://web.maths.unsw.edu.au/~danielch/linear12/lecture14.pdf
 # Vectors are linearly independent if the kernel is trivial
@@ -24,7 +25,7 @@ bmi <- 2*height + 3*mass
 df <- data.frame(outcome = outcome, height = height, mass = mass, bmi = bmi)
 df_mat <- as.matrix(df)
 nullspace(df_mat) # kernel not trivial
-det(t(df_mat) %*% df_mat) # >> 0
+det(t(df_mat) %*% df_mat) # != 0 and large
 # https://www.math.uni-duesseldorf.de/~internet/WiWi_WS1415/inversematrizen.pdf
 # "Satz 8 Eine quadratische Matrix A ist genau dann invertierbar, wenn det(A) != 0."
 solve(t(df_mat) %*% df_mat) # BUT: inverse does not exist
