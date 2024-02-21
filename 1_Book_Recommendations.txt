@@ -10,3 +10,6 @@ https://hastie.su.domains/Papers/ESLII.pdf
 
 # Applied Regression Analysis and Generalized Linear Models - John Fox
 https://us.sagepub.com/en-us/nam/applied-regression-analysis-and-generalized-linear-models/book237254
+
+# Statistical Inference (free)
+https://mybiostats.files.wordpress.com/2015/03/casella-berger.pdf
