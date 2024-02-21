@@ -1,5 +1,5 @@
 # RScript-Template #
-# Erstellt fuer ZHAW
+# Erstellt fuer ZHAW, 2023
 
 # 1) Infos----
 # Ganz oben ist es sinnvoll, zu erklaeren, was das Skript ca. macht und 
