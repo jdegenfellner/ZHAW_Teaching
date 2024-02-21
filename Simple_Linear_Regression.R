@@ -21,6 +21,7 @@ p_load(plotly, tidyverse)
 # Let's look at formula (1.2.6) and use data from above
 df <- read.csv("https://raw.githubusercontent.com/jdegenfellner/ZHAW_Teaching/main/Data/regressionSimple.csv")
 str(df)
+df
 plot(df$x,df$y)
 mod <- lm(y ~ x, data = df) # least squares method.
 summary(mod)
@@ -64,7 +65,7 @@ fig
 A <- c(0, 0.2, 0.5, 0.7, 1, 1.4, 1.8, 2.25, 2.5)
 R <- c(554, 581, 589, 628, 623, 687, 692, 734, 812)
 ARdata <- data.frame(Alkohol = A, Reaktionszeit = R)
-
+#plot(A,R)
 modAR <- lm(R ~ A, data = ARdata) # Regress R on A
 modAR
 summary(modAR)
@@ -76,6 +77,7 @@ mean(R) - cov(R,A)/var(A) * mean(A) # = alpha_hat (1.2.7 Script)
 str(modAR)
 fitted(modAR) # \hat{y}_i
 residuals(modAR) # y_i - \hat{y}_i
+residuals(modAR)
 R - fitted(modAR) # residuals
 
 ARdata$predicted <- predict(modAR, ARdata)

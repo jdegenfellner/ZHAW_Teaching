@@ -5,3 +5,6 @@ Andrew Gelman:
 https://www.youtube.com/watch?v=KS3yPw91iC0&t=2454s&ab_channel=ColumbiaUniversity
 https://www.youtube.com/watch?v=Sya-s-wibnw&ab_channel=OnlineCausalInferenceSeminar
 https://www.youtube.com/watch?v=ZmbrsbYwRWw&t=342&ab_channel=LanderAnalytics
+
+3Blue1Brown - Matrices:
+https://www.youtube.com/watch?v=kYB8IZa5AuE&ab_channel=3Blue1Brown
