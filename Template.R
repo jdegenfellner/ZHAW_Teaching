@@ -1,5 +1,5 @@
 # RScript-Template #
-# Erstellt fuer CAS-Gesundheitswissenschaften 2023
+# Erstellt fuer ZHAW
 
 # 1) Infos----
 # Ganz oben ist es sinnvoll, zu erklaeren, was das Skript ca. macht und 
