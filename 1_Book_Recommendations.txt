@@ -13,3 +13,6 @@ https://us.sagepub.com/en-us/nam/applied-regression-analysis-and-generalized-lin
 
 # Statistical Inference (free)
 https://mybiostats.files.wordpress.com/2015/03/casella-berger.pdf
+
+# Computer age statistical inference (Efron, Hastie) (free)
+https://hastie.su.domains/CASI_files/PDF/casi.pdf
