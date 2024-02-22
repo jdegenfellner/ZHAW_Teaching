@@ -1,4 +1,4 @@
-# Bestimmtheitsmass, wie groß ist dieses, wenn man nur Rauschen hat?
+# How large is R^2 if we only have noise?
 
 library(tictoc)
 
