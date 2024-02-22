@@ -21,3 +21,7 @@ for(i in 1:n){
 toc()
 
 hist(r_squared)
+quantile(r_squared, 0.99)
+
+# TODO
+# add more covariates
