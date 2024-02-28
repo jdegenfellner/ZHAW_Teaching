@@ -6,16 +6,23 @@ https://www.tandfonline.com/doi/full/10.1080/00031305.2019.1583913
 A Dirty Dozen: Twelve P-Value Misconceptions
 https://www.sciencedirect.com/science/article/pii/S0037196308000620?via%3Dihub
 
+p-Value statement ASA:
+https://www.amstat.org/asa/files/pdfs/p-valuestatement.pdf
+
+
 # Bayes-Statistik
 Bayesian Estimation Supersedes the t Test
 https://jkkweb.sitehost.iu.edu/articles/Kruschke2013JEPG.pdf
+
 
 # Reliability Studies: 
 ICC Paper:
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6645485/
 
+
 Sample size Reliability Studies:
 https://link.springer.com/article/10.1007/s10742-022-00293-9
+
 
 # Item Response Theory:
 The Basics of Item Response Theory Using R (enthält auch R-Code und Übungsbeispiele.)
