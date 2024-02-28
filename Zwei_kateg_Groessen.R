@@ -67,3 +67,4 @@ predict(mod_int_only, newdata = data.frame(therapy = "Ctrl", age = "child")) # 3
 d.cat2_sub1 <- d.cat2 %>% filter(therapy == "Ctrl", age == "child")
 mod_sub1 <- lm(response ~ 1, data = d.cat2_sub1) # Use only intercept
 summary(mod_sub1) # Estimate = 34.889, This is just the mean in the subgroup!
+
