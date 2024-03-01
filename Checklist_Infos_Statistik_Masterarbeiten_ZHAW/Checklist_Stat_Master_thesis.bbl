@@ -18,11 +18,21 @@ J.K. Kruschke.
   May 2013.
 \newblock Epub 2012 Jul 9.
 
+\bibitem[KT16]{VIM}
+Alexander Kowarik and Matthias Templ.
+\newblock Imputation with the {R} package {VIM}.
+\newblock {\em Journal of Statistical Software}, 74(7):1--16, 2016.
+
 \bibitem[MWG21]{MultipleTesting}
 Otília Menyhart, Boglárka Weltz, and Balázs Győrffy.
 \newblock Multipletesting.com: A tool for life science researchers for multiple
   hypothesis testing correction.
 \newblock {\em PLOS ONE}, 16(6):1--12, 06 2021.
+
+\bibitem[Tie17]{visdat}
+Nicholas Tierney.
+\newblock visdat: Visualising whole data frames.
+\newblock {\em JOSS}, 2(16):355, 2017.
 
 \bibitem[WSL19]{Wasserstein2019}
 Ronald~L. Wasserstein, Allen~L. Schirm, and Nicole~A. Lazar.

@@ -6,7 +6,8 @@
 \usepackage{graphicx}
 
 
-\title{Statistics Notes for Master's Thesis at ZHAW (in progress)}
+\title{Statistics Notes for Master's Thesis at ZHAW\\
+...an incomplete list}
 \author{Jürgen Degenfellner}
 \date{\today}
 
@@ -106,8 +107,25 @@ Especially for smaller sample sizes, a more informative boxplot is advised, see 
   \end{minipage}
 \end{figure}
 
-Further Sections: Missing values, model assumptions, statistical models, assumptions of statistical tests?
+Further Sections: statistical models
 Welche noch?
+
+\section{Missing values}
+Do I have missing values in the data I want to analyze? If yes, how many in which variables?
+Rule of thumb: if more than 3\% one should use imputation, one could use k-Nearst-Neighbour imputation for instance, which is fast and good \cite{VIM}.
+Missing values can be visualized nicely using the package visdat \cite{visdat} and the command vis\_miss() - see figure \ref{fig:vismiss}. 
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./images/vis_miss.png}
+  \caption{Visualization of missing values.}
+  \label{fig:vismiss}
+\end{figure}
+
+\section{Model assumptions and assumptions for statistical tests}
+Usually, every statistical model and test has assumptions that should be met if one wants to do inference statistics. It is important to check these assumptions. E.g., for a multiple regression model, one has to check linearity, homoscedasticity, influential points, normality of the residuals and more general: how does the model fit the data?
+One could use the plot-command on the regression-model object oder work with the package performance 
+For the popular t-test one could check the normality of the mean (or the data itself, as is often done), and homogeneity of variances.
 
 \newpage
 

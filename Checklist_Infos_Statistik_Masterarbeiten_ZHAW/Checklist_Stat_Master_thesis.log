@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.3.9)  5 OCT 2023 19:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.3.9)  1 MAR 2024 13:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -214,24 +214,24 @@ File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
 (./Checklist_Stat_Master_thesis.aux)
 \openout1 = `Checklist_Stat_Master_thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -267,7 +267,7 @@ LaTeX Font Info:    ... okay on input line 13.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 13.
+Package hyperref Info: Link coloring OFF on input line 14.
 (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 
@@ -280,9 +280,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count267
 )
-LaTeX Info: Redefining \ref on input line 13.
-LaTeX Info: Redefining \pageref on input line 13.
-LaTeX Info: Redefining \nameref on input line 13.
+LaTeX Info: Redefining \ref on input line 14.
+LaTeX Info: Redefining \pageref on input line 14.
+LaTeX Info: Redefining \nameref on input line 14.
  (./Checklist_Stat_Master_thesis.out) (./Checklist_Stat_Master_thesis.out)
 \@outlinefile=\write3
 \openout3 = `Checklist_Stat_Master_thesis.out'.
@@ -311,69 +311,86 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 16.
+(Font)              <14.4> on input line 17.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 16.
+(Font)              <7> on input line 17.
 LaTeX Font Info:    Trying to load font information for OML+cmr on input line 2
-3.
+4.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/it' in size <12> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 23.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 24.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 26.
+(Font)              <12> on input line 27.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 26.
+(Font)              <8> on input line 27.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 26.
+(Font)              <6> on input line 27.
 
 
-LaTeX Warning: Command \textless invalid in math mode on input line 26.
+LaTeX Warning: Command \textless invalid in math mode on input line 27.
 
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 26.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 27.
 
-LaTeX Warning: Command \textless invalid in math mode on input line 26.
+LaTeX Warning: Command \textless invalid in math mode on input line 27.
 
 [1
 
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 [2]
-<./images/boxplot.pdf, id=65, 505.89pt x 505.89pt>
+<./images/boxplot.pdf, id=69, 505.89pt x 505.89pt>
 File: ./images/boxplot.pdf Graphic file (type pdf)
 <use ./images/boxplot.pdf>
-Package pdftex.def Info: ./images/boxplot.pdf  used on input line 79.
+Package pdftex.def Info: ./images/boxplot.pdf  used on input line 80.
 (pdftex.def)             Requested size: 188.21288pt x 188.21074pt.
-<./images/violin_plot.pdf, id=66, 497.86pt x 572.1375pt>
+<./images/violin_plot.pdf, id=70, 497.86pt x 572.1375pt>
 File: ./images/violin_plot.pdf Graphic file (type pdf)
 <use ./images/violin_plot.pdf>
-Package pdftex.def Info: ./images/violin_plot.pdf  used on input line 85.
+Package pdftex.def Info: ./images/violin_plot.pdf  used on input line 86.
 (pdftex.def)             Requested size: 188.21288pt x 216.29704pt.
-<./images/histogram.pdf, id=69, 505.89pt x 505.89pt>
+<./images/histogram.pdf, id=73, 505.89pt x 505.89pt>
 File: ./images/histogram.pdf Graphic file (type pdf)
 <use ./images/histogram.pdf>
-Package pdftex.def Info: ./images/histogram.pdf  used on input line 97.
+Package pdftex.def Info: ./images/histogram.pdf  used on input line 98.
 (pdftex.def)             Requested size: 188.21288pt x 188.21074pt.
-<./images/density_plot_with_boxplot.pdf, id=70, 497.86pt x 572.1375pt>
+<./images/density_plot_with_boxplot.pdf, id=74, 497.86pt x 572.1375pt>
 File: ./images/density_plot_with_boxplot.pdf Graphic file (type pdf)
 <use ./images/density_plot_with_boxplot.pdf>
 Package pdftex.def Info: ./images/density_plot_with_boxplot.pdf  used on input 
-line 103.
+line 104.
 (pdftex.def)             Requested size: 188.21288pt x 216.29704pt.
- [3] [4 <./images/boxplot.pdf> <./images/violin_plot.pdf>]
-(./Checklist_Stat_Master_thesis.bbl) [5 <./images/histogram.pdf> <./images/dens
-ity_plot_with_boxplot.pdf>] (./Checklist_Stat_Master_thesis.aux)
-Package rerunfilecheck Info: File `Checklist_Stat_Master_thesis.out' has not ch
-anged.
-(rerunfilecheck)             Checksum: 0D93DB3EDE228A44FD4EE44CF92DB3D5;891.
+ [3]
+<./images/vis_miss.png, id=86, 361.35pt x 289.08pt>
+File: ./images/vis_miss.png Graphic file (type png)
+<use ./images/vis_miss.png>
+Package pdftex.def Info: ./images/vis_miss.png  used on input line 120.
+(pdftex.def)             Requested size: 209.12683pt x 167.3004pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[4 <./images/boxplot.pdf> <./images/violin_plot.pdf>]
+(./Checklist_Stat_Master_thesis.bbl [5 <./images/histogram.pdf> <./images/densi
+ty_plot_with_boxplot.pdf> <./images/vis_miss.png>]) [6]
+(./Checklist_Stat_Master_thesis.aux)
+
+Package rerunfilecheck Warning: File `Checklist_Stat_Master_thesis.out' has cha
+nged.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Checklist_Stat_Master_thesis.out':
+(rerunfilecheck)             Before: 52365307B170AEB3A7A88E8D06EA0404;1007
+(rerunfilecheck)             After:  CF868D2FB0B5C9EDC2A3AF5A8F0F66F3;1343.
  ) 
 Here is how much of TeX's memory you used:
- 8314 strings out of 478994
- 124324 string characters out of 5858185
- 428756 words of memory out of 5000000
- 25670 multiletter control sequences out of 15000+600000
+ 8332 strings out of 478994
+ 124570 string characters out of 5858185
+ 428879 words of memory out of 5000000
+ 25680 multiletter control sequences out of 15000+600000
  409282 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  71i,7n,74p,562b,472s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -384,10 +401,10 @@ Here is how much of TeX's memory you used:
 sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr
 /local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/
 local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Checklist_Stat_Master_thesis.pdf (5 pages, 127650 bytes).
+Output written on Checklist_Stat_Master_thesis.pdf (6 pages, 159604 bytes).
 PDF statistics:
- 147 PDF objects out of 1000 (max. 8388607)
- 124 compressed objects within 2 object streams
- 37 named destinations out of 1000 (max. 500000)
- 53 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 166 PDF objects out of 1000 (max. 8388607)
+ 140 compressed objects within 2 object streams
+ 43 named destinations out of 1000 (max. 500000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
 
