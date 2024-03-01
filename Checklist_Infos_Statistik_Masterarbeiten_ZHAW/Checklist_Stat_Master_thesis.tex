@@ -107,9 +107,6 @@ Especially for smaller sample sizes, a more informative boxplot is advised, see 
   \end{minipage}
 \end{figure}
 
-Further Sections: statistical models
-Welche noch?
-
 \section{Missing values}
 Do I have missing values in the data I want to analyze? If yes, how many in which variables?
 Rule of thumb: if more than 3\% one should use imputation, one could use k-Nearst-Neighbour imputation for instance, which is fast and good \cite{VIM}.
@@ -126,6 +123,14 @@ Missing values can be visualized nicely using the package visdat \cite{visdat} a
 Usually, every statistical model and test has assumptions that should be met if one wants to do inference statistics. It is important to check these assumptions. E.g., for a multiple regression model, one has to check linearity, homoscedasticity, influential points, normality of the residuals and more general: how does the model fit the data?
 One could use the plot-command on the regression-model object oder work with the package performance 
 For the popular t-test one could check the normality of the mean (or the data itself, as is often done), and homogeneity of variances.
+
+\section{Statistical modeling}
+The goal is to estimate a model that fits the data well. Among other aspects, important are
+\begin{itemize}
+\item What type is the variable to be explained (Y): count data, percent data, continuous data, binary data (0/1)? Depending on this, different models are used.
+\item What type of relationship is expected between the explanatory variables ($x_i$) and the outcome (Y) - linear, polynomial, exponential?
+\item Which variables belong into the statistical model (confounder)?
+\end{itemize}
 
 \newpage
 

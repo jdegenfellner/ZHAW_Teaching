@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.3.9)  1 MAR 2024 13:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.3.9)  1 MAR 2024 13:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -341,70 +341,64 @@ LaTeX Warning: Command \textless invalid in math mode on input line 27.
 
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 [2]
-<./images/boxplot.pdf, id=69, 505.89pt x 505.89pt>
+<./images/boxplot.pdf, id=77, 505.89pt x 505.89pt>
 File: ./images/boxplot.pdf Graphic file (type pdf)
 <use ./images/boxplot.pdf>
 Package pdftex.def Info: ./images/boxplot.pdf  used on input line 80.
 (pdftex.def)             Requested size: 188.21288pt x 188.21074pt.
-<./images/violin_plot.pdf, id=70, 497.86pt x 572.1375pt>
+<./images/violin_plot.pdf, id=78, 497.86pt x 572.1375pt>
 File: ./images/violin_plot.pdf Graphic file (type pdf)
 <use ./images/violin_plot.pdf>
 Package pdftex.def Info: ./images/violin_plot.pdf  used on input line 86.
 (pdftex.def)             Requested size: 188.21288pt x 216.29704pt.
-<./images/histogram.pdf, id=73, 505.89pt x 505.89pt>
+<./images/histogram.pdf, id=81, 505.89pt x 505.89pt>
 File: ./images/histogram.pdf Graphic file (type pdf)
 <use ./images/histogram.pdf>
 Package pdftex.def Info: ./images/histogram.pdf  used on input line 98.
 (pdftex.def)             Requested size: 188.21288pt x 188.21074pt.
-<./images/density_plot_with_boxplot.pdf, id=74, 497.86pt x 572.1375pt>
+<./images/density_plot_with_boxplot.pdf, id=82, 497.86pt x 572.1375pt>
 File: ./images/density_plot_with_boxplot.pdf Graphic file (type pdf)
 <use ./images/density_plot_with_boxplot.pdf>
 Package pdftex.def Info: ./images/density_plot_with_boxplot.pdf  used on input 
 line 104.
 (pdftex.def)             Requested size: 188.21288pt x 216.29704pt.
  [3]
-<./images/vis_miss.png, id=86, 361.35pt x 289.08pt>
+<./images/vis_miss.png, id=94, 361.35pt x 289.08pt>
 File: ./images/vis_miss.png Graphic file (type png)
 <use ./images/vis_miss.png>
-Package pdftex.def Info: ./images/vis_miss.png  used on input line 120.
+Package pdftex.def Info: ./images/vis_miss.png  used on input line 117.
 (pdftex.def)             Requested size: 209.12683pt x 167.3004pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[4 <./images/boxplot.pdf> <./images/violin_plot.pdf>]
-(./Checklist_Stat_Master_thesis.bbl [5 <./images/histogram.pdf> <./images/densi
-ty_plot_with_boxplot.pdf> <./images/vis_miss.png>]) [6]
-(./Checklist_Stat_Master_thesis.aux)
-
-Package rerunfilecheck Warning: File `Checklist_Stat_Master_thesis.out' has cha
-nged.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Checklist_Stat_Master_thesis.out':
-(rerunfilecheck)             Before: 52365307B170AEB3A7A88E8D06EA0404;1007
-(rerunfilecheck)             After:  CF868D2FB0B5C9EDC2A3AF5A8F0F66F3;1343.
+[4 <./images/boxplot.pdf> <./images/violin_plot.pdf>] [5 <./images/histogram.pd
+f> <./images/density_plot_with_boxplot.pdf> <./images/vis_miss.png>] [6]
+(./Checklist_Stat_Master_thesis.bbl) [7] (./Checklist_Stat_Master_thesis.aux)
+Package rerunfilecheck Info: File `Checklist_Stat_Master_thesis.out' has not ch
+anged.
+(rerunfilecheck)             Checksum: A9AF4BB166D85ADBE71918EB9D69B800;1489.
  ) 
 Here is how much of TeX's memory you used:
- 8332 strings out of 478994
- 124570 string characters out of 5858185
+ 8336 strings out of 478994
+ 124607 string characters out of 5858185
  428879 words of memory out of 5000000
- 25680 multiletter control sequences out of 15000+600000
+ 25682 multiletter control sequences out of 15000+600000
  409282 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  71i,7n,74p,562b,472s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 }</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
-/usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
-sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr
-/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/
-local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Checklist_Stat_Master_thesis.pdf (6 pages, 159604 bytes).
+/usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></u
+sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr
+/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/l
+ocal/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/lo
+cal/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on Checklist_Stat_Master_thesis.pdf (7 pages, 168695 bytes).
 PDF statistics:
- 166 PDF objects out of 1000 (max. 8388607)
- 140 compressed objects within 2 object streams
- 43 named destinations out of 1000 (max. 500000)
- 66 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 183 PDF objects out of 1000 (max. 8388607)
+ 155 compressed objects within 2 object streams
+ 45 named destinations out of 1000 (max. 500000)
+ 82 words of extra memory for PDF output out of 10000 (max. 10000000)
 
