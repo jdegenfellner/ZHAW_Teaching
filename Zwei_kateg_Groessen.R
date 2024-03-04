@@ -3,7 +3,8 @@
 library(pacman)
 p_load(tidyverse,
        flextable,
-       gtsummary)
+       gtsummary,
+       semEff)
 
 
 # Slide 33, LM2.pdf----
@@ -30,6 +31,10 @@ parameter <- c(beta1, betaAge, betaTr, alphabeta) ## Wahrer Parametervektor
 sigma <- 12 ## Noise SD
 epsilon <- rnorm(n, 0, sigma) ## Fehler
 X <- model.matrix(~age * therapy) ## Design-Matrix
+
+colnames(X)
+parameter # fit
+
 response <- as.numeric(X %*% parameter + epsilon) ## Y = X*beta + epsilon
 d.cat2 <- data.frame(response, age, therapy)
 
@@ -42,7 +47,6 @@ summary(mod)
 tbl_regression(mod, intercept = TRUE)
 
 # What about R^2?
-library(semEff)
 R2(mod, adj.type = "olkin-pratt", pred = FALSE)[2] # Unbiased estimator
 summary(mod)$r.squared
 summary(mod)$adj.r.squared
