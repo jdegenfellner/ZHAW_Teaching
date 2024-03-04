@@ -4,8 +4,10 @@ library(pacman)
 p_load(tidyverse,
        flextable,
        gtsummary,
-       performance)
+       performance,
+       ggpmisc)
 
+# Create data
 set.seed(10)
 n.groups <- 2
 n.sample <- 50
@@ -33,7 +35,6 @@ d.catcont %>% ggplot(aes(x = height, y = weight, colour = group)) +
   geom_smooth(aes(group = group), method = "lm") # add regression lines
 
 # How about adding regression parameters?
-library(ggpmisc)
 d.catcont$heightCent <- scale(d.catcont$height, scale = FALSE)
 d.catcont$heightCent <- as.vector(d.catcont$heightCent) # necessary since the previous line creates a matrix which causes problems with predict() later on
 d.catcont %>% 
@@ -51,6 +52,9 @@ d.catcont %>%
 mod <- lm(weight ~ group*heightCent, data = d.catcont)
 summary(mod)
 check_model(mod)
+qqnorm(residuals(mod))
+qqline(residuals(mod)) # does not look normal
+check_normality(mod)
 confint(mod)
 tbl_regression(mod, intercept = TRUE)
 predict(mod, newdata = data.frame(group = "B", heightCent = 2.3)) # 70.09261
