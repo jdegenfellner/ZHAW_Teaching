@@ -7,7 +7,7 @@ p_load(tidyverse,
        semEff)
 
 
-# Slide 33, LM2.pdf----
+# Slide 26, LM2.pdf----
 set.seed(22)
 nage <- 3 ## Anzahl Kategorien Altersgruppe
 ntherapy <- 2 ## Anzahl Kategorien Therapieart
