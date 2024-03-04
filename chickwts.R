@@ -41,7 +41,7 @@ chickwts %>% ggplot(aes(x = feed, y = weight)) +
   theme(plot.title = element_text(hjust = 0.5)) + # Center title
   geom_hline(yintercept = tot_mean, color = "red") # Add red line indicating the total mean
 
-# Side 13-----
+# Slide 13-----
 # Reference level of feed?
 levels(chickwts$feed) # Reference is the first level of the factor -> levels(x)[1]
 
