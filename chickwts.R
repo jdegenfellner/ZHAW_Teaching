@@ -2,7 +2,8 @@ library(pacman)
 p_load(tidyverse, 
        emmeans, # Estimated marginal means (EMMs) for specified factors or factor combinations in a linear model
        flextable, # Nice tables
-       gtsummary) # Nice regression results
+       gtsummary, # Nice regression results
+       performance) # check model assumptions
 
 str(chickwts)
 # An experiment was conducted to measure and compare the effectiveness of 
@@ -87,3 +88,9 @@ summary(em, infer = c(TRUE, TRUE))$contrasts
 
 # Slide 19----
 plot(em$contrasts)
+
+# Slide Residuenanalyse ----
+check_normality(residuals(modOne))
+qqnorm(residuals(modOne))
+qqline(residuals(modOne))
+check_model(modOne)
