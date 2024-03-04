@@ -5,6 +5,13 @@ p_load(tidyverse,
        gtsummary) # Nice regression results
 
 str(chickwts)
+# An experiment was conducted to measure and compare the effectiveness of 
+# various feed supplements on the growth rate of chickens.
+# Newly hatched chicks were randomly allocated into six groups, and each
+# group was given a different feed supplement. Their weights in grams after 
+# six weeks are given along with feed types.
+# Ref: McNeil, D. R. (1977) Interactive Data Analysis. New York: Wiley.
+
 tot_mean <- mean(chickwts$weight)
 options(digits = 10) # The digits option controls how many digits are printed (by default); see also: https://www.burns-stat.com/the-options-mechanism-in-r/
 
