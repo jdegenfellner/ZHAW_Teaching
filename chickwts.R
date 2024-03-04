@@ -29,7 +29,6 @@ boxplot(weight ~ feed, data = chickwts)
 chickwts %>% ggplot(aes(x = feed, y = weight)) +
   geom_boxplot() + 
   geom_jitter(size = 0.4) + # Show points
-  ggtitle("Boxplot with ggplot") + 
   coord_flip() + # Rotate 90 degrees, looks nice
   theme_dark() +  # Change theme for fun, looks even nicer
   theme(plot.title = element_text(hjust = 0.5)) + # Center title
