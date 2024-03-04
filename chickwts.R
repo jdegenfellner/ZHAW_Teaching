@@ -95,5 +95,4 @@ qqnorm(residuals(modOne))
 qqline(residuals(modOne))
 check_model(modOne)
 
-# Slide Levene test----
 car::leveneTest(weight ~ feed, chickwts)
