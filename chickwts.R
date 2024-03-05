@@ -5,6 +5,8 @@ p_load(tidyverse,
        gtsummary, # Nice regression results
        performance) # check model assumptions
 
+# Einfaktorielle Varianzanalyse (ein Faktor: feed)
+
 str(chickwts)
 # An experiment was conducted to measure and compare the effectiveness of 
 # various feed supplements on the growth rate of chickens.
@@ -13,8 +15,11 @@ str(chickwts)
 # six weeks are given along with feed types.
 # Ref: McNeil, D. R. (1977) Interactive Data Analysis. New York: Wiley.
 
+# Due to the design of the experiment, one could indeed talk about an "effect".
+# Very often this characterization is not justified (imho).
+
 tot_mean <- mean(chickwts$weight)
-options(digits = 10) # The digits option controls how many digits are printed (by default); see also: https://www.burns-stat.com/the-options-mechanism-in-r/
+#options(digits = 10) # The digits option controls how many digits are printed (by default); see also: https://www.burns-stat.com/the-options-mechanism-in-r/
 
 # Slide 11, LM2.pdf----
 chickwts %>% group_by(feed) %>% 
@@ -49,7 +54,7 @@ levels(chickwts$feed) # Reference is the first level of the factor -> levels(x)[
 # How can you change the reference level?
 relevel(chickwts$feed, ref="soybean")
 
-modOne <- lm(weight ~ feed, data = chickwts)
+modOne <- lm(weight ~ feed, data = chickwts) # "full" model
 summary(modOne) # Effects relative to reference level (casein) mean!
 # Intercept manually:
 chickwts %>% 
@@ -68,7 +73,7 @@ predict(modOne, newdata = data.frame(feed = "horsebean"))
 predict(modOne, newdata = data.frame(feed = "casein"))
 
 # Slide 15----
-mod0 <- update(modOne, . ~ . - feed)
+mod0 <- update(modOne, . ~ . - feed) # only intercept model, just do a mean of weight
 anova(mod0, modOne)
 drop1(modOne, test = "F") # should the results include a test statistic relative to the original model?
 
@@ -90,9 +95,10 @@ summary(em, infer = c(TRUE, TRUE))$contrasts
 plot(em$contrasts)
 
 # Slide Residuenanalyse ----
-check_normality(residuals(modOne))
+check_normality(residuals(modOne)) # OK: raw appear as normally distributed (p = 0.627).
+plot(residuals(modOne)) # looks like noice without structure
 qqnorm(residuals(modOne))
-qqline(residuals(modOne))
-check_model(modOne)
+qqline(residuals(modOne)) # looks fine
+check_model(modOne) # interestingly, the "Normality of Residuals" plot seems to indicate some structure, at least visually.
 
 car::leveneTest(weight ~ feed, chickwts)
