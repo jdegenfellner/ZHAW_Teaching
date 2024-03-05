@@ -69,3 +69,7 @@ predict(mod, newdata = data.frame(group = "B", heightCent = 2.3)) # 70.09261
 # Slide 71, Steigung Gruppe B:
 library(Publish)
 mod %>% publish()
+summary(mod)
+# manuell, Steigung Gruppe B
+0.60936156 + 0.08454184 # 0.6939034
+
