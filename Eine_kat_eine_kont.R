@@ -55,7 +55,7 @@ summary(mod)
 check_model(mod)
 qqnorm(residuals(mod))
 qqline(residuals(mod)) # does not look normal
-check_normality(mod)
+check_normality(mod) # further hint of non-normality
 confint(mod)
 tbl_regression(mod, intercept = TRUE)
 predict(mod, newdata = data.frame(group = "B", heightCent = 2.3)) # 70.09261
