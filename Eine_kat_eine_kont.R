@@ -51,6 +51,7 @@ d.catcont %>%
 
 mod <- lm(weight ~ group*heightCent, data = d.catcont)
 summary(mod)
+# We always check the model fit/assumptions:
 check_model(mod)
 qqnorm(residuals(mod))
 qqline(residuals(mod)) # does not look normal

@@ -55,11 +55,14 @@ levels(chickwts$feed) # Reference is the first level of the factor -> levels(x)[
 relevel(chickwts$feed, ref="soybean")
 
 modOne <- lm(weight ~ feed, data = chickwts) # "full" model
+mean(chickwts$weight) # 261.3098592 != intercept
 summary(modOne) # Effects relative to reference level (casein) mean!
+
 # Intercept manually:
 chickwts %>% 
   filter(feed == "casein") %>%
   summarise(mean_casein = mean(weight))
+
 tbl_regression(modOne) # Shows reference level "casein" nicely
 
 predict(modOne, newdata = data.frame(feed = "sunflower")) # same as in Slide 11, LM2.pdf above
