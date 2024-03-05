@@ -72,6 +72,23 @@ predict(modOne, newdata = data.frame(feed = "linseed"))
 predict(modOne, newdata = data.frame(feed = "horsebean"))
 predict(modOne, newdata = data.frame(feed = "casein"))
 
+# Means- vs. Effect parametrization----
+
+# standard in R: reference coding (ref level for feed: casein)
+modOne <- lm(weight ~ feed, data = chickwts) # "full" model
+summary(modOne)
+
+# means parametrization(?):
+modMean <- lm(weight ~ -1 + feed, data = chickwts)
+summary(modMean) # looks like just the means:
+chickwts <- as.data.table(chickwts)
+mean(chickwts[feed == "casein",]$weight)
+mean(chickwts[feed == "horsebean",]$weight)
+# ...
+# contrasts(chickwts$feed) <- contr.treatment(levels(chickwts$feed)) # set back to default.
+
+
+
 # Slide 15----
 mod0 <- update(modOne, . ~ . - feed) # only intercept model, just do a mean of weight
 anova(mod0, modOne)
