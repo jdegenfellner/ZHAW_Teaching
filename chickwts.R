@@ -54,7 +54,7 @@ chickwts %>% ggplot(aes(x = feed, y = weight)) +
 levels(chickwts$feed) # Reference is the first level of the factor -> levels(x)[1]
 
 # How can you change the reference level?
-relevel(chickwts$feed, ref="soybean")
+chickwts$feed_ <- relevel(chickwts$feed, ref="soybean")
 
 modOne <- lm(weight ~ feed, data = chickwts) # "full" model
 mean(chickwts$weight) # 261.3098592 != intercept
