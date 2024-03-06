@@ -1,6 +1,7 @@
 # Bayes regression
 
-# https://www.r-bloggers.com/2020/04/bayesian-linear-regression/
+# see: https://www.r-bloggers.com/2020/04/bayesian-linear-regression/
+# from: https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Bayes_Regression_RBloggers.R
 
 suppressPackageStartupMessages(library(mlbench))
 suppressPackageStartupMessages(library(rstanarm))
