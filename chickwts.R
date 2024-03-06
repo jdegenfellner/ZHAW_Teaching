@@ -5,6 +5,8 @@ p_load(tidyverse,
        gtsummary, # Nice regression results
        performance) # check model assumptions
 
+# from: https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/chickwts.R
+
 # Einfaktorielle Varianzanalyse (ein Faktor: feed)
 
 str(chickwts)
