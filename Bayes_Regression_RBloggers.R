@@ -3,15 +3,17 @@
 # see: https://www.r-bloggers.com/2020/04/bayesian-linear-regression/
 # from: https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Bayes_Regression_RBloggers.R
 
-suppressPackageStartupMessages(library(mlbench))
-suppressPackageStartupMessages(library(rstanarm))
-suppressPackageStartupMessages(library(bayestestR))
-suppressPackageStartupMessages(library(bayesplot))
-suppressPackageStartupMessages(library(insight))
-suppressPackageStartupMessages(library(broom))
+library(pacman)
+p_load(mlbench,
+       rstanarm,
+       bayestestR,
+       bayesplot,
+       insight,
+       broom,
+       tidyverse)
+
 data("BostonHousing")
 str(BostonHousing)
-library(tidyverse)
 
 bost <- BostonHousing[,c("medv","age","dis","chas")]
 summary(bost)
