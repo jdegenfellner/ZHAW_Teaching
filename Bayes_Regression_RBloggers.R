@@ -59,7 +59,7 @@ mcmc_dens(model_bayes, pars=c("dis"))+
   vline_at(-0.244, col="red") + 
   ggtitle("posterior distribution of dis")
 
-# Now how can we evaluate the model parameters? The answer is by analyzing 
+# Now, how can we evaluate the model parameters? The answer is by analyzing 
 # the posteriors using some specific statistics. To get the full statistics 
 # provided by bayestestR package, we make use of the function describe_posterior
 
@@ -75,26 +75,24 @@ pd_to_p(0.81925) # nicht ganz exakt ...
 
 # Posterior Predictive Check:
 ppc_data <- posterior_predict(model_bayes) # Generate posterior predictive data
-ppc_dens_overlay(y = bost$medv, yrep = ppc_data) # Plot
+ppc_dens_overlay(y = bost$medv, yrep = ppc_data) # takes a while!  ... could lool better, I guess
 # The posterior_predict function is used to generate new data based on 
 # the model, and then ppc_dens_overlay is used to compare the density of 
 # the observed data and the simulated data.
 
 # Further visualizations
 # https://easystats.github.io/see/articles/bayestestR.html
-result <- estimate_density(model_bayes, select=c("dis","chas"))
+result <- estimate_density(model_bayes, select = c("dis","chas"))
 plot(result)
-plot(result, stack = FALSE, priors = TRUE)
+#plot(result, stack = FALSE, priors = TRUE)
 
-result <- describe_posterior(model_bayes)
-plot(result)
 result <- p_direction(model_bayes)
 plot(result)
 
 result <- p_direction(model_bayes)
 plot(result, priors = TRUE)
 
-result <- p_significance(model_bayes)
+result <- p_significance(model_bayes, threshold = "default")
 result
 plot(result)
 # probability of Practical Significance (ps), which can be conceptualized 
