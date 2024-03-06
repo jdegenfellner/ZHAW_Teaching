@@ -16,3 +16,7 @@ https://mybiostats.files.wordpress.com/2015/03/casella-berger.pdf
 
 # Computer age statistical inference (Efron, Hastie) (free)
 https://hastie.su.domains/CASI_files/PDF/casi.pdf
+
+# Bayes
+Gelman: http://www.stat.columbia.edu/~gelman/book/BDA3.pdf (free)
+Kruschke: https://nyu-cdsc.github.io/learningr/assets/kruschke_bayesian_in_R.pdf (free)
