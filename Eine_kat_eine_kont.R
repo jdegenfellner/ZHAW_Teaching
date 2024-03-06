@@ -1,4 +1,5 @@
 # Eine kategorielle und eine kontin. Eingangsgroesse
+# from: https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Eine_kat_eine_kont.R
 
 library(pacman)
 p_load(tidyverse,
