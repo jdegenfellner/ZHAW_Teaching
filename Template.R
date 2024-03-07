@@ -39,7 +39,7 @@ utils)
 # a) csv/tsv/txt-Files, dies sind einfach normale Textdateien mit unterschiedlichen
 # Trennzeichen fuer die Spalten
 ?read.csv
-read.csv("Davis.csv", sep = ",", stringsAsFactors = TRUE, header = TRUE)
+read.csv("./Data/Davis.csv", sep = ",", stringsAsFactors = TRUE, header = TRUE)
 # sep = "," definiert, wie die Spalten getrennt sind im Textfile (csv)
 # header = TRUE, heisst, dass die erste Zeile fuer die Spaltennamen verwendet wird.
 # stringsAsFactors = TRUE, Strings werden direkt als Faktoren in R definiert und nicht nur als Character (also Text)
