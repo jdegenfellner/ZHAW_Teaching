@@ -1,6 +1,8 @@
 # RScript-Template #
 # Erstellt fuer ZHAW, 2023
 
+# From: https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Template.R
+
 # 1) Infos----
 # Ganz oben ist es sinnvoll, zu erklaeren, was das Skript ca. macht und 
 # wer dieses wann verfasst hat. Der Code sollte so geschrieben und kommentiert
