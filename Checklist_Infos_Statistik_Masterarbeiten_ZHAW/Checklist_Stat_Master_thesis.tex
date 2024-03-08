@@ -51,8 +51,8 @@ In this paper, some misconeptions about the p-value are not so obvious and can s
 
 From the misconceptions listed, probably numbers 2, 7, 9 and 10 are most surprising.
 
-\item \textit{Adjusting for multiple testing--when and how?} \cite{Bender2001}\\
-There many papers on this topic, a nice overview is given by this paper. You can read it, but the more important thing is to remember to use correction for multiple p-values. Producing many p-values of independent tests results in the fact that approximately 5\% of them are smaller than the \textbf{arbitrary} threshold of $0.05$. You can use R (function \textit{p.adjust}) or online tools (MultipleTesting.com \cite{MultipleTesting}) for the correction. The most important thing to remember is: \\
+\item \textit{Adjusting for multiple testing--when and how?} \\
+There many papers on this topic, a nice overview is given by this \cite{Bender2001}. You can read it, but the more important thing is to remember to use correction for multiple p-values. Producing many p-values of independent tests results in the fact that approximately 5\% of them are smaller than the \textbf{arbitrary} threshold of $0.05$. You can use R (function \textit{p.adjust}) or online tools (MultipleTesting.com \cite{MultipleTesting}) for the correction. The most important thing to remember is: \\
 \textbf{Avoid \href{https://en.wikipedia.org/wiki/Data_dredging}{p-hacking} at any cost} - it is the cardinal sin of statistics. Results of implicit or explicit hypothesis tests, that were not named in the sample size calculation/analysis plan should be interpreted as \textit{exploratory}.
 
 \item \textit{Bayesian estimation supersedes the t test} \cite{Kruschke2013}\\

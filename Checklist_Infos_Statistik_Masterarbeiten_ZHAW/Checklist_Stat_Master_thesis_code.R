@@ -45,13 +45,14 @@ df <- data.frame(var = data)
 # Create a simple boxplot
 ggplot(df, aes(x = factor(1), y = var)) +
   geom_boxplot() +
-  xlab('')
+  coord_flip() + 
+  xlab("") + ylab("")
 
 # Create a violin plot with jitter
 p1 <- ggplot(df, aes(x = factor(1), y = var)) +
-  geom_violin() +
-  geom_boxplot(width=0.1) +  # Adds a boxplot inside the violin plot
-  geom_jitter(width = 0.2) +
+  geom_violin(width = 0.2) +
+  geom_boxplot(width = 0.1) +  # Adds a boxplot inside the violin plot
+  geom_jitter(width = 0.1, size = 1) +
   xlab('') + ylab('Variable-value') + 
   coord_flip() + 
   ggtitle("Example of violin plot with raw data using jitter") + 
@@ -74,8 +75,8 @@ hist(df$value, main="Basic R boxplot")
 dev.off()
 
 p2 <- ggplot(df, aes(x = value)) +
-  geom_histogram(aes(y = ..density..), bins = 30, alpha = 0.7) +
-  geom_density(aes(y = ..density..), color = "blue") +
+  geom_histogram(aes(y = after_stat(density)), bins = 30, alpha = 0.7) +
+  geom_density(aes(y = after_stat(density)), color = "blue") +
   geom_boxplot(aes(y = -0.03, x = value), width = 0.02, position = position_nudge(y = -0.00)) +
   geom_point(aes(y = -0.03), position = position_jitter(width = 0.002, height = 0.01), size = 1) +
   ggtitle("Histogram with density plot and boxplot below") +
