@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.3.9)  8 MAR 2024 07:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.3.9)  8 MAR 2024 07:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -372,18 +372,15 @@ Package pdftex.def Info: ./images/vis_miss.png  used on input line 117.
 <./images/density_plot_with_boxplot.pdf>] [5 <./images/vis_miss.png>]
 [6] (./Checklist_Stat_Master_thesis.bbl) [7]
 (./Checklist_Stat_Master_thesis.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `Checklist_Stat_Master_thesis.out' has not ch
 anged.
 (rerunfilecheck)             Checksum: A9AF4BB166D85ADBE71918EB9D69B800;1489.
  ) 
 Here is how much of TeX's memory you used:
- 8336 strings out of 478994
- 124607 string characters out of 5858185
- 428879 words of memory out of 5000000
- 25682 multiletter control sequences out of 15000+600000
+ 8342 strings out of 478994
+ 124718 string characters out of 5858185
+ 429011 words of memory out of 5000000
+ 25685 multiletter control sequences out of 15000+600000
  409282 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  71i,7n,74p,574b,472s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -395,10 +392,10 @@ sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr
 /local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/l
 ocal/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/lo
 cal/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Checklist_Stat_Master_thesis.pdf (7 pages, 167618 bytes).
+Output written on Checklist_Stat_Master_thesis.pdf (7 pages, 169658 bytes).
 PDF statistics:
- 183 PDF objects out of 1000 (max. 8388607)
- 155 compressed objects within 2 object streams
- 45 named destinations out of 1000 (max. 500000)
+ 189 PDF objects out of 1000 (max. 8388607)
+ 161 compressed objects within 2 object streams
+ 48 named destinations out of 1000 (max. 500000)
  82 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,5 +1,11 @@
 \begin{thebibliography}{MWG21}
 
+\bibitem[Abd23]{Abdi2023}
+S.~Abdi.
+\newblock A comprehensive guide for selecting appropriate statistical tests:
+  Understanding when to use parametric and nonparametric tests.
+\newblock {\em Open Journal of Statistics}, 13:464--474, 2023.
+
 \bibitem[BL01]{Bender2001}
 R~Bender and S~Lange.
 \newblock Adjusting for multiple testing--when and how?
@@ -28,6 +34,17 @@ Otília Menyhart, Boglárka Weltz, and Balázs Győrffy.
 \newblock Multipletesting.com: A tool for life science researchers for multiple
   hypothesis testing correction.
 \newblock {\em PLOS ONE}, 16(6):1--12, 06 2021.
+
+\bibitem[PB10]{Parab2010ChoosingST}
+S.~Parab and S.~Bhalerao.
+\newblock Choosing statistical test.
+\newblock {\em International Journal of Ayurveda Research}, 1(3):187--191, Jul
+  2010.
+
+\bibitem[Shm10]{shmueli2010explain}
+Galit Shmueli.
+\newblock To explain or to predict?
+\newblock 2010.
 
 \bibitem[Tie17]{visdat}
 Nicholas Tierney.

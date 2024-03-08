@@ -110,7 +110,7 @@ Especially for smaller sample sizes, a more informative boxplot is advised, see 
 \section{Missing values}
 Do I have missing values in the data I want to analyze? If yes, how many in which variables?
 Rule of thumb: if more than 3\% one should use imputation, one could use k-Nearst-Neighbour imputation for instance, which is fast and good \cite{VIM}.
-Missing values can be visualized nicely using the package visdat \cite{visdat} and the command vis\_miss() - see figure \ref{fig:vismiss}. 
+Missing values can be visualized nicely using the package \textit{visdat} \cite{visdat} and the command \textit{vis\_miss()} - see figure \ref{fig:vismiss}. 
 
 \begin{figure}[h!]
   \centering
@@ -121,16 +121,17 @@ Missing values can be visualized nicely using the package visdat \cite{visdat} a
 
 \section{Model assumptions and assumptions for statistical tests}
 Usually, every statistical model and test has assumptions that should be met if one wants to do inference statistics. It is important to check these assumptions. E.g., for a multiple regression model, one has to check linearity, homoscedasticity, influential points, normality of the residuals and more general: how does the model fit the data?
-One could use the plot-command on the regression-model object oder work with the package performance 
-For the popular t-test one could check the normality of the mean (or the data itself, as is often done), and homogeneity of variances.
+One could use the \textit{plot}-command on the regression-model object oder work with the package \textit{performance} 
+For the popular \textit{t}-test one could check the normality of the mean (or the data itself, as is often done), and homogeneity of variances.
 
 \section{Statistical modeling}
-The goal is to estimate a model that fits the data well. Among other aspects, important are
+The goal is to estimate a model that fits the data well. There are many tutorials on which model or statistical test one should choose \cite{Parab2010ChoosingST} \cite{Abdi2023}. Among other aspects to consider, important are
 \begin{itemize}
 \item What type is the variable to be explained (Y): count data, percent data, continuous data, binary data (0/1)? Depending on this, different models are used.
 \item What type of relationship is expected between the explanatory variables ($x_i$) and the outcome (Y) - linear, polynomial, exponential?
-\item Which variables belong into the statistical model (confounder)?
+\item Which variables belong into the statistical model, what are potential confounders and how do I choose variables to include into the model (variable selection)? How were the variables pre-selected?
 \item Does the model fit the data and are the model assumptions met reasonably well? 
+\item What do I intend to do with the model? Do I want to explain relationships between variables (maybe even do causal inference?) or do I just want to predict an outcome as best as possible \cite{shmueli2010explain}?
 \end{itemize}
 
 \newpage
