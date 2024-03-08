@@ -24,9 +24,9 @@ if (!require(pacman)) {
   install.packages("pacman")
   library(pacman) # Installiert und ladet Packages automatisch
 }
-pacman::p_load(tidyverse, # https://tidyverse.tidyverse.org/ - beihnaltet u.a. ggplot
+pacman::p_load(tidyverse, # https://tidyverse.tidyverse.org/ - enthaelt u.a. ggplot2
 readxl,
-writexl, # Einlesen und ausgeben von Excel-Files
+writexl, # Einlesen und Ausgeben von Excel-Files
 DataExplorer, # Erstellt einen kurzen, schnellen Ueberblick ueber den Datensatz
 gtsummary, # Creates presentation-ready tables 
 table1, # schoene Table 1
