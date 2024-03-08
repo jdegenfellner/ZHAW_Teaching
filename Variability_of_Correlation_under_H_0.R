@@ -1,5 +1,7 @@
 # Variability of correlation under H_0: rho = 0
 
+# from: https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Variability_of_Correlation_under_H_0.R
+
 # # Set working directory to source file location
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
