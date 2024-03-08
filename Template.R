@@ -29,24 +29,28 @@ readxl,
 writexl, # Einlesen und Ausgeben von Excel-Files
 DataExplorer, # Erstellt einen kurzen, schnellen Ueberblick ueber den Datensatz
 gtsummary, # Creates presentation-ready tables 
-table1, # schoene Table 1
+table1, # schoene Table 1 (Uebersichtstabelle fuer die Stichprobe)
 flextable, # schoenere Tabellen
 utils)
 # ...und viele viele mehr
 
 # 4) Daten einlesen----
 
-# a) csv/tsv/txt-Files, dies sind einfach normale Textdateien mit unterschiedlichen
+# _a) csv/tsv/txt-Files, dies sind einfach normale Textdateien mit unterschiedlichen----
 # Trennzeichen fuer die Spalten
 ?read.csv
-read.csv("./Data/Davis.csv", sep = ",", stringsAsFactors = TRUE, header = TRUE)
+df <- read.csv("./Data/Davis.csv", sep = ",", stringsAsFactors = TRUE, header = TRUE)
+df
+str(df)
 # sep = "," definiert, wie die Spalten getrennt sind im Textfile (csv)
 # header = TRUE, heisst, dass die erste Zeile fuer die Spaltennamen verwendet wird.
 # stringsAsFactors = TRUE, Strings werden direkt als Faktoren in R definiert und nicht nur als Character (also Text)
 
-# b) Excel Dateien lesen/schreiben:
+# _b) Excel Dateien lesen/schreiben:----
 ?read_xlsx
 write_xlsx()
+df <- read_xlsx("./Data/Fake_data.xlsx")
+df
 
 # 5) Datenmanipulation-----
 # - Data-Cleaning (Outlier)
