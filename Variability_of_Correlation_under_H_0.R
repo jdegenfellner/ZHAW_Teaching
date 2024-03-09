@@ -19,11 +19,8 @@ for(i in 1:n_sim){
   y <- rnorm(n) # create independent "instruments" 
   cor_vec[i] <- cor(x,y)
 }
-hist(cor_vec)
+hist(cor_vec, main = "Verteilung Zufallskorrelation unter H_0")
 quantile(cor_vec, probs = c(0.025, 0.975))
-# ex.:
-# 2.5%      97.5% 
-#  -0.3346421  0.3491737 
 
 plot(x,y)
 sum(abs(cor_vec)>0.1)/n_sim
