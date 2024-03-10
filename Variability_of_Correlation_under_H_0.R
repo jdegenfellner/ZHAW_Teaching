@@ -23,6 +23,7 @@ hist(cor_vec, main = "Verteilung Zufallskorrelation unter H_0")
 quantile(cor_vec, probs = c(0.025, 0.975))
 
 plot(x,y)
+cor(x,y)
 sum(abs(cor_vec)>0.1)/n_sim
 sum(abs(cor_vec)>0.2)/n_sim
 sum(abs(cor_vec)>0.3)/n_sim
