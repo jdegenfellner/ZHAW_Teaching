@@ -1,7 +1,7 @@
 # Simulation sample sizes for estimation of porportions in finite samples:
 
 N <- 9000 # Population sample size
-n <- 350 # number of people answering the survey
+n <- 350 # number of people answering the survey (representatively)
 p <- 0.35 # true but unknown proportion
 n_sim <- 10000 # number of simulation run do determine CI
 
@@ -12,9 +12,8 @@ n_sim <- 10000 # number of simulation run do determine CI
 true_pop <- c(rep(1, N*p),rep(0,N-N*p)) # true population
 length(true_pop) # N*p 1's N-N*p 0's
 
-
+# Simulate:
 estimates_vec <- rep(NA, n_sim)
-
 for(i in 1:n_sim){
   x_sample <- sample(true_pop, n, replace = FALSE)
   estimates_vec[i] <- sum(x_sample)/n # estimate of true but unknown proportion
