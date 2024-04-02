@@ -17,7 +17,7 @@ data <- data.frame(Q1 = c(1, 2, 2, 3, 2, 2, 3, 3, 2, 3),
                    Q2 = c(1, 1, 1, 2, 3, 3, 2, 3, 3, 3),
                    Q3 = c(1, 1, 2, 1, 2, 3, 3, 3, 2, 3))
 data
-# Calculate Cronbach's Alpha
+# Calculate Cronbach's Alpha----
 # ltm-package
 cronbach.alpha(data) # 0.773
 # psych-package
@@ -47,6 +47,10 @@ r_bar <- mean(c(cor1, cor2, cor3)) # average inter-item
 
 N*r_bar/(1+(N-1)*r_bar) # 0.774291 # not too bad. small error?
 
+# try: get average_r from package:
+res <- psych::alpha(data)
+res$total$average_r
+N*res$total$average_r/(1+(N-1)*res$total$average_r) # 0.774291 same
 
 # _Formula 2:----
 # alpha = N/(N-1)*(1-sum(sigma_Yi^2)/sigma_X^2)
