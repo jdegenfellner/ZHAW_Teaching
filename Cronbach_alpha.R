@@ -18,14 +18,21 @@ data
 # ltm-package
 cronbach.alpha(data) # 0.773
 # psych-package
-res <- alpha(data)
+res <- psych::alpha(data)
 res
-res$item.stats
 
-# Calculate manually:
+
+
+# Calculate manually:----
 # https://de.wikipedia.org/wiki/Cronbachsches_Alpha
+# kann Werte zwischen minus unendlich und 1 annehmen (obwohl nur 
+# positive Werte sinnvoll interpretierbar sind). Als Faustregel
+# sollte ein beliebiges psychometrisches Instrument nur verwendet
+# werden, wenn ein Wert fuer alpha von 0,65 oder mehr erreicht wird.
+# Als kritisch wird allerdings auch ein sehr hoher Wert (z. B. 0,95) 
+# eingeschätzt, da dies darauf hindeutet, dass mehrere Items redundant sind.
 
-# Formula 1:----
+# _Formula 1:----
 # alpha = N*r_bar/(1+(N-1)*r_bar)
 
 N <- dim(data)[2]
@@ -33,12 +40,12 @@ N <- dim(data)[2]
 cor1 <- cor(data$Q1, data$Q2)
 cor2 <- cor(data$Q1, data$Q3)
 cor3 <- cor(data$Q2, data$Q3)
-r_bar <- mean(c(cor1,cor2,cor3))
+r_bar <- mean(c(cor1, cor2, cor3)) # average inter-item 
 
 N*r_bar/(1+(N-1)*r_bar) # 0.774291 # not too bad. small error?
 
 
-# Formula 2:----
+# _Formula 2:----
 # alpha = N/(N-1)*(1-sum(sigma_Yi^2)/sigma_X^2)
 
 N <- 3
