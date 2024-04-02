@@ -94,7 +94,7 @@ MSWS <- SSWS/(n*(k-1))
 
 
 # 4) Calculate versions of ICC (use formulas from Fig. 1)----
-# ICC(1) = 
+# ICC(1) = ICC_consistency = 
 (MSBS - MSWS)/(MSBS + (k-1)*MSWS) # 0.7641323 # same result!
 
 
