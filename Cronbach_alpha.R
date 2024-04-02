@@ -1,6 +1,8 @@
 # Cronbach's Alpha, tau-äquivalente Reliabilität
 
-# in progresss # 
+# from: https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Cronbach_alpha.R
+
+# in progress # 
 
 # Note: There are different packages with Cronbach's alpha:
 # https://www.rdocumentation.org/packages/ltm/versions/1.2-0/topics/cronbach.alpha
