@@ -9,7 +9,8 @@
 # https://search.r-project.org/CRAN/refmans/DescTools/html/CronbachAlpha.html
 # https://www.rdocumentation.org/packages/psych/versions/2.3.6/topics/alpha
 
-library(ltm, psych, DescTools)
+library(pacman)
+p_load(ltm, psych, DescTools)
 
 # Enter survey responses as a data frame
 data <- data.frame(Q1 = c(1, 2, 2, 3, 2, 2, 3, 3, 2, 3),
