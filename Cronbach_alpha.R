@@ -22,7 +22,16 @@ data
 cronbach.alpha(data) # 0.773
 # psych-package
 res <- psych::alpha(data)
-res
+res # shows (among others):
+# raw_alpha - alpha based upon the covariances
+# std.alpha - The standarized alpha based upon the correlations
+# G6(smc) - Guttman's Lambda 6 reliability
+# average_r - The average interitem correlation
+# S/N - Signal/Noise ratio
+# ase - average standard error
+# mean   
+# sd 
+# median_r - The median interitem correlation
 
 
 
