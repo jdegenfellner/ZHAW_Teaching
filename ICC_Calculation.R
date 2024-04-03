@@ -35,7 +35,7 @@ library(irr)
 # https://www.r-bloggers.com/2021/06/intraclass-correlation-coefficient-in-r-quick-guide/
 
 df_icc <- data.frame(R1 = df[df$Index1 == 1,]$trans1, R2 = df[df$Index1 == 2,]$trans1)
-icc(df_icc, model = "oneway", type = "consistency", unit = "single")
+irr::icc(df_icc, model = "oneway", type = "consistency", unit = "single")
 # ICC(1) = 0.764
 
 # ICC manually------------------------------------------------------------------
