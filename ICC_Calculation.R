@@ -12,7 +12,7 @@ library(performance)
 #install_remote("https://github.com/easystats/performance/blob/HEAD/R/icc.R", dependencies = TRUE)
 library(psych)
 
-# Note, There are also other packages with an ICC function, like psych, see lecture
+# Note, There are also other packages with an ICC function, like psych
 
 # Set working directory to source file location
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
