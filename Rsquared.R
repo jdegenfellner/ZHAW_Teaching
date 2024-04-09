@@ -18,7 +18,7 @@ for(i in 1:n){
   s <- summary(lm(y ~ x, data = df))
   r_squared[i] <- s$r.squared
 }
-toc()
+toc() # for measuring time
 
 hist(r_squared)
 quantile(r_squared, 0.99)
