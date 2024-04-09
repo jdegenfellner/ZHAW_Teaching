@@ -15,12 +15,12 @@ for(i in 1:n){
   x <- rnorm(n)
   y <- rnorm(n)
   df <- data.frame(x = x, y = y)
-  s <- summary(lm(y ~ x, data = df))
+  s <- summary(lm(y ~ x, data = df)) # simple linear regression
   r_squared[i] <- s$r.squared
 }
 toc() # for measuring time
 
-hist(r_squared)
+hist(r_squared, main = "Histrogram of R^2", xlab = "R^2")
 quantile(r_squared, 0.99)
 
 # TODO
