@@ -10,7 +10,7 @@ p_load(DiagrammeR, data.tree, tidyverse)
 
 # Thanks GPT4:
 # Create the tree structure
-tree <- Node$new("H_0 True?")
+tree <- Node$new("H_0 true?")
 tree$AddChild("P")
 tree$AddChild("1-P")
 tree$children[[1]]$AddChild("1-alpha")
