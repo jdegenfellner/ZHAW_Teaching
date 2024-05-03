@@ -11,3 +11,9 @@ https://youtu.be/M6ha2UeSZbo?si=IpKLm_PcOpTLLHT5
 https://www.youtube.com/watch?v=kYB8IZa5AuE&ab_channel=3Blue1Brown
 https://www.youtube.com/watch?v=XkY2DOUCWMU&ab_channel=3Blue1Brown
 https://www.youtube.com/watch?v=vQ60rFwh2ig&ab_channel=Computerphile
+
+Model selection with AICs:
+https://www.youtube.com/watch?v=7XAHjm6Vy5k&ab_channel=MethodsinExperimentalEcologyI
+
+Generalized Linear Models:
+https://www.youtube.com/watch?v=G5xIFdLL5Ic&t=22s&ab_channel=MethodsinExperimentalEcologyI
