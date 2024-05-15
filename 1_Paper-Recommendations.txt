@@ -10,6 +10,10 @@ p-Value statement ASA:
 https://www.amstat.org/asa/files/pdfs/p-valuestatement.pdf
 
 
+# Confidence intervals:
+The fallacy of placing confidence in confidence intervals
+https://link.springer.com/article/10.3758/s13423-015-0947-8
+
 # Bayes-Statistik
 Bayesian Estimation Supersedes the t Test
 https://jkkweb.sitehost.iu.edu/articles/Kruschke2013JEPG.pdf
