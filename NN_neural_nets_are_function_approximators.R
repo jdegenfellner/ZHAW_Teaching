@@ -99,3 +99,36 @@ grid.arrange(plot1, plot2, plot3, plot4, nrow = 2, ncol = 2)
 
 plot(nn1)
 
+# verify first prediction of nn1 manually:----
+y1
+x
+
+# Extract the weights from the neural network
+w1 <- nn1$weights[[1]][[1]]
+w2 <- nn1$weights[[1]][[2]]
+
+# Manually compute the activations of the hidden layer for the first input
+x_input <- -1  # First input
+
+# Add the bias term to the input
+x_input_bias <- cbind(1, x_input)
+
+# Compute z (input to the hidden layer neurons)
+z_hidden <- x_input_bias %*% w1
+
+# Compute a (output of the hidden layer neurons)
+a_hidden <- tanh(z_hidden)
+
+# Add the bias term to the hidden layer activations
+a_hidden_bias <- cbind(1, a_hidden)
+
+# Compute the output layer activation
+y_output <- a_hidden_bias %*% w2
+
+# Print the results
+cat("Input:", x_input, "\n")
+cat("Hidden layer inputs (z):", z_hidden, "\n")
+cat("Hidden layer activations (a):", a_hidden, "\n")
+cat("Output layer activation (y):", y_output, "\n")
+
+# not exactly one, but seems to be ok (see graphs)
