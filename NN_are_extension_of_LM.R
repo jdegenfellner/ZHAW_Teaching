@@ -1,11 +1,11 @@
 # Neuronal networks are extensions of linear regression models
 
 #[this script was partially created using GPT-4]
+# from: https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/NN_are_extension_of_LM.R
 
 library(nnet)
-library(tidyverse)
-library(ggalt)
-library(neuralnet)
+library(pacman)
+p_load(tidyverse, ggalt, neuralnet)
 
 set.seed(42)
 x1 <- rnorm(100)
@@ -27,7 +27,7 @@ sigmoid <- function(x) {
 
 nn <- neuralnet(y ~ x1 + x2, data = data, 
                 hidden = 0, # number of hidden layers
-                linear.output = FALSE, # If act.fct should NOT be applied to the output neurons set linear output to TRUE, otherwise to FALSE.
+                linear.output = TRUE, # If act.fct should NOT be applied to the output neurons set linear output to TRUE, otherwise to FALSE.
                 act.fct = sigmoid) # not active right now.
 
 plot(nn)
