@@ -43,3 +43,5 @@ summary(nn)
 #.   to approximate it using neuralnet. 
 # e) What happens if we try to model a non-linear relationship, 
 #    e.g. y = x_1^2 + x_2^3 with the same model (without the activation function?)
+# f) Try to create a simple example of logistic regression and find the corresponding 
+#    NN to get the same parameter estimates!
