@@ -51,7 +51,7 @@ autoencoder %>% fit(x_train, x_train,
                     batch_size = 256,
                     shuffle = TRUE,
                     validation_data = list(x_test, x_test))
-toc()
+toc() # 389.137 sec elapsed
 
 # Use the trained model to make predictions on the test data
 decoded_imgs <- autoencoder %>% predict(x_test)
