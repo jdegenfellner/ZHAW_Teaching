@@ -9,10 +9,9 @@
 #install.packages("gridExtra")
 
 # Load necessary libraries
-library(keras)
-library(tidyverse)
-library(gridExtra)
-library(tensorflow)
+library(pacman)
+p_load(keras, tidyverse, gridExtra,
+       tensorflow, tictoc)
 
 # Load the mnist dataset
 mnist <- dataset_mnist()
@@ -46,11 +45,13 @@ autoencoder <- keras_model(input = input_img, output = decoded)
 autoencoder %>% compile(optimizer = optimizer_adadelta(learning_rate = 1.0), loss = 'mean_squared_error')
 
 # Train the model
+tic()
 autoencoder %>% fit(x_train, x_train, 
                     epochs = 250, 
                     batch_size = 256,
                     shuffle = TRUE,
                     validation_data = list(x_test, x_test))
+toc()
 
 # Use the trained model to make predictions on the test data
 decoded_imgs <- autoencoder %>% predict(x_test)
