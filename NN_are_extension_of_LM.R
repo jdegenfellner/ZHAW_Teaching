@@ -51,16 +51,16 @@ summary(nn)
 #----##
 
 # ad f)
-# Also with other weights, the coefficients do not match
-# and predictions are slightly different.
-# Why?
+# n=100 shows slight differences in predictions and weights
+# n=1000 is spot on the same!
+
 
 set.seed(42)
-
-x1 <- rnorm(100)
-x2 <- rnorm(100)
+n <- 1000
+x1 <- rnorm(n)
+x2 <- rnorm(n)
 prob <- 1 / (1 + exp(-(-1 + 2 * x1 - 3 * x2))) # Logistic function to generate probabilities
-y <- rbinom(100, 1, prob) # Generate binary outcome
+y <- rbinom(n, 1, prob) # Generate binary outcome
 
 data <- data.frame(x1 = x1, x2 = x2, y = y)
 
@@ -71,33 +71,12 @@ sigmoid <- function(x) {
   1 / (1 + exp(-x))
 }
 
-custom_initialize_weights <- function(nnet, coefs) {
-  # Get the current weights
-  weights <- unlist(nnet$result.matrix[ , -1])
-  # Assign logistic regression coefficients to weights
-  weights[1] <- coefs[1]  # Intercept
-  weights[2] <- coefs[2]  # x1 coefficient
-  weights[3] <- coefs[3]  # x2 coefficient
-  return(matrix(weights, ncol=1))
-}
-
 nn <- neuralnet(y ~ x1 + x2, data = data,
                 hidden = 0, # No hidden layers to mimic logistic regression
                 linear.output = FALSE, # We want a classification output
                 act.fct = sigmoid, # Sigmoid activation function
                 stepmax = 1e5, # Increase the number of steps
                 threshold = 0.001) # Convergence threshold
-
-initial_weights <- custom_initialize_weights(nn, coef(logit_model))
-nn$weights <- list(matrix(initial_weights, ncol=1))
-
-nn <- neuralnet(y ~ x1 + x2, data = data,
-                hidden = 0, 
-                linear.output = FALSE, 
-                act.fct = sigmoid, 
-                startweights = initial_weights,
-                stepmax = 1e5,
-                threshold = 0.001)
 plot(nn)
 
 predicted_nn <- predict(nn, newdata = data[, c("x1", "x2")])
