@@ -21,9 +21,7 @@ quantile(angle, probs = c(0.005,0.995))
 
 
 # automate:
-library(ggplot2)
-library(tidyr)
-library(reshape2)
+p_load(tidyverse, reshape2)
 
 sim_number <- 500
 
