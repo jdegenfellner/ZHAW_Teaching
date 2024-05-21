@@ -21,6 +21,7 @@ quantile(angle, probs = c(0.005,0.995))
 
 
 # automate:
+library(pacman)
 p_load(tidyverse, reshape2)
 
 sim_number <- 500
@@ -52,3 +53,4 @@ ggplot(angle_melted, aes(x=angle)) +
   xlab("Angle in degrees") +
   ylab("Frequency") +
   theme_minimal()
+

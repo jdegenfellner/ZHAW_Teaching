@@ -1,5 +1,8 @@
 # from: https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Cleanup_RStudio.R
 
+library(pacman)
+p_load(rstudioapi)
+
 # Remove all objects from the workspace
 rm(list = ls())
 
@@ -18,3 +21,5 @@ clear_viewer_pane()
 
 # Clear Console
 cat("\014")
+
+
