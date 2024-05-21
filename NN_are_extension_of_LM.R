@@ -3,9 +3,8 @@
 #[this script was partially created using GPT-4]
 # from: https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/NN_are_extension_of_LM.R
 
-library(nnet)
 library(pacman)
-p_load(tidyverse, ggalt, neuralnet)
+p_load(tidyverse, ggalt, neuralnet, nnet)
 
 set.seed(42)
 x1 <- rnorm(100)
@@ -52,11 +51,11 @@ summary(nn)
 
 # ad f)
 # n=100 shows slight differences in predictions and weights
-# n=1000 is spot on the same!
+# n=1000 is more aligned
 
 
 set.seed(42)
-n <- 1000
+n <- 100 # n=1000 is more aligned
 x1 <- rnorm(n)
 x2 <- rnorm(n)
 prob <- 1 / (1 + exp(-(-1 + 2 * x1 - 3 * x2))) # Logistic function to generate probabilities
@@ -64,6 +63,7 @@ y <- rbinom(n, 1, prob) # Generate binary outcome
 
 data <- data.frame(x1 = x1, x2 = x2, y = y)
 
+# Classic logistic regression model
 logit_model <- glm(y ~ x1 + x2, data = data, family = binomial)
 summary(logit_model)
 
@@ -104,4 +104,6 @@ ggplot(data, aes(x = logit_pred, y = nn_pred)) +
   labs(title = "Comparison of Predictions",
        x = "Logistic Regression Predictions",
        y = "Neural Network Predictions") +
-  theme_minimal()
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5))
+  
