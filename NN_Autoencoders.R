@@ -13,17 +13,19 @@
 # Load necessary libraries
 library(pacman)
 p_load(keras, tidyverse, gridExtra,
-       tensorflow, tictoc)
+       tensorflow, tictoc, reticulate)
 
-install.packages("reticulate")
-library(reticulate)
-reticulate::install_miniconda()
-
+py_install("tensorflow")
+py_run_string("import tensorflow as tf")
+py_run_string("print(tf.__version__)")
 
 # Load the mnist dataset
 mnist <- dataset_mnist()
 x_train <- mnist$train$x
 x_test <- mnist$test$x
+
+dim(x_train)  # Should be (60000, 28, 28)
+dim(x_test)   # Should be (10000, 28, 28)
 
 # Reshape and normalize
 x_train <- array_reshape(x_train, c(nrow(x_train), 784))
