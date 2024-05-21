@@ -15,7 +15,7 @@ library(pacman)
 p_load(keras, tidyverse, gridExtra,
        tensorflow, tictoc, reticulate)
 
-py_install("tensorflow")
+#py_install("tensorflow")
 py_run_string("import tensorflow as tf")
 py_run_string("print(tf.__version__)")
 
