@@ -8,10 +8,17 @@
 #install.packages("ggplot2")
 #install.packages("gridExtra")
 
+# TODO DEBUG
+
 # Load necessary libraries
 library(pacman)
 p_load(keras, tidyverse, gridExtra,
        tensorflow, tictoc)
+
+install.packages("reticulate")
+library(reticulate)
+reticulate::install_miniconda()
+
 
 # Load the mnist dataset
 mnist <- dataset_mnist()
