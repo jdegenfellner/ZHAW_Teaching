@@ -56,6 +56,7 @@ hidden_activations <- function(nn, data) {
   return(a)
 }
 
+# fit neuronal network
 nn1 <- neuralnet(y1 ~ x, data1, hidden = 3, linear.output = TRUE, act.fct = "tanh")
 nn2 <- neuralnet(y2 ~ x, data2, hidden = 3, linear.output = TRUE, act.fct = "tanh")
 nn3 <- neuralnet(y3 ~ x, data3, hidden = 3, linear.output = TRUE, act.fct = "tanh")
@@ -98,31 +99,36 @@ grid.arrange(plot1, plot2, plot3, plot4, nrow = 2, ncol = 2)
 
 plot(nn1)
 
-# verify first prediction of nn1 manually:----
-y1
-x
+
+# verify first prediction of nn1 manually (given the network weights of nn1):----
+y1[1]
+x[1]
 
 # Extract the weights from the neural network
+nn1$weights
 w1 <- nn1$weights[[1]][[1]]
 w2 <- nn1$weights[[1]][[2]]
+w1
+w2
 
 # Manually compute the activations of the hidden layer for the first input
 x_input <- -1  # First input
+#x_input <- 0 # try another input
 
 # Add the bias term to the input
-x_input_bias <- cbind(1, x_input)
+(x_input_bias <- cbind(1, x_input)) # standard 1
 
 # Compute z (input to the hidden layer neurons)
-z_hidden <- x_input_bias %*% w1
+(z_hidden <- x_input_bias %*% w1)
 
 # Compute a (output of the hidden layer neurons)
-a_hidden <- tanh(z_hidden)
+(a_hidden <- tanh(z_hidden))
 
 # Add the bias term to the hidden layer activations
-a_hidden_bias <- cbind(1, a_hidden)
+(a_hidden_bias <- cbind(1, a_hidden))
 
 # Compute the output layer activation
-y_output <- a_hidden_bias %*% w2
+(y_output <- a_hidden_bias %*% w2)
 
 # Print the results
 cat("Input:", x_input, "\n")
