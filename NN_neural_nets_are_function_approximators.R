@@ -20,9 +20,8 @@
 # N = 50 data points, shown as blue dots, have been samples uniformly in x 
 # over the interval (-1,1) and the corresponding values of f(x) evaluated. 
 
-library(neuralnet)
-library(tidyverse)
-library(gridExtra)
+library(pacman)
+p_load(neuralnet, tidyverse, gridExtra)
 
 N <- 50
 x <- seq(-1, 1, length.out = N)

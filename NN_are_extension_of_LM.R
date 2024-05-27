@@ -7,30 +7,34 @@ library(pacman)
 p_load(tidyverse, ggalt, neuralnet, nnet)
 
 set.seed(42)
-x1 <- rnorm(100)
+x1 <- rnorm(100) # standard normal
 x2 <- rnorm(100)
 y <- 2 + 3 * x1 + 4 * x2 + rnorm(100, sd = 0.5)
 data <- data.frame(x1 = x1, x2 = x2, y = y)
+str(data)
 
-mod <- lm(y ~ x1 + x2, data = data)
+mod <- lm(y ~ x1 + x2, data = data) # esimate multiple linear regression model 
 summary(mod)
 plot(residuals(mod)) # looks good
+#check_model(mod)
 
 # Try different act.fcts:
 relu <- function(x) sapply(x, function(z) max(0,z)) # error...
 # see: https://stackoverflow.com/questions/34532878/package-neuralnet-in-r-rectified-linear-unit-relu-activation-function
 
-sigmoid <- function(x) {
+sigmoid <- function(x) { # for logistic regression
   1 / (1 + exp(-x))
 }
 
 nn <- neuralnet(y ~ x1 + x2, data = data, 
-                hidden = 0, # number of hidden layers
-                linear.output = TRUE, # If act.fct should NOT be applied to the output neurons set linear output to TRUE, otherwise to FALSE.
-                act.fct = sigmoid) # not active right now.
+                hidden = 0, # number and structure of hidden layers
+                linear.output = FALSE, # If act.fct should NOT be applied to the output neurons set linear output to TRUE, otherwise to FALSE.
+                act.fct = relu) # not active right now.
 
 plot(nn)
 data$y - predict(nn, newdata = data) # residuals
+sum((data$y - predict(nn, newdata = data))^2)/2
+plot(data$y - predict(nn, newdata = data) )
 summary(nn)
 
 # Exercises:
