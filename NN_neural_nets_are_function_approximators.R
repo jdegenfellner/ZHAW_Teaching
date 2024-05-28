@@ -43,6 +43,7 @@ data2 <- data.frame(x, y2)
 data3 <- data.frame(x, y3)
 data4 <- data.frame(x, y4)
 
+plot(x,y1)
 
 hidden_activations <- function(nn, data) {
   # Extract weights
