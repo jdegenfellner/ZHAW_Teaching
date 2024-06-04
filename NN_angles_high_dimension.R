@@ -6,8 +6,8 @@
 
 # [base code was extended using GPT-4]
 
-sim_number <- 500
-n <- 20 # dim, try more...
+sim_number <- 10000
+n <- 2 # dim, try more...
 
 angle <- rep(NA, sim_number)
 for(i in 1:sim_number){
