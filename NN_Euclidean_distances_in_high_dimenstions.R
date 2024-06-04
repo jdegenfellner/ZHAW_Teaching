@@ -1,7 +1,9 @@
 # NN (Euclidean) distances in high dimensions:
 
-n <- 6000 # dimensions
-num_sim <- 10000 # number of draws
+n <- 1100 # dimensions
+num_sim <- 1000 # number of draws
+
+# Note: num_sim needs to be >= n since the for loop below only runs until num_sim
 
 # Let's draw random vectors from the unit cube [0,1]^n
 
@@ -15,4 +17,9 @@ for(i in 1:num_sim){
 }
 
 hist(distances)
+summary(distances)
+sum(distances == 0) # exactly 100! Why?
+# This happens as soon as n > num_sim and gives exactly the difference zeros.
+
+
 
