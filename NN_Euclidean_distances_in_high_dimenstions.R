@@ -1,6 +1,6 @@
 # NN (Euclidean) distances in high dimensions:
 
-n <- 1100 # dimensions
+n <- 1000 # dimensions
 num_sim <- 1000 # number of draws
 
 # Note: num_sim needs to be >= n since the for loop below only runs until num_sim
@@ -17,9 +17,6 @@ for(i in 1:num_sim){
 }
 
 hist(distances)
-summary(distances)
-sum(distances == 0) # exactly 100! Why?
-# This happens as soon as n > num_sim and gives exactly the difference zeros.
 
 
 
