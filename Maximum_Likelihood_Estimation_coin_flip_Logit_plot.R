@@ -18,6 +18,7 @@ log_likelihood <- log(likelihood_f)
 which.max(log_likelihood)
 
 #---------
+# Plot logit function
 
 p <- seq(from=0.000001, to = 0.9999999099, by = 0.001)
 p/(1-p) # odds
