@@ -3,6 +3,8 @@
 # see: https://www.r-bloggers.com/2020/04/bayesian-linear-regression/
 # from: https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Bayes_Regression_RBloggers.R
 
+# see also Kruschke: https://jkkweb.sitehost.iu.edu/BMLR/index.html
+
 # Set working directory to source file location
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
