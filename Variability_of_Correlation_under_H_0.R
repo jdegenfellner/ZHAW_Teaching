@@ -52,7 +52,7 @@ generate_correlated_samples <- function(n, rho, mu = c(0, 0),
 set.seed(123)  # For reproducibility
 n <- 19       # Sample size
 rho <- 0.5     # Desired correlation
-samples <- generate_correlated_samples(n, rho)
+samples <- generate_correlated_samples(n, rho)m, , wi
 
 head(samples)
 df <- as.data.frame(samples)
@@ -61,7 +61,7 @@ df %>% ggplot(aes(x=V1,y=V2)) +
   xlab("x") + ylab("y")
 
 
-# p-Value under H_0: rho = 0.5
+# p-Value under H_0: rho = 0.5----
 n_sim <- 1000
 rho_vec <- numeric(n_sim)
 for(i in 1:n_sim){
@@ -71,11 +71,21 @@ for(i in 1:n_sim){
 hist(rho_vec)
 sum(rho_vec<=0.12)/n_sim
 
-# p-Value under H_0: rho = 0.4
+# p-Value under H_0: rho = 0.4----
 n_sim <- 1000
 rho_vec <- numeric(n_sim)
 for(i in 1:n_sim){
   res <- generate_correlated_samples(19, rho = 0.4)
+  rho_vec[i] <- cor(res[,1], res[,2], method = "spearman")
+}
+hist(rho_vec)
+sum(rho_vec<=0.12)/n_sim
+
+# p-Value under H_0: rho = 0.3----
+n_sim <- 1000
+rho_vec <- numeric(n_sim)
+for(i in 1:n_sim){
+  res <- generate_correlated_samples(19, rho = 0.3)
   rho_vec[i] <- cor(res[,1], res[,2], method = "spearman")
 }
 hist(rho_vec)
