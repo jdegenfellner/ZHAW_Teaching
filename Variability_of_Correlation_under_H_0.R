@@ -54,11 +54,6 @@ n <- 19       # Sample size
 rho <- 0.5     # Desired correlation
 samples <- generate_correlated_samples(n, rho)
 
-# Extract the two samples
-sample1 <- samples[, 1]
-sample2 <- samples[, 2]
-
-# Print the first few values
 head(samples)
 df <- as.data.frame(samples)
 df %>% ggplot(aes(x=V1,y=V2)) + 
@@ -71,6 +66,16 @@ n_sim <- 1000
 rho_vec <- numeric(n_sim)
 for(i in 1:n_sim){
   res <- generate_correlated_samples(19, rho = 0.5)
+  rho_vec[i] <- cor(res[,1], res[,2], method = "spearman")
+}
+hist(rho_vec)
+sum(rho_vec<=0.12)/n_sim
+
+# p-Value under H_0: rho = 0.4
+n_sim <- 1000
+rho_vec <- numeric(n_sim)
+for(i in 1:n_sim){
+  res <- generate_correlated_samples(19, rho = 0.4)
   rho_vec[i] <- cor(res[,1], res[,2], method = "spearman")
 }
 hist(rho_vec)
