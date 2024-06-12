@@ -7,8 +7,9 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 library(pacman)
 p_load(janitor,tidyverse,readxl,writexl,
-       data.table,robustbase,flextable)
+       data.table,robustbase,flextable, MASS)
 
+# H_0: no correlation----
 
 n <- 19 # sample size
 n_sim <- 1000 # number of simulations
@@ -34,3 +35,35 @@ sum(abs(cor_vec)>0.1)/n_sim
 sum(abs(cor_vec)>0.2)/n_sim
 sum(abs(cor_vec)>0.3)/n_sim
 sum(abs(cor_vec)>0.4)/n_sim
+
+
+
+# H_0: rho = 0.5----------
+generate_correlated_samples <- function(n, rho, mu = c(0, 0), 
+                                        sigma = c(1, 1)) {
+  mean_vector <- mu
+  covariance_matrix <- matrix(c(sigma[1]^2, rho * sigma[1] * sigma[2], 
+                                rho * sigma[1] * sigma[2], sigma[2]^2), 
+                              nrow = 2)
+  samples <- mvrnorm(n, mu = mean_vector, Sigma = covariance_matrix)
+  return(samples)
+}
+
+set.seed(123)  # For reproducibility
+n <- 19       # Sample size
+rho <- 0.5     # Desired correlation
+samples <- generate_correlated_samples(n, rho)
+
+# Extract the two samples
+sample1 <- samples[, 1]
+sample2 <- samples[, 2]
+
+# Print the first few values
+head(samples)
+df <- as.data.frame(samples)
+df %>% ggplot(aes(x=V1,y=V2)) + 
+  geom_point() + 
+  xlab("x") + ylab("y")
+
+
+# p-Value under H_0:
