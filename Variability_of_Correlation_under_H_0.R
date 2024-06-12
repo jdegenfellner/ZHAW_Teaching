@@ -10,17 +10,23 @@ p_load(janitor,tidyverse,readxl,writexl,
        data.table,robustbase,flextable)
 
 
-n <- 35 # sample size
+n <- 19 # sample size
 n_sim <- 1000 # number of simulations
 
 cor_vec <- numeric(n_sim)
+cor_vec_spearman <- numeric(n_sim)
 for(i in 1:n_sim){
   x <- rnorm(n)
   y <- rnorm(n) # create independent "instruments" 
   cor_vec[i] <- cor(x,y)
+  cor_vec_spearman[i] <- cor(x,y, method = "spearman")
 }
+
 hist(cor_vec, main = "Verteilung Zufallskorrelation unter H_0")
 quantile(cor_vec, probs = c(0.025, 0.975))
+
+hist(cor_vec_spearman, main = "Verteilung Zufallskorrelation (Spearman) unter H_0")
+quantile(cor_vec_spearman, probs = c(0.025, 0.975))
 
 plot(x,y)
 cor(x,y)
