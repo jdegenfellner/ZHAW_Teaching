@@ -66,4 +66,12 @@ df %>% ggplot(aes(x=V1,y=V2)) +
   xlab("x") + ylab("y")
 
 
-# p-Value under H_0:
+# p-Value under H_0: rho = 0.5
+n_sim <- 1000
+rho_vec <- numeric(n_sim)
+for(i in 1:n_sim){
+  res <- generate_correlated_samples(19, rho = 0.5)
+  rho_vec[i] <- cor(res[,1], res[,2], method = "spearman")
+}
+hist(rho_vec)
+sum(rho_vec<=0.12)/n_sim
