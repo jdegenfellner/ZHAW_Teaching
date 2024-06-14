@@ -52,7 +52,7 @@ ggplot(df, aes(x = p)) +
   ggtitle("Probability to make the correct decision") +
   theme(plot.title = element_text(hjust = 0.5))
 
-# Example -----
+# Example 1-----
 # If you do not have any clue about p, let us assume p = 0.5
 # Probability, to make the wrong decision is:
 1 - prob_truth_f(p = 0.5) 
@@ -63,3 +63,7 @@ ggplot(df, aes(x = p)) +
 1 - (1 - alpha + 1 - beta)/(1 - alpha + 1- beta + alpha + beta)
 # 0.125 # the same as tossing a coin if H_0 is true or not.
 
+
+# Example 2-----
+1 - prob_truth_f(p = 0.75) 
+1 - prob_truth_f_simpl(p = 0.75) 
