@@ -26,12 +26,17 @@ df <- data.frame(cors_orig = cors_orig,
                  cors_fisher_transform = cors_fisher_transform)
 
 
-ggplot() +
-  geom_histogram(data = df, aes(x = cors_orig, y = ..density..), binwidth = 0.05, fill = "blue", alpha = 0.6) +
-  geom_density(data = df, aes(x = cors_orig), color = "blue") +
-  geom_histogram(data = df, aes(x = cors_fisher_transform, y = -..density..), binwidth = 0.2, fill = "red", alpha = 0.6) +
-  geom_density(data = df, aes(x = cors_fisher_transform), color = "red") +
-  labs(title = "Distribution of orig correlations and fisher transformed correlations",
+shapiro.test(cors_fisher_transform)
+hist(cors_fisher_transform) # not too bad.
+
+ggplot(df) +
+  geom_histogram(aes(x = cors_orig, y = after_stat(density)), 
+                 binwidth = 0.05, fill = "blue", alpha = 0.6) +
+  geom_density(aes(x = cors_orig), color = "blue") +
+  geom_histogram(aes(x = cors_fisher_transform, y = -after_stat(density)), 
+                 binwidth = 0.2, fill = "red", alpha = 0.6) +
+  geom_density(aes(x = cors_fisher_transform), color = "red") +
+  labs(title = "Distribution of original correlations and Fisher-transformed correlations",
        x = "",
        y = "") +
   theme_minimal() +
