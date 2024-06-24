@@ -5,44 +5,46 @@ p_load(lubridate, tidyverse)
 
 
 # TODO
-# - cool tricks in R
+# - cool tricks in R (Version, cleanup, pacman, Chapter structure, source file location)
 # - useful applications for health sciences (epi packages and co)
 
 today()
 "2024-06-24"
 
-# Die folgenden Code-Snippets und Bsp. sind in keinster Weise abschliessend und sollen einen kurzen Eindruck
-# vom Funktionsumfang von R geben und die allerwichtigsten Funktionen/Methoden erklaeren.
+# The following code snippets and examples are by no means exhaustive and are 
+# intended to give a brief impression of R's functionality and explain the most
+# important functions/methods.
 
-# Die Main-Message dieses Abschnitts ist, Moeglichkeiten und Denkmuster fuer Datenmanipulation aufzuzeigen.
-# Ein konkretes Problem wird meist in Verbindung mit Online-Quellen geloest.
-# Wir sind in einem raschen und fundamentalen Wandel mit GPT.
-# Generative KI, insbesondere (derzeit) GPT4Turbo hilft beim Erstellen von R-Code immens!
+# The main message of this section is to show possibilities and ways of thinking
+# for data manipulation.
+# A specific problem is usually solved in conjunction with online sources.
 
-# Teilweise wird im Folgenden Englisch und Deutsch vermischt, was kein Problem darstellen sollte (und beabsichtigt ist).
-# Man bemerke, dass Code normalerweise eher ausschliesslich auf Englisch kommentiert wird und üblicherweise
-# sollen Kommentare eher das "Warum" und nicht das "Was" erklaeren. Fuer didaktische Zwecke ist das aber sinnvoll.
+# We are in a rapid and fundamental change with GPT.
+# Generative AI, especially (currently) GPT-4 Turbo, helps IMMENSELY in creating R code!
 
-# Untige Ausfuehrungen basieren auf https://r4ds.had.co.nz/introduction.html!
-# Viele weitere kostenlose R-Einfuehrungen findet man online, siehe z.B. auch Youtube.
-# Siehe e.v. auch das package learnr (rechts oben unter "Tutorial").
-# Siehe auch https://de.wikipedia.org/wiki/R_(Programmiersprache) fuer einen Ueberblick ueber die Sprache selbst.
+# Many of the following explanations are based on https://r4ds.had.co.nz/introduction.html!
+# Thank you Hadley!
 
-# First things first: 
+# Many more free R introductions can be found online, see e.g., also YouTube.
+# Also see the package learnr (top right under "Tutorial").
+# Also see https://en.wikipedia.org/wiki/R_(programming_language) for an 
+# overview of the language itself.
 
-# Why R (or Stata / SPSS / SAS....) and not just Excel? (see e.g. https://www.northeastern.edu/graduate/blog/r-vs-excel/)
+# First things first:
+
+# Why R (or Stata / SPSS / SAS....) and not just Excel? (see e.g., https://www.northeastern.edu/graduate/blog/r-vs-excel/)
 # - ease-of-use: learning curve; point-and-click vs. programming
 # - replicability
 # - interaction with data, subsetting, transforming, visualizing ....
-# - large datasets? (Seit Excel 2007 kann ein Tabellenblatt 1.048.576 Zeilen und 16.384 Spalten (A bis XFD), 
-#   also 17.179.869.184 Zellen umfassen. Davor war die Groesse auf 65.536 Zeilen und 256 Spalten (A bis IV), also 16.777.216 Zellen, begrenzt.)
+# - large datasets? (Since Excel 2007, a worksheet can contain 1,048,576 rows and 16,384 columns (A to XFD), 
+#   comprising 17,179,869,184 cells. Before that, the size was limited to 65,536 rows and 256 columns (A to IV), comprising 16,777,216 cells.)
 #   Data sets with about one million to one billion records can also be processed in R, but need some additional effort
-# - price? R free, 
-# - speaking from experience: licences are a pain!!
-# - expandability in Excel? -> packages in R! 
+# - price? R is free,
+# - speaking from experience: licenses are a pain!!
+# - expandability in Excel? -> packages in R!
 # - ....
 
-# Btw: Fuer Excel gibt es das R-Plug-in RExcel
+# Btw: For Excel, there is the R plug-in RExcel.
 
 # 1) Very basics #####
 
@@ -1023,12 +1025,11 @@ gss_cat %>%
   print(n = Inf) # gibt ALLE Zeilen aus
 
 
-# Dates and Times, falls Zeit..... :)
 
 
 
 
-# 7) Programmierung ####
+# 7) Programming ####
 
 # Thinking about code as a vehicle for communication is important because every project you do 
 # is fundamentally collaborative. Even if you’re not working with other people, you’ll definitely
