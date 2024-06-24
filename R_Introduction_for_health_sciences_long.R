@@ -5,7 +5,7 @@ p_load(lubridate, tidyverse)
 
 
 # TODO
-# - cool tricks in R (Version, cleanup, pacman, Chapter structure, source file location)
+#   https://www.reddit.com/r/rstats/comments/1ak05u7/what_are_some_cool_r_packages_to_use_in_2024/
 # - useful applications for health sciences (epi packages and co)
 
 today()
@@ -46,35 +46,44 @@ today()
 
 # Btw: For Excel, there is the R plug-in RExcel.
 
-# 1) Very basics #####
+# 0) Before you start #####
+
+# RStudio layout
+
+# How to setup your working environment
+# - Relative paths or
+# - RProjects
+
 
 # Set working directory to source file location:
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 getwd()
+# equivalent with: 
 # Session -> Set Working Directory -> To Source File Location
 
 # Get your packages:
 if (!require(pacman)) {
   install.packages("pacman")
-  library(pacman) # Installiert und ladet Packages automatisch
+  library(pacman) # Install and load package in one
 }
 pacman::p_load(tidyverse, # https://tidyverse.tidyverse.org/
                readxl,
-               writexl, # Einlesen und ausgeben von Excel-Files
-               DataExplorer, # Erstellt einen kurzen, schnellen Ueberblick ueber den Datensatz
+               writexl, # read write Excel files
+               DataExplorer, # Data overview
                gtsummary, # Creates presentation-ready tables 
-               table1, # schoene Table 1
-               flextable, # schoenere Tabellen
-               utils, nycflights13, gapminder, Lahman, devtools)
+               table1, # nice table 1
+               flextable, # nicer tables
+               nycflights13, gapminder, Lahman, # data sets
+               devtools) # Collection of package development tools.
+
 # From time to time check for updates of packages: Tools -> "Check for Package Upates"
 
 # Cite packages when you use them (not all, but the unusual ones maybe)
 citation("readxl")
 
-# Befehl ausführen:
+# Execute a command from the script:
 # str/command + ENTER
 # "Run" rechts oben
-
 
 # What R-version do I have?
 R.Version()
@@ -84,6 +93,16 @@ R.Version()
 devtools::source_url("https://github.com/jdegenfellner/ZHAW_Teaching/raw/main/Check_R_version_if_up_to_date.R")
 
 
+# "R clear console..." # Strg + L
+
+
+# TODO error
+# Clear (almost) entire RStudio:
+devtools::source_url("https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Cleanup_RStudio.R")
+
+
+# 1) Very basics ----
+# 
 # c() concatenate = zusammenhaengen
 c(1,2)
 x <- c(1,2,3,4,5) # erzeuge Vektor  .... "<-" Zuweisungsoperator, Pfeil
@@ -104,9 +123,9 @@ rm(y) # lösche Objekt y
 # how to execute a primitive command, use R as calculator
 1 + 2
 sin(pi / 2)
-log(12) # natuerliche log, Basis e
+log(12) # natural log, Basis e
 
-# wichtig!
+# important!!
 ?log # make use of the documentation by ? and function-name
 help(log)
 
@@ -120,17 +139,15 @@ log(2,3,12) # error
 
 # !!!
 # Getting help and learning more: "give a man a fish and you feed him for a day; 
-#teach a man to fish and you feed him for a lifetime"
+# teach a man to fish and you feed him for a lifetime"
 
 # -> Dr.Google :) <-
 # and today:
-# GPT4
+# GPT4o
 
 # example..."change column-names R"
-# stackoverflow: "If this site would be down, half of the software development industry would be incapable of working."
-
-# Bsp.
-# "R clear console..." #Strg + L
+# stackoverflow: "If this site would be down, half of the software 
+# development industry would be incapable of working."
 
 # use help for R-functions with ? + function-name
 ?plot
@@ -202,6 +219,16 @@ for(i in c(1,-3,5,7)){
   print(i^3)
 } # 1^2 3^2 5^2 ...
 
+
+# 1.1) Tips and Tricks in R--------
+
+# _comment out whole sections:----
+# step 1: mark the section you want to comment out
+# shift + command + c
+
+# x<-1
+# y<-2
+# z<-3
 
 
 # 2) Data Visualization ####
@@ -837,7 +864,7 @@ ggplot(data = faithful) +
 ggplot(faithful, aes(eruptions)) + 
   geom_freqpoly(binwidth = 0.25)
 
-# 6) Wata Wrangling (=streiten, hadern, zanken) - the art of getting your data into R in a useful form for visualisation and modelling ####
+# 6) Wata Wrangling - the art of getting your data into R in a useful form for visualisation and modelling ####
 
 # tibbles, sind data.frames, nur eine verbesserte Version davon.
 str(iris)
