@@ -18,6 +18,8 @@ summary(mod)
 plot(residuals(mod)) # looks good
 #check_model(mod)
 
+sum(residuals(mod)^2)/2 # = loss function of NN
+
 # Try different act.fcts:
 relu <- function(x) sapply(x, function(z) max(0,z)) # error...
 # see: https://stackoverflow.com/questions/34532878/package-neuralnet-in-r-rectified-linear-unit-relu-activation-function
@@ -28,7 +30,7 @@ sigmoid <- function(x) { # for logistic regression
 
 nn <- neuralnet(y ~ x1 + x2, data = data, 
                 hidden = 0, # number and structure of hidden layers
-                linear.output = FALSE, # If act.fct should NOT be applied to the output neurons set linear output to TRUE, otherwise to FALSE.
+                linear.output = TRUE, # If act.fct should NOT be applied to the output neurons set linear output to TRUE, otherwise to FALSE.
                 act.fct = relu) # not active right now.
 
 plot(nn)
