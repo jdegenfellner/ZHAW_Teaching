@@ -1,16 +1,37 @@
-#### Introduction to R ##
-
-library(pacman)
-p_load(lubridate, tidyverse)
-
+#### ___________> Introduction to R <__________ ####
 
 # TODO
 #   https://www.reddit.com/r/rstats/comments/1ak05u7/what_are_some_cool_r_packages_to_use_in_2024/
 # - useful applications for health sciences (epi packages and co)
 
+# Get your packages - functional extensions to base R:--------
+if (!require(pacman)) {
+  install.packages("pacman")
+  library(pacman) # Install and load package in one
+}
+pacman::p_load(tidyverse, # https://tidyverse.tidyverse.org/
+               readxl,
+               writexl, # read write Excel files
+               DataExplorer, # Data overview
+               gtsummary, # Creates presentation-ready tables 
+               table1, # nice table 1
+               flextable, # nicer tables
+               nycflights13, gapminder, Lahman, # data sets
+               devtools, # Collection of package development tools.
+               lubridate, # date functions
+               Hmisc # Harrell Miscellaneous
+               ) 
+
+# From time to time check for updates of packages: Tools -> "Check for Package Upates"
+
+# Cite packages when you use them (not all, but the unusual ones maybe)
+citation("readxl")
+
+
 today()
 "2024-06-24"
 
+# File-Info----
 # The following code snippets and examples are by no means exhaustive and are 
 # intended to give a brief impression of R's functionality and explain the most
 # important functions/methods.
@@ -60,26 +81,6 @@ setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 getwd()
 # equivalent with: 
 # Session -> Set Working Directory -> To Source File Location
-
-# Get your packages:
-if (!require(pacman)) {
-  install.packages("pacman")
-  library(pacman) # Install and load package in one
-}
-pacman::p_load(tidyverse, # https://tidyverse.tidyverse.org/
-               readxl,
-               writexl, # read write Excel files
-               DataExplorer, # Data overview
-               gtsummary, # Creates presentation-ready tables 
-               table1, # nice table 1
-               flextable, # nicer tables
-               nycflights13, gapminder, Lahman, # data sets
-               devtools) # Collection of package development tools.
-
-# From time to time check for updates of packages: Tools -> "Check for Package Upates"
-
-# Cite packages when you use them (not all, but the unusual ones maybe)
-citation("readxl")
 
 # Execute a command from the script:
 # str/command + ENTER
@@ -222,6 +223,8 @@ for(i in c(1,-3,5,7)){
 
 # 1.1) Tips and Tricks in R--------
 
+# _document outline----
+
 # _comment out whole sections:----
 # step 1: mark the section you want to comment out
 # shift + command + c
@@ -323,9 +326,6 @@ dim(mpg) # liefert die Dimensionen (Anzahl der Zeilen, Anzahl der Spalten)
 mpg[2,4] #look at single element in the data frame
 mpg[2,4] <- 1998
 # hier koennte man auch einzelen Elemente veraendern: z.B. mpg[2,4] <- 1998
-
-
-# bis hierhier am 15.11.23#################
 
 mpg[ order(mpg$manufacturer, decreasing = TRUE), ] # change order, sort in descending order for manufacturer
 
