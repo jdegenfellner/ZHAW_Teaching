@@ -69,37 +69,33 @@ today()
 
 # 0) Before you start #####
 
-# RStudio layout
+# _RStudio layout----
 
-# How to setup your working environment
-# - Relative paths or
+# _How to setup your working environment-----
+# - Relative paths (and trick below) or
 # - RProjects
 
 
-# Set working directory to source file location:
+# Trick: Set working directory to source file location:
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 getwd()
 # equivalent with: 
-# Session -> Set Working Directory -> To Source File Location
+# Menu: Session -> Set Working Directory -> To Source File Location
 
-# Execute a command from the script:
-# str/command + ENTER
-# "Run" rechts oben
+# _Execute a command from the script:----
+# str/command + ENTER; or
+# "Run" button (upper right)
 
-# What R-version do I have?
+# _What R-version do I have?---------
 R.Version()
-
 # Check if R-version is up-do-date automatically:
 # If you have devtools installed:
 devtools::source_url("https://github.com/jdegenfellner/ZHAW_Teaching/raw/main/Check_R_version_if_up_to_date.R")
 
+# _R clear console: Command + L----
 
-# "R clear console..." # Strg + L
-
-
-# TODO error
-# Clear (almost) entire RStudio:
-devtools::source_url("https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Cleanup_RStudio.R")
+# _Clear (almost) entire RStudio:------
+devtools::source_url("https://raw.githubusercontent.com/jdegenfellner/ZHAW_Teaching/main/Cleanup_RStudio.R")
 
 
 # 1) Very basics ----
@@ -131,7 +127,6 @@ log(12) # natural log, Basis e
 help(log)
 
 log( c(2,3) ) # function is applied to all elements in vector
-log(2.3) # "." ist ein Komma
 log(2, base = 3) # Basis 3
 log(2,3,12) # error
 
@@ -227,7 +222,7 @@ for(i in c(1,-3,5,7)){
 
 # _comment out whole sections:----
 # step 1: mark the section you want to comment out
-# shift + command + c
+# step 2: shift + command + c
 
 # x<-1
 # y<-2
