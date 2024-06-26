@@ -19,10 +19,11 @@ pacman::p_load(tidyverse, # https://tidyverse.tidyverse.org/
                nycflights13, gapminder, Lahman, # data sets
                devtools, # Collection of package development tools.
                lubridate, # date functions
-               Hmisc # Harrell Miscellaneous
-               ) 
+               Hmisc, # Harrell Miscellaneous
+               data.table, # for fast operations on large data sets
+               psych) # A general purpose toolbox developed originally for personality, psychometric theory and experimental psychology. 
 
-# From time to time check for updates of packages: Tools -> "Check for Package Upates"
+# From time to time check for updates of packages: Tools -> "Check for Package Updates"
 
 # Cite packages when you use them (not all, but the unusual ones maybe)
 citation("readxl")
@@ -100,20 +101,21 @@ devtools::source_url("https://raw.githubusercontent.com/jdegenfellner/ZHAW_Teach
 
 # 1) Very basics ----
 # 
-# c() concatenate = zusammenhaengen
+# c() concatenate
 c(1,2)
-x <- c(1,2,3,4,5) # erzeuge Vektor  .... "<-" Zuweisungsoperator, Pfeil
+x <- c(1,2,3,4,5) # create vector  .... "<-" assignment operator
 x = c(1,2,3,4,5)
 class(x)
-d <- c("Yes","No") # erzeuge String-Vektor
+d <- c("Yes","No") # create string vector
 class(d)
 x
-( x <- c(1,2,3,4,5) ) # Die zusaetzlichen Klammern geben den Zuweisungswert in der Konsole unten aus, ganz praktisch.
-2 -> y # Zuweisungsoperator geht auch in die andere Richtung
-y = 12 # oder so
+( x <- c(1,2,3,4,5) ) # who result immediately
+2 -> y # other direction also possible
+y = 12 # also possible
 12 = y # error
 
 rm(y) # remove y
+
 
 # We start very simple:
 
@@ -142,28 +144,17 @@ log(2,3,12) # error
 # GPT4o
 
 
-# assignment operator
-b <- 1
-1 -> b # both directions possible
-2 <- b # error
-(b <- 2) # show value of b immediately
-b = 3 # also possible
-
 
 # Naming conventions for variables?
-# case sensitive (Gross und Kleinschreibung), aber das bemerkt man schnell, upper case, lower case
+# case sensitive
 large_Variable <- 3
 Large_Variable # not found
 
-# concatenate
-x <- c(1,2,3,4) # create vector of same type elements
-
-x <- c(1:5, 23, 45)
+# sequences
 seq(from = 1, to = 100, by = 2) # increase by 2 -> R create sequence....
 y <- seq(1, 10, length.out = 5)
 y
 
-dd <- c("we","ggt") b# character vector
 
 str(x) # structure, important!
 str(flights)
@@ -176,14 +167,13 @@ x*2 # error
 log(2)
 
 # simple statistics in base R:
-# Btw: Was ist ueberhaupt eine "Statistik"? (https://de.wikipedia.org/wiki/Stichprobenfunktion)
 mean(y) # mean {base}
 median(y)
 median( c(x,y) ) # error, different type
 median(c(2,3,4,12), c(45,2,3,1)) # What does this do?
 
 x <- rnorm(1000) # sample of 1000 random number with X ~ N(mean = 0, sigma = 1)
-hist(x) # histogramm base R
+hist(x) # histogram in base R (later with ggplot2)
 mean(x)
 sd(x) # standard deviation
 var(x) # variance
@@ -196,7 +186,7 @@ polynom <- function(x, y = 4){ # y has default value of 4
 }
 polynom(1) # 1^1+3*1+5*1*4+4^3
 1^1+3*1+5*1*4+4^3
-polynom(1,0) # y=0
+polynom(1,0) # y = 0
 
 polynom_useless <- function(x, y = 4){ # y has default value of 4
   x^2 + 3*x + 5*x*y + y^3 # last value is returned
@@ -205,7 +195,7 @@ polynom_useless <- function(x, y = 4){ # y has default value of 4
 polynom_useless(3,4)# 23
 
 
-# e.g. einfache for-Schleifen
+# loops (which I need the most)
 for(i in 1:5){
   print(i)
 }
@@ -229,69 +219,73 @@ for(i in c(1,-3,5,7)){
 # TODO expand section
 
 
-# 2) Data Visualization ####
 
-# Schauen wir uns den Datensatz kurz an:
+# 2) Data Visualization ----
 
 str(mpg) # tibble vs data.frame # structure
 class(mpg)
 is.data.frame(mpg)
+is.numeric(mpg$manufacturer)
+is.numeric(mpg$year)
+View(mpg)
+create_report(mpg) # DataExplorer, creates overview as html
 
-View(mpg) # geht z.B. auf Command-Line nicht. Geht aber hier in RStudio!!
-
-library(data.table)
+# conversions
 mpg <- as.data.table(mpg)
 mpg <- as_tibble(mpg)
 
 x <- c("1", "3", "5")
 x
 class(x)
-x <- as.numeric(x)
+x <- as.numeric(x) # conversion
 x
 
-# wichtig!!!
+?mpg
+# Fuel economy data from 1999 to 2008 for 38 popular models of cars
+
 # "$" Operator
 mpg$trans
-mpg$manufacturer[1:10] # spuckt den Character-Vector aus
+mpg$manufacturer[1:10] # elements 1 to 10 in manufacturer vector
 # Subsetting
 #mpg[Zeilen,Spalten]
 mpg[1:10, 4:7]$trans
 mpg[1:10, c("displ", "cyl")]
-mpg[1:10, c(3,5)] # c = concatenate = zusammenfügen
+mpg[1:10, c(3,5)] 
 
-head(mpg) # zeige die ersten Zeilen
-tail(mpg) # zeige die letzten Zeilen
-headTail(mpg) # zeige die ersten und letzten Zeilen
+head(mpg) # show first 10 rows
+tail(mpg) # show last 10 rows
+headTail(mpg) # first and last rows (package psych)
 mpg
 
 
 # base R commands:
+table(mpg$manufacturer) # frequency table
 barplot(table(mpg$manufacturer))
+cor(mpg$displ, mpg$hwy) 
 
 # versus using ggplot2
-ggplot(mpg, aes(x = manufacturer)) +
-  geom_bar(stat = "count") +
-  coord_flip() +
-  xlab("") + ylab("") +
-  ggtitle("Titel") +
-  theme(plot.title = element_text(hjust = 0.5)) # Center the title
-
-
+mpg %>% # using the pipe operator
+  ggplot(aes(x = manufacturer)) +
+    geom_bar(stat = "count") +
+    coord_flip() +
+    xlab("") + ylab("") +
+    ggtitle("Title") +
+    theme(plot.title = element_text(hjust = 0.5)) # Center the title
 # ggplot() creates a coordinate system that you can add layers to!
 
 # base R Plot:
-plot(mpg$displ, mpg$hwy) # relativ langweilig und funktionell nicht so stark wie ggplot, optisch nicht ansprechend
-cor(mpg$displ, mpg$hwy) # correlation, was ist das???
+plot(mpg$displ, mpg$hwy) 
 
 ggplot(data = mpg) + 
   geom_point(aes(x = displ, y = hwy))
 
 ggplot(data = mpg) + 
-  geom_point(aes(x = displ, y = hwy), position = "jitter") # negative relationship between engine size (displ) and fuel efficiency (hwy)
+  geom_point(aes(x = displ, y = hwy), position = "jitter") 
+# negative relationship between engine size (displ) and fuel efficiency (hwy)
 
-# ggplot(data = mpg) alone creates an empty plot!
+ggplot(data = mpg) # creates an empty plot!
 
-# Prompt: "Lets pimp this plot... title "Scatterplot for 
+# GPT-Prompt: "Lets pimp this plot... title "Scatterplot for 
 # displacement and highway mileage", color red if displacement > 6, 
 # color green if displacement <4; add a smoothing line; omit the 
 # legend title, center the title"
@@ -313,42 +307,43 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   scale_color_manual(values = c("green" = "green", "blue" = "blue", "red" = "red"))
 p
 
+# What are the red dots and relatively fuel efficient points in the plot?
+mpg %>% filter(displ > 6 & hwy > 20)
+# inefficient
+mpg %>% filter(displ > 6 & hwy < 20)
 
-summary(mpg) # liefert eine 5-Punkte Zusammenfassung der kontinuierlichen Variablen im Datensatz
+summary(mpg)
 
 
-dim(mpg) # liefert die Dimensionen (Anzahl der Zeilen, Anzahl der Spalten)
-mpg[2,4] #look at single element in the data frame
-mpg[2,4] <- 1998
-# hier koennte man auch einzelen Elemente veraendern: z.B. mpg[2,4] <- 1998
+dim(mpg) # number of rows and cols
+mpg[2,4] # look at single element in the data frame
+#mpg[2,4] <- 1998 # change single entry
 
 mpg[ order(mpg$manufacturer, decreasing = TRUE), ] # change order, sort in descending order for manufacturer
+# or:
+mpg %>% arrange(desc(manufacturer))
 
-# Workspace und Objekte sichern und laden:
-# or
-#saveRDS(mpg, "mpg.RDS")
-#mpg <- readRDS("mpg.RDS")
-mpg
+
+# Save R whole workspace or single objects in R:
+# saveRDS(mpg, "mpg.RDS")
+# mpg <- readRDS("mpg.RDS")
 
 save.image(file = "my_workspace.RData")
 load("my_workspace.RData")
 
 
-mpg <- mpg %>% # pipe operator
-  arrange(desc(manufacturer))
-
 # wichtig!!!
-colnames(mpg) # kann man bequem aendern
+colnames(mpg) # column names of data frame
 #colnames(mpg)[1] <- c("MANUF_new")
 
-unique(mpg$class) # Welche einzigartigen levels hat dieser Faktor?
+unique(mpg$class) # unique entries in vector
 table(mpg$class)
-length(unique(mpg$class)) # Wieviele einzigartige Levels hat der Faktor?
+length(unique(mpg$class)) # how many different entries are there?
 
 # One more dimension as information: car class
 mpg %>% ggplot() + 
-  geom_point(aes(x = displ, y = hwy, color = class)) +  # Verwende versch. Farben fuer die Fahrzeugklasse
-  ggtitle("Titel") 
+  geom_point(aes(x = displ, y = hwy, color = class)) +  # different colors for vehicle class
+  ggtitle("Title") 
 
 ggplot(data = mpg) + 
   geom_point(aes(x = displ, y = hwy), color = "blue") + 
