@@ -54,6 +54,10 @@ df_res %>% filter(p_val_x1 < 0.05) %>%
   geom_histogram() + 
   geom_vline(xintercept = beta_x1) # looks fine!
 
+df_res %>% 
+  filter(p_val_x1 < 0.05) %>%
+  dplyr::summarize(mean_coef_x1 = mean(coef_x1, na.rm = TRUE))
+
 df_res %>% filter(p_val_x2 < 0.05) %>%
   ggplot(aes(x = coef_x2)) + 
   geom_histogram() + 
