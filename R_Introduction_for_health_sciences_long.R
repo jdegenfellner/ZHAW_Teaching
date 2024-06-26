@@ -23,7 +23,8 @@ pacman::p_load(tidyverse, # https://tidyverse.tidyverse.org/
                data.table, # for fast operations on large data sets
                psych, # A general purpose toolbox developed originally for personality, psychometric theory and experimental psychology. 
                visdat, # visualize missing values
-               tictoc) # timing 
+               tictoc, # timing 
+               hexbin) # Bivariate Binning into Hexagon Cells
 
 # From time to time check for updates of packages: Tools -> "Check for Package Updates"
 
@@ -773,11 +774,11 @@ ggplot(diamonds) +
   geom_histogram(aes(x = y), binwidth = 0.5) +
   coord_cartesian(ylim = c(0, 50))
 
-# betrachte die "ungewoehnlichen" Beobachtungen einzeln:
+# look at unusual ones:
 unusual <- diamonds %>% 
-  filter(y < 3 | y > 20) %>% # | logisches ODER
+  filter(y < 3 | y > 20) %>% # | logical OR
   dplyr::select(price, x, y, z) %>% # x ... length in mm (0--10.74)
-  arrange(y) # geordnet nach y
+  arrange(y) 
 unusual
 
 
@@ -786,70 +787,56 @@ unusual
 # If variation describes the behavior within a variable, covariation describes the behavior between variables. 
 # Covariation is the tendency for the values of two or more variables to vary together in a related way. 
 
-# Btw, wie ist Kovarianz und Correlation definiert? Was sagen diese Groessen aus?
-
 # Example: how the price of a diamond varies with its quality:
 ggplot(data = diamonds, aes(x = price)) + 
   geom_freqpoly(aes(colour = cut), binwidth = 500)
-# schlecht Vergleichbar
+# difficult to compare
 
-# Fuer einen besseren Vergleich betrachte man die Dichte, d.h. die Flaeche unter dem Polygon ist jetzt 1.
-# Btw, was ist eine Wahrscheinlichkeitsdichte?
-ggplot(data = diamonds, mapping = aes(x = price, y = ..density..)) + 
+# For a better comparison, consider the density, i.e., the area under the polygon is now 1.
+ggplot(data = diamonds, mapping = aes(x = price, y = after_stat(density))) + 
   geom_freqpoly(mapping = aes(colour = cut), binwidth = 500)
 
-# Vl koennen wir das einfach als Boxplot darstellen:
-ggplot(data = diamonds, aes(x = cut, y = price)) + # auf der x-Achse ist die kategorielle Variable 
-  geom_boxplot()                                             # cut, auf der y-Achse die kontinuierliche Variable price
-# Vergleich der Zentralwerte jetzt leichter
-# supports the counterintuitive finding that better quality diamonds are cheaper on average!
+# Maybe we can simply represent this as a boxplot:
+ggplot(diamonds, aes(x = reorder(cut, price, FUN = median), y = price)) + # on the x-axis is the categorical variable 
+  geom_boxplot()   +                                # cut, on the y-axis the continuous variable price
+  xlab("")
+# Comparison of central values is now easier
+# supports the counter-intuitive finding that better quality diamonds are cheaper on average!
 
-# Vl moechte man die Boxplots nach dem Median ordnen, Bsp:
-ggplot(data = mpg, aes(x = class, y = hwy)) + # hwy .. highway miles per gallon
-  geom_boxplot() # Verbrauch ohne Ordnung
 
-ggplot(data = mpg) +
-  geom_boxplot(aes(x = reorder(class, hwy, FUN = median), y = hwy)) + 
-  coord_flip() # um 90 Grad drehen
-
-# Visualizierung von zwei kategorischen Variablen
+# Visualization of two categorical variables
 ggplot(data = diamonds) +
   geom_count(mapping = aes(x = cut, y = color))
 
-
-# Visualisiere zwei kontinuierliche Variablen
-# oft kann man einfach mal mit base-R plotten, wenn es schnell gehen soll
-plot(diamonds$carat, diamonds$price) # bisschen haesslicher
+# Visualize two continuous variables
+# often you can just use base-R plotting if you need something quick
+plot(diamonds$carat, diamonds$price) # a bit ugly
 
 ggplot(data = diamonds) +
   geom_point(mapping = aes(x = carat, y = price))
-# damit es nicht so voll aussieht, fuege man Transparenz hinzu
+# to make it look less cluttered, add transparency
 ggplot(data = diamonds) + 
-  geom_point(mapping = aes(x = carat, y = price), alpha = 1 / 100) # mit alpha aus [0,1]
+  geom_point(mapping = aes(x = carat, y = price), alpha = 1 / 100) # with alpha in [0,1]
 
-# Der Trick mit den bins funktioniert nicht nur in Histogrammen, geht auch in 2D
+# The trick with bins works not only in histograms, it also works in 2D
 ggplot(data = smaller) +
   geom_bin2d(mapping = aes(x = carat, y = price))
 
-# install.packages("hexbin")
-library(hexbin)
 ggplot(data = smaller) +
-  geom_hex(mapping = aes(x = carat, y = price)) # noch aesthetischer mit Hexagons
+  geom_hex(mapping = aes(x = carat, y = price)) # library hexbin; even more aesthetic with hexagons
 
-
-# Auch eine einzelne Variable kann man in bins stecken:
+# You can also bin a single variable:
 ggplot(data = smaller, mapping = aes(x = carat, y = price)) + 
-  geom_boxplot(mapping = aes(group = cut_width(carat, 0.1))) # cut_width() zerlegt die Variable in Abschnitte der Laenge 0.1
+  geom_boxplot(mapping = aes(group = cut_width(carat, 0.1))) # cut_width() divides the variable into segments of length 0.1
 
-# Muster/Cluster
+# Patterns/Clusters
 ggplot(data = faithful) + 
   geom_point(mapping = aes(x = eruptions, y = waiting)) +
   xlab("Eruption time in mins") + 
   ylab("Waiting time to next eruption (in mins)") 
-# 2D sieht man die Cluster mit freiem Auge. 
+# In 2D, you can see the clusters with the naked eye.
 # -> longer wait times are associated with longer eruptions
-# Mehrere Dimensionen erfordern multivariate Methoden -> siehe Clusteranalyse spaeter!
-
+# Multiple dimensions require multivariate methods -> see cluster analysis later!
 
 # Normalerweise laesst man bekannte Argumente weg, wie z.B. mapping oder die ersten beiden Argumente von aes()
 # kuerzer: 
