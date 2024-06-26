@@ -71,3 +71,30 @@ df_res %>%
 
 mean(coef_x1) # very good as expected
 mean(coef_x2) # very good as expected
+
+
+# The smaller the p-value, the larger the t-statistic for the coefficient,
+# and this is the case when the estimate ist rather large compared to H_0: mue=0.
+
+# We can suspect, that the bias is larger with even smaller p_values, let's check:
+df_res %>% filter(p_val_x2 < 0.005) %>%
+  ggplot(aes(x = coef_x2)) + 
+  geom_histogram() + 
+  geom_vline(xintercept = beta_x2) # rather skewed.
+
+df_res %>% 
+  filter(p_val_x2 < 0.005) %>%
+  dplyr::summarize(mean_coef_x2 = mean(coef_x2, na.rm = TRUE))
+# seems right
+
+
+df_res %>% filter(p_val_x2 < 0.0005) %>%
+  ggplot(aes(x = coef_x2)) + 
+  geom_histogram() + 
+  geom_vline(xintercept = beta_x2) # rather skewed.
+
+df_res %>% 
+  filter(p_val_x2 < 0.0005) %>%
+  dplyr::summarize(mean_coef_x2 = mean(coef_x2, na.rm = TRUE))
+# slightly larger even
+
