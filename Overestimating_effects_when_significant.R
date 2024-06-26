@@ -1,6 +1,19 @@
-# Gelman, you overestimate effects, when you have a significant effect
+# Prof. Andrew Gelman said something like, 
 
-# in progress #
+# "standard practice you get an estimate you do a 
+# study and if the estimates more than two standard errors away from zero you
+# report it and publish it if it's less than two standard errors away from
+# zero you shake the data until you get something two standard errors away
+# from zero and you publish that if you do that consistently you will
+# overestimate your treatment effects because after all you can only report
+# things that are at least two standard errors away from zero you'd like so
+# if the true value of the treatment is effect is less than that 
+# it's it's biased you know like it's biased no matter what but like it's if
+# the true value is less than two standard errors it's it's like deterministically bias "
+
+# https://www.youtube.com/watch?v=xgUBdi2wcDI&t=5222s&ab_channel=HarryCrane
+
+# Let's try to verify some of that:
 
 n <- 100
 n_sim <- 1000
@@ -49,8 +62,8 @@ df_res %>% filter(p_val_x2 < 0.05) %>%
 df_res %>% 
   filter(p_val_x2 < 0.05) %>%
   dplyr::summarize(mean_coef_x2 = mean(coef_x2, na.rm = TRUE))
-# overestimated systematically
+# seems overestimated systematically
 
 
-mean(coef_x1) # very good
-mean(coef_x2) # very good
+mean(coef_x1) # very good as expected
+mean(coef_x2) # very good as expected

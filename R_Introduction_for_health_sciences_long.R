@@ -1,4 +1,4 @@
-#### ___________> Introduction to R <__________ ####
+#### Introduction to R ####
 
 # TODO
 #   https://www.reddit.com/r/rstats/comments/1ak05u7/what_are_some_cool_r_packages_to_use_in_2024/
