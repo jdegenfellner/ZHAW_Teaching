@@ -725,6 +725,8 @@ flights %>%
 # What type of variation occurs within my variables?
 # What type of covariation occurs between my variables?
 
+?diamonds # Prices of over 50,000 round cut diamonds
+
 # Visualizing distributions
 table(diamonds$cut) # categorical variable, is it ordinal or nominal?
 
@@ -764,7 +766,7 @@ ggplot(data = smaller, aes(x = carat)) +
 # see also https://en.wikipedia.org/wiki/Outlier
 
 ggplot(diamonds) + 
-  geom_histogram(aes(x = y), binwidth = 0.5) # y ... width in mm (0--58.9)
+  geom_histogram(aes(x = y), binwidth = 0.5) # y = width in mm (0--58.9)
 
 # zoom to small values of the y-axis
 ggplot(diamonds) + 
