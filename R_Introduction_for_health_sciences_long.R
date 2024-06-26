@@ -113,7 +113,7 @@ x
 y = 12 # oder so
 12 = y # error
 
-rm(y) # lösche Objekt y
+rm(y) # remove y
 
 # We start very simple:
 
@@ -127,33 +127,27 @@ log(12) # natural log, Basis e
 help(log)
 
 log( c(2,3) ) # function is applied to all elements in vector
-log(2, base = 3) # Basis 3
+log(2, base = 3) # basis 3
 log(2,3,12) # error
 
 # Allgemein
-# function( ... Argumente durch Beistrich getrennt .... )
+# function( ... arguments separated by "," .... )
 
 # !!!
 # Getting help and learning more: "give a man a fish and you feed him for a day; 
 # teach a man to fish and you feed him for a lifetime"
 
 # -> Dr.Google :) <-
-# and today:
+# and currently:
 # GPT4o
 
-# example..."change column-names R"
-# stackoverflow: "If this site would be down, half of the software 
-# development industry would be incapable of working."
 
-# use help for R-functions with ? + function-name
-?plot
-
-
-# Zuweisungsoperator(en)
-1 -> b
+# assignment operator
+b <- 1
+1 -> b # both directions possible
 2 <- b # error
-(b <- 2)
-b = 3
+(b <- 2) # show value of b immediately
+b = 3 # also possible
 
 rm(b) # rm ... remove; Objekt loeschen
 c() <- 3
@@ -163,19 +157,18 @@ c() <- 3
 grosse_Variable <- 3
 Grosse_Variable
 
-# concatenate - Operator (haenge zusammen)
-x <- c(1,2,3,4) # erzeuge Vektor
+# concatenate
+x <- c(1,2,3,4) # create vector of same type elements
 
 x <- c(1:5, 23, 45)
-seq(1, 100, by = 2) # steige um 2 -> R create sequence....
+seq(from = 1, to = 100, by = 2) # increase by 2 -> R create sequence....
 y <- seq(1, 10, length.out = 5)
 y
 
-# wichtig!!!
-str(x) # structure
+str(x) # structure, important!
 str(flights)
 class(flights)
-View(flights) # neues Fenster
+View(flights)
 class(x)
 class(flights)
 dd <- c("we","ggt")
