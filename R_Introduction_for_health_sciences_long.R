@@ -21,7 +21,8 @@ pacman::p_load(tidyverse, # https://tidyverse.tidyverse.org/
                lubridate, # date functions
                Hmisc, # Harrell Miscellaneous
                data.table, # for fast operations on large data sets
-               psych) # A general purpose toolbox developed originally for personality, psychometric theory and experimental psychology. 
+               psych, # A general purpose toolbox developed originally for personality, psychometric theory and experimental psychology. 
+               visdat) # visualize missing values
 
 # From time to time check for updates of packages: Tools -> "Check for Package Updates"
 
@@ -464,39 +465,36 @@ df$dteday[1]
 df$dteday[2]
 df$dteday[1] < df$dteday[2] # TRUE
 
-# Schreibe data frame df in Excel:
+# write Excel:
 df
 getwd()
 write_xlsx(df, "./Data/df_out.xlsx")
 
-# Textfiles
+# Text files
 ?read.csv
 ?read.csv2
 ?read.table
 
-# -> mehr zum Einlesen unten!
 
-# 4) Datentransformation mit dplyr, ein sehr elegantes Package ####
-# dplyr ist Teils des tidyverse
+# 4) Datentransformation mit dplyr-----
+# dplyr is part of tidyverse
 
-library(nycflights13)
-library(tidyverse)
 # Take careful note of the conflicts message that's printed when you load the tidyverse. 
 # It tells you that dplyr overwrites some functions in base R. 
 # If you want to use the base version of these functions after loading dplyr, 
 # you'll need to use their full names: stats::filter() and stats::lag().
 
 str(flights)
-# neu: POSIXct - Format! Sehr praktisch fuer Zeit- und Datumsangaben! 
-# Ermoeglicht z.B. Zeitvergleiche mit >/</==
+# POSIXct: convenient to date calculations 
+# comparisons with >/</==
 flights$time_hour[c(1,100)]
 # compare:
 flights$time_hour[c(1)] < flights$time_hour[c(100)]
 
 # Tibbles are data frames, but slightly tweaked to work better in the tidyverse.
-flights # ein etwas groesserer Datensatz, 336k Zeilen
+flights # larger data set, 336k rows
 
-# Wichtige Funktionen zur Datenmanipulation in dplyr:
+# important functions in dplyr:
 
 # Pick observations by their values (filter()).
 # Reorder the rows (arrange()).
@@ -507,69 +505,71 @@ flights # ein etwas groesserer Datensatz, 336k Zeilen
 # scope of each function from operating on the entire dataset to operating on it group-by-group. 
 # -->> These six functions provide the verbs for a language of data manipulation.
 
-filter(flights, month == 1, day == 1) # doppeltes "=" fuer Vergleiche!
+flights %>% filter(month == 1, day == 1) # "==" for comparisons
 
-( dec25 <- filter(flights, month == 12, day == 25) ) # zeige Resultat direkt.
-# Speichert auch den zurueckgegebenen Datensatz und mit den Klammern wird das Ergebnis sofort ausgegeben
+( dec25 <- flights %>% filter(month == 12, day == 25) ) # directly show result
+# saves the resulting tibble to dec25
 
 
 
 # Fun (non-intuitive) Facts:
 sqrt(2) ^ 2 == 2
-1 / 49 * 49 == 1 # 0.02040816*49 = 0.9999998 (beschraenkte Mantissenlaenge)
+1 / 49 * 49 == 1 # 0.02040816*49 = 0.9999998 (limited mantissa length)
 
 near(sqrt(2) ^ 2,  2)
 near(1 / 49 * 49, 1)
-# oder man verwendet etwas wie:
+# or:
 abs(1 / 49 * 49 - 1) < 10^(-5)
 
-# logische Operatoren
-1 == 1 # gleich
-1 > 2 # groesser
-3 >= 3 # groesser gleich
-3 != 4 # ungleich, nicht gleich
+# logical Operators
+1 == 1 # equal
+1 > 2 # larger
+3 >= 3 # larger or equal
+3 != 4 # not equal
 TRUE | TRUE # logisches ODER
 c(TRUE,TRUE) & c(TRUE,FALSE) # elementweise
 TRUE & FALSE # logisches UND
 xor(TRUE, TRUE) # exklusives oder
 xor(TRUE, FALSE)
 
-# Mengenoperationen
+ind <- c(1,3,5,18,21)
+for(i in ind){
+  print(i)
+}
+1:60 %nin% ind # Hmisc package
+
+
+# set operations
 x <- 1:7
 y <- 4:10
 x
 y
-union(x, y) # Mengenvereinigung
-setdiff(x, y) # Mengendifferenz x - y
-setdiff(y, x) # also nicht symmetrisch 
+union(x, y) # union
+setdiff(x, y) # difference x - y
+setdiff(y, x) # is not symmetric 
 
-# weiter mit den dplyr-Funktionen
 
 # Filter
-
 filter(flights, month == 11 | month == 12)
-# mit base R wuerde das so aussehen:
+# base R:
 subset(flights, month == 11 | month == 12)
 
 identical(filter(flights, month == 11 | month == 12), 
-          subset(flights, month == 11 | month == 12)) # TRUE, gibt exakt dasselbe aus
+          subset(flights, month == 11 | month == 12)) # TRUE
 
-# noch eine Variante:
-nov_dec <- filter(flights, month %in% c(11, 12)) # %in%-operator - sehr nuetzlich!
-# -> in einer for-Schleife
-
-unique(flights$month) # Welche unterschiedlichen Werte hat die Variable "month"?
+# or:
+filter(flights, month %in% c(11, 12)) # %in%-operator
 
 filter(flights, !(arr_delay > 120 | dep_delay > 120))
-filter(flights, arr_delay <= 120 & dep_delay <= 120) # identisch
-#Btw: De-Morgan Regeln, wie gehen die nochmal?
+filter(flights, arr_delay <= 120 & dep_delay <= 120) # identical (De Morgan)
 
 # Missing values - wichtig, da es dauernd vorkommt! 
 # NA .... 'Not Available' / Missing Values
 NA > 5
 10 == NA
-NA + 10 # wichtig z.B. beim arithm. Mittel.
+NA + 10 # e.g. in mean() relevant
 d <- c(1,7,56,NA)
+mean(d, na.rm = FALSE)
 mean(d, na.rm = TRUE)
 NA / 2
 
@@ -582,7 +582,7 @@ y <- NA
 x == y
 # We don't know!
 
-# ueberpruefe Klasse von Objekten mit is.XXXXXX()
+# check classes is.XXXXXX()
 is.na(x)
 is.na(d)
 sum(is.na(d)) # FALSE FALSE FALSE  TRUE ... 0,0,0,1
@@ -597,15 +597,15 @@ is.character("1")
 1:3 + 1:12 # recycling
 data.frame(x = 1:3, y = 1:12)
 data.frame(x = 1:3, y = 1:10) # Error
-1:3 + 1:10 # Was passiert hier?
+1:3 + 1:10 # What happens?
 
-# Zusammengesetzte Ausdruecke (character) erzeugen:
+# pasting:
 x <- 12
 y <- 3
-paste0(x, "und", y) # 0 heisst kein Abstand dazwischen, Unterschiedliche Datentypen gehen, hier character und integer
-paste0(x, y) # kein Abstand
-paste(x, "und", y)
-paste(x, "und", y, sep = "")
+paste0(x, "and", y) # 0 means no space between, different data types are allowed, here character and integer
+paste0(x, y) # no space
+paste(x, "and", y)
+paste(x, "and", y, sep = "")
 
 
 
@@ -613,9 +613,9 @@ paste(x, "und", y, sep = "")
 arrange(flights, year, month, day)
 arrange(flights, year, month, desc(day))
 
-sum(is.na(flights)) # Es gibt NAs in dem Datensatz flights, was erzeugt is.na(flights)?
-# -> vis_miss()
-sum(is.na(flights$year)) # aber z.B. nicht in der Variable year
+sum(is.na(flights)) # there are NAs in the data set
+vis_miss(flights)
+sum(is.na(flights$year)) # not in years
 
 arrange(flights, desc(is.na(dep_time))) # ordnet die NAs in Variable dep_time zuerst an.
 
