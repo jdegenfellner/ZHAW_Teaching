@@ -309,8 +309,10 @@ p
 
 # What are the red dots and relatively fuel efficient points in the plot?
 mpg %>% filter(displ > 6 & hwy > 20)
-# inefficient
+# inefficient cars with displ > 6?
 mpg %>% filter(displ > 6 & hwy < 20)
+# most efficient cars
+mpg %>% filter(displ < 2 & hwy > 40)
 
 summary(mpg)
 
@@ -331,13 +333,11 @@ mpg %>% arrange(desc(manufacturer))
 save.image(file = "my_workspace.RData")
 load("my_workspace.RData")
 
-
-# wichtig!!!
 colnames(mpg) # column names of data frame
 #colnames(mpg)[1] <- c("MANUF_new")
 
 unique(mpg$class) # unique entries in vector
-table(mpg$class)
+table(mpg$class) # frequency table
 length(unique(mpg$class)) # how many different entries are there?
 
 # One more dimension as information: car class
@@ -354,6 +354,7 @@ ggplot(data = mpg) +
 ggplot(data = mpg) + 
   geom_point(aes(x = displ, y = hwy)) + 
   facet_wrap(~ class, nrow = 2)
+# Does the relationship between displ and hwy change within classes?
 
 # fuer zwei kategoriale Variablen
 ggplot(data = mpg) + 
