@@ -356,84 +356,78 @@ ggplot(data = mpg) +
   facet_wrap(~ class, nrow = 2)
 # Does the relationship between displ and hwy change within classes?
 
-# fuer zwei kategoriale Variablen
+# two categorical variables
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) + 
-  facet_grid(drv ~ cyl)  + # 12 Subgruppen
+  facet_grid(drv ~ cyl)  + # 12 sub groups -> 3 are empty
   ggtitle("Mileage vs displacement categorized via zylinders and drive train") +
   xlab("engine displacement, in litres") + 
   ylab("highway miles per gallon")
-# Interpretation der Grafik?
+# There seem to be no data points with 4 or 5 cylinders and rear wheel drive
 
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) + 
-  facet_wrap(drv ~ cyl)  + # 12 Subgruppen
+  geom_point(aes(x = displ, y = hwy)) + 
+  facet_wrap(drv ~ cyl)  + # 9 sub groups, the empty ones are omitted here
   ggtitle("Mileage vs displacement categorized via zylinders and drive train") +
   xlab("engine displacement, in litres") + 
   ylab("highway miles per gallon")
 
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() + 
   geom_smooth()
 
-ggplot(data = mpg) +
+ggplot(mpg) +
   geom_smooth(aes(x = displ, y = hwy, color = drv), show.legend = TRUE)
 
-# Btw: Einfache lineare Regression mit kleinster Quadrate-Methode, was war das nochmal?? 
-# Was kann schiefgehen?
 ggplot(data = mpg, aes(x = displ, y = hwy)) + 
   geom_point() +
-  geom_smooth(method = "lm") # "lm"=linear model. Einfachste Variante.
+  geom_smooth(method = "lm") # "lm"=linear model. least squares estimated regression line
 
-# jitter -> addiert zufaellige Fehler dazu, damit Punkte nicht uebereinander liegen; sieht optisch besser aus. Vgl. mit vorher
 ggplot(data = mpg) + 
   geom_point(aes(x = displ, y = hwy), position = "jitter") # standard for parameter position="identity"
 
-ggplot(data = mpg) + 
-  geom_point(aes(x = displ, y = hwy)) # so sieht es ohne jitter aus
 
 
-# Weitere Darstellungen
-
+# further examples
 # data set diamonds
-# Let's try to create this plot using GPT:....
 ggplot(data = diamonds) + 
   geom_bar(aes(x = cut)) # simple bar chart
 
-# Let's explain this with GPT:....
 bar <- ggplot(data = diamonds) + 
   geom_bar(
-    aes(x = cut, fill = cut), # fill: fuer die Farbe wird hier die Variable cut verwendet, R has 657 built-in named colours, which can be listed with grDevices::colors().
+    aes(x = cut, fill = cut), # fill: R has 657 built-in named colours, which can be listed with grDevices::colors().
     show.legend = FALSE, # no legend
     width = 0.5 # Bar width. By default, set to 90% of the resolution of the data.
   ) + 
   theme(aspect.ratio = 1) +
   labs(x = NULL, y = NULL) # keine Labels
 
-bar + coord_flip() # erst jetzt wird der Graph gezeichnet!
+bar + coord_flip() # now graph is shown
 bar + coord_polar()
 
 
-# 3) READ data from somewhere else.... ####
+# 3) READ data from somewhere else.... ----
 
-# Einlesen von Daten ist oft sehr (!) muehsam; z.B. aufgrund von gleichzeitiger 
-# Verwendung von "." und "," als Dezimaltrennzeichen!
-# Weiters koennten diverse Zeilenumbrueche im Datensatz sein, die das Einlesen 
-# weniger "straightforward" machen...
-# Diese Schwierigkeiten findet man bei den Toy-Datensaetzen nie.
+# Reading data is often very (!) tedious; e.g., due to the simultaneous use 
+# of "." and "," as decimal separators or different definition of missing values!
 
-# Directly from the web?
-crab <- read.table("http://faculty.washington.edu/kenrice/rintro/crab.txt", 
-                   sep = " ", dec = ".", header = TRUE) 
-# sep="\t" liest z.B. Tab-getrennte Tabellen
+# Furthermore, there could be various line breaks in the dataset, 
+# making reading less "straightforward"...
+# You'll never find these difficulties with toy datasets.
+
+# Directly from the web:
+crab <- read.table("http://faculty.washington.edu/kenrice/rintro/crab.txt", # source
+                   sep = " ", # column separator, here space
+                   dec = ".", # decimal point
+                   header = TRUE) # use first column for column names
+# sep="\t" would read tab-separated files, always check the raw file to see the separator!
 str(crab)
 View(crab)
 summary(crab)
 colnames(crab)
-# Aendere z.B. NUR den 1. Spaltennamen:
-colnames(crab)[1] <- "col_new"
-# erstelle neue Variable aus einer alten:
+colnames(crab)[1]
 
+# create new variable and add to data set
 crab$new_var <- crab$width*10 # base R 
 # or
 crab <- as.data.table(crab)
@@ -441,22 +435,28 @@ crab[, new_var_1 := width*10] # data.table syntax
 # or
 crab <- crab %>% mutate(new_var_3 = width*10) # dplyr
 
-# Loesche Variable/Spalte:
+crab %>%
+  dplyr::select(last_col(2):last_col()) # explicitely take "select" from dplyr (sometimes you have packages loaded with identical command-names...)
+
+
+# Delete Variable/Spalte:
 crab$new_var_1 <- NULL # base R
 # or
 #crab[, new_var_1 := NULL] # data.table syntax
 # or
-crab <- crab %>% dplyr::select(-new_var_3) # select für Spalten
+crab <- crab %>% dplyr::select(-c(new_var_3,new_var))
+
+crab %>%
+  dplyr::select(last_col(2):last_col())
+
 
 # or read just from a local path on your hard disk
 
-# set working directory to file source location
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-# oder via Menu
 
-# Excel Beispiel:
-df <- readxl::read_xlsx("bike_excel_small.xlsx") # Note that there is (in my case) another command with the identical name in the package officer, hence I added the "readxl::"
-df <- readxl::read_xlsx("./Data/bike_excel_small.xlsx") # mit Unterordner
+
+# Excel:
+df <- readxl::read_xlsx("./Data/bike_excel_small.xlsx") # Note that there is (in my case) another command with the identical name in the package officer, hence I added the "readxl::"
+
 str(df)
 df$dteday <- as.POSIXct(df$dteday, format = "%d.%m.%Y") # Create date
 str(df)
