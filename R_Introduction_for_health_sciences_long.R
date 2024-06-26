@@ -22,7 +22,8 @@ pacman::p_load(tidyverse, # https://tidyverse.tidyverse.org/
                Hmisc, # Harrell Miscellaneous
                data.table, # for fast operations on large data sets
                psych, # A general purpose toolbox developed originally for personality, psychometric theory and experimental psychology. 
-               visdat) # visualize missing values
+               visdat, # visualize missing values
+               tictoc) # timing 
 
 # From time to time check for updates of packages: Tools -> "Check for Package Updates"
 
@@ -476,7 +477,7 @@ write_xlsx(df, "./Data/df_out.xlsx")
 ?read.table
 
 
-# 4) Datentransformation mit dplyr-----
+# 4) Data transformation using dplyr-----
 # dplyr is part of tidyverse
 
 # Take careful note of the conflicts message that's printed when you load the tidyverse. 
@@ -615,46 +616,42 @@ arrange(flights, year, month, desc(day))
 
 sum(is.na(flights)) # there are NAs in the data set
 vis_miss(flights)
+tic()
+vis_miss(flights, warn_large_data = FALSE)
+toc() # 9.968 sec elapsed
 sum(is.na(flights$year)) # not in years
 
-arrange(flights, desc(is.na(dep_time))) # ordnet die NAs in Variable dep_time zuerst an.
-
-# Pipe-Operator (spaeter mehr, diesen gibt es seit kurzem auch in Base-R)
-flights %>% arrange(desc(dep_delay)) # Uebergebe Datensatz "flights" und mache etwas damit'
-
-
-# select() ...  useful subset using operations based on the names of the variables.
-dplyr::select(flights, year, month, day) # waehle nur diese drei Variablen aus und zeige das Ergebnis
-dplyr::select(flights, year:day) # Zeige Bereich von Variablen, von year nach day. -> praktisch, da man hier nicht die Spalennummern zaehlen muss
-dplyr::select(flights, -(year:day)) # Was passiert hier?
-# nuetzlich:
-starts_with("abc") # matches names that begin with "abc".
+# select() ... useful subset using operations based on the names of the variables.
+dplyr::select(flights, year, month, day) # select only these three variables and show the result
+dplyr::select(flights, year:day) # select range of variables from year to day. -> practical as you don't need to count column numbers
+dplyr::select(flights, -(year:day)) # What happens here?
+# useful:
+#starts_with("abc") # matches names that begin with "abc".
 dplyr::select(flights, starts_with("s"))
-ends_with("xyz")   # matches names that end with "xyz".
-contains("ijk")    # matches names that contain "ijk".
-
+#ends_with("xyz")   # matches names that end with "xyz".
+#contains("ijk")    # matches names that contain "ijk".
 dplyr::select(flights, contains("time"))
 
-dplyr::rename(flights, tail_num = tailnum) # Variable umbenennen, braucht man rel. oft, insb. am Anfang einer Analyse
+dplyr::rename(flights, tail_num = tailnum) # rename
 
-dplyr::select(flights, time_hour, air_time, everything()) # time_hour, air_time, dann der Rest
+dplyr::select(flights, time_hour, air_time, everything()) # time_hour, air_time, and the rest
 
 
 # mutate() always adds new columns at the end of your dataset 
 
-flights_sml <- dplyr::select(flights,  # Schauen wir uns einen kleineren Datensatz an, nur bestimmte Spalten werden ausgewaehlt
+flights_sml <- dplyr::select(flights, # smaller data set
                              year:day, 
                              ends_with("delay"), 
                              distance, 
                              air_time
 )
 mutate(flights_sml,
-       gain = dep_delay - arr_delay, # erzeugt also neue Spalten
+       gain = dep_delay - arr_delay,
        speed = distance / air_time * 60
 )
-head(flights_sml) # da nicht abgespeichert - gleicher Datensatz!
+head(flights_sml) # We did not save, same data set as before
 
-transmute(flights, # Behaelt nur die neuen Variablen
+transmute(flights, # only keeps new columns
           gain = dep_delay - arr_delay,
           hours = air_time / 60,
           gain_per_hour = gain / hours
@@ -663,11 +660,11 @@ transmute(flights, # Behaelt nur die neuen Variablen
 
 # summarise() collapses a data frame to a single row
 
-summarise(flights, delay = mean(dep_delay, na.rm = TRUE)) # einfaches arithmetisches Mittel, nimmt alle delays
+summarise(flights, delay = mean(dep_delay, na.rm = TRUE)) # simple mean
 
-# __PIPE- Operator----
+# __more PIPE-Operator----
 
-# Bsp ohne Pipe
+# without pipe
 by_dest <- group_by(flights, dest)
 delay <- dplyr::summarise(by_dest,
                           count = n(),
@@ -680,14 +677,12 @@ delay
 # It looks like delays increase with distance up to ~750 miles 
 # and then decrease. Maybe as flights get longer there's more 
 # ability to make up delays in the air?
-ggplot(data = delay, mapping = aes(x = dist, y = delay)) +
+delay %>% ggplot(aes(x = dist, y = delay)) +
   geom_point(aes(size = count), alpha = 1/3) + # alpha .. Durchsichtigkeit der Punkte aus [0,1]
   geom_smooth(se = FALSE) # se steht fuer standard error, zeichnet Konfidenzintervall um die geschaetzte Kurve.
 
-# Ausgabe in eigenem Fenster
-x11()
 
-# Jetzt dasselbe Bsp MIT Pipe-Operator:
+# same with Pipe-Operator:
 flights %>% 
   group_by(dest) %>% 
   dplyr::summarise(
@@ -698,13 +693,12 @@ flights %>%
   filter(count > 20, dest != "HNL") %>% ggplot(aes(x = dist, y = delay)) +
   geom_point(aes(size = count), alpha = 1/3) +
   geom_smooth(se = FALSE)
-# selbes Ergebnis, gut lesbarer Code ohne Kommentare
 
 # Note: Working with the pipe is one of the key criteria for belonging to the tidyverse. 
 # The only exception is ggplot2: it was written before the pipe was discovered
 
 
-# Gruppierung aufloesen
+# undo group
 daily <- group_by(flights, year, month, day)
 daily %>% 
   ungroup() %>%             # no longer grouped by date
@@ -720,7 +714,9 @@ flights %>%
   group_by(dest) %>% 
   filter(n() > 365)
 
-# 5) Exploratory Data Analysis EDA ####
+# TODO continue here--------
+
+# 5) Exploratory Data Analysis EDA ----
 
 # a) Generate questions about your data.
 # b) Search for answers by visualizing, transforming, and modelling your data.
@@ -734,27 +730,30 @@ table(diamonds$cut) # categorical variable, is it ordinal or nominal?
 
 diamonds <- diamonds %>% group_by(cut) %>% mutate(count_cut = n())
 ggplot(data = diamonds ) +
-  geom_bar(mapping = aes(x = fct_reorder(cut, count_cut, .desc = TRUE)) ) # z.B. der Groesse nach fallend
+  geom_bar(aes(x = fct_reorder(cut, count_cut, .desc = TRUE)) ) + # z.B. falling order
+  xlab("")
 
 # to examine the distribution of a continuous variable, use a histogram:
 ggplot(data = diamonds) +
-  geom_histogram(mapping = aes(x = carat), binwidth = 0.5)
-# Man versucht hier die Dichte einer stetigen Zufallsvariable grafisch darzustellen
+  geom_histogram(aes(x = carat), binwidth = 0.5)
+# This attempts to graphically represent the density of a continuous random variable
 
 # overlay multiple histograms in the same plot
 smaller <- diamonds %>% 
-  filter(carat < 3) # betrachte z.B. nur Diamanten mit <3 Karat
+  filter(carat < 3) # consider, for example, only diamonds with <3 carats
 ggplot(data = smaller, aes(x = carat, colour = cut)) +
   geom_freqpoly(binwidth = 0.1)
 
 ggplot(data = smaller, aes(x = carat)) +
   geom_histogram(binwidth = 0.01) + 
   scale_x_continuous(breaks = seq(0, 3, by = 0.5))
-# "Das ideale Gewicht fuer einen klassischen Verlobungsring liegt zwischen 1,00 und 1,50 Karat.
-# Das durchschnittliche Karatgewicht eines diamantenen Verlobungsringes liegt etwas ueber 1 Karat, 
-# naemlich 1,18 Karat. Die durchschnittliche Groesse eines diamantenen 
-# Verlobungsringes variiert je nach Land und Region."
+# "The ideal weight for a classic engagement ring is between 1.00 and 1.50 carats.
+# The average carat weight of a diamond engagement ring is slightly over 1 carat,
+# specifically 1.18 carats. The average size of a diamond engagement ring
+# varies by country and region."
 
+# see https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Density_plot_boxplot_below.R
+# for a nice histogram with boxplot below
 
 # are there outliers/unusual values?
 
@@ -855,7 +854,7 @@ ggplot(data = faithful) +
 ggplot(faithful, aes(eruptions)) + 
   geom_freqpoly(binwidth = 0.25)
 
-# 6) Wata Wrangling - the art of getting your data into R in a useful form for visualisation and modelling ####
+# 6) Wata Wrangling - the art of getting your data into R in a useful form for visualisation and modelling ----
 
 # tibbles, sind data.frames, nur eine verbesserte Version davon.
 str(iris)
@@ -1324,3 +1323,6 @@ iris %>%
 iris %>% 
   discard(is.factor) %>% 
   str()
+
+
+# 8) Health science specific code--------
