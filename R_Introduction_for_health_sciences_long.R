@@ -130,7 +130,7 @@ log( c(2,3) ) # function is applied to all elements in vector
 log(2, base = 3) # basis 3
 log(2,3,12) # error
 
-# Allgemein
+# in general:
 # function( ... arguments separated by "," .... )
 
 # !!!
@@ -149,13 +149,11 @@ b <- 1
 (b <- 2) # show value of b immediately
 b = 3 # also possible
 
-rm(b) # rm ... remove; Objekt loeschen
-c() <- 3
 
 # Naming conventions for variables?
 # case sensitive (Gross und Kleinschreibung), aber das bemerkt man schnell, upper case, lower case
-grosse_Variable <- 3
-Grosse_Variable
+large_Variable <- 3
+Large_Variable # not found
 
 # concatenate
 x <- c(1,2,3,4) # create vector of same type elements
@@ -165,39 +163,46 @@ seq(from = 1, to = 100, by = 2) # increase by 2 -> R create sequence....
 y <- seq(1, 10, length.out = 5)
 y
 
+dd <- c("we","ggt") b# character vector
+
 str(x) # structure, important!
 str(flights)
 class(flights)
-View(flights)
+View(flights) # opens new tab with non-editable overview
 class(x)
 class(flights)
-dd <- c("we","ggt")
 x <- "2"
+x*2 # error
 log(2)
-x*2
 
-# Einfache Statistiken:
+# simple statistics in base R:
 # Btw: Was ist ueberhaupt eine "Statistik"? (https://de.wikipedia.org/wiki/Stichprobenfunktion)
-mean(y)
+mean(y) # mean {base}
 median(y)
-median( c(x,y) )
-median(x,y) # Was macht das hier?
+median( c(x,y) ) # error, different type
+median(c(2,3,4,12), c(45,2,3,1)) # What does this do?
 
-x <- rnorm(1000) # Erzeuge eine Stichprobe von 100 standardnormalverteilten Werten N(mean = 0, sigma = 1)
-hist(x) # Histogramm
+x <- rnorm(1000) # sample of 1000 random number with X ~ N(mean = 0, sigma = 1)
+hist(x) # histogramm base R
 mean(x)
-sd(x) # Standardabweichung
-var(x) # Varianz
-summary(x) # Univariate Zusammenfassung # summary anderen Objekten ... 
+sd(x) # standard deviation
+var(x) # variance
+1/(length(x)-1)*sum((x-mean(x))^2) # same
+summary(x) # univariate summar: Min, 1st Quartile, Median, Mean, 3rd Quartile, Max
 
-# Univariat (betrachte genau 1 Variable) vs. Multivariat (betrachte mehrere Variablen !gleichzeitig!)? 
-
-# Minimalversion einer Funktion:
-polynom <- function(x, y = 4){ # y hat als Vorgabe-Wert 4
-  x^2 + 3*x + 5*x*y + y^3
+# functions:
+polynom <- function(x, y = 4){ # y has default value of 4
+  x^2 + 3*x + 5*x*y + y^3 # last value is returned
 }
 polynom(1) # 1^1+3*1+5*1*4+4^3
+1^1+3*1+5*1*4+4^3
 polynom(1,0) # y=0
+
+polynom_useless <- function(x, y = 4){ # y has default value of 4
+  x^2 + 3*x + 5*x*y + y^3 # last value is returned
+  return(23)
+}
+polynom_useless(3,4)# 23
 
 
 # e.g. einfache for-Schleifen
