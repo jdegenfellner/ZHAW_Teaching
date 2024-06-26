@@ -49,6 +49,7 @@ df_res <- data.frame(p_val_x1 = p_val_x1,
                      coef_x1 = coef_x1,
                      coef_x2 = coef_x2)
 
+# alpha = 0.05
 df_res %>% filter(p_val_x1 < 0.05) %>%
   ggplot(aes(x = coef_x1)) + 
   geom_histogram() + 
@@ -77,6 +78,8 @@ mean(coef_x2) # very good as expected
 # and this is the case when the estimate is rather large compared to H_0: mue=0.
 
 # We can suspect, that the bias is larger with even smaller p_values, let's check:
+
+# alpha = 0.005
 df_res %>% filter(p_val_x2 < 0.005) %>%
   ggplot(aes(x = coef_x2)) + 
   geom_histogram() + 
@@ -85,9 +88,8 @@ df_res %>% filter(p_val_x2 < 0.005) %>%
 df_res %>% 
   filter(p_val_x2 < 0.005) %>%
   dplyr::summarize(mean_coef_x2 = mean(coef_x2, na.rm = TRUE))
-# seems right
 
-
+# alpha = 0.0005
 df_res %>% filter(p_val_x2 < 0.0005) %>%
   ggplot(aes(x = coef_x2)) + 
   geom_histogram() + 
