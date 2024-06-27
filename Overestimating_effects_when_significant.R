@@ -53,25 +53,16 @@ df_res <- data.frame(p_val_x1 = p_val_x1,
 df_res %>% filter(p_val_x1 < 0.05) %>%
   ggplot(aes(x = coef_x1)) + 
   geom_histogram() + 
-  geom_vline(xintercept = beta_x1) # looks fine!
-
-df_res %>% 
-  filter(p_val_x1 < 0.05) %>%
-  dplyr::summarize(mean_coef_x1 = mean(coef_x1, na.rm = TRUE))
-
+  geom_vline(xintercept = beta_x1) + 
+  geom_vline(xintercept = mean(df_res[p_val_x1 < 0.05,]$coef_x1), color="red")
+# # looks fine!
+  
 df_res %>% filter(p_val_x2 < 0.05) %>%
   ggplot(aes(x = coef_x2)) + 
   geom_histogram() + 
-  geom_vline(xintercept = beta_x2) # rather skewed.
-
-df_res %>% 
-  filter(p_val_x2 < 0.05) %>%
-  dplyr::summarize(mean_coef_x2 = mean(coef_x2, na.rm = TRUE))
-# seems overestimated systematically
-
-
-mean(coef_x1) # very good as expected
-mean(coef_x2) # very good as expected
+  geom_vline(xintercept = beta_x2) +
+  geom_vline(xintercept = mean(df_res[p_val_x2 < 0.05,]$coef_x2), color="red")
+# rather skewed.
 
 
 # The smaller the p-value, the larger the t-statistic for the coefficient,
