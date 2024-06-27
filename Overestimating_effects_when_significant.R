@@ -73,9 +73,7 @@ df_res %>% filter(p_val_x2 < 0.05) %>%
 
 # We can suspect, that the bias is larger with even smaller p_values, let's check:
 
-# TODO update below too-------
-
-# alpha = 0.005
+# alpha = 0.005----
 df_res %>% filter(p_val_x2 < 0.005) %>%
   ggplot(aes(x = coef_x2)) + 
   geom_histogram() + 
