@@ -15,6 +15,9 @@
 
 # Let's try to verify some of that:
 
+library(pacman)
+p_load(tidyverse)
+
 n <- 100
 n_sim <- 1000
 beta_x1 <- 0.5
