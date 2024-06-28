@@ -78,17 +78,20 @@ df_res %>% filter(p_val_x2 < 0.05) %>%
 df_res %>% filter(p_val_x2 < 0.005) %>%
   ggplot(aes(x = coef_x2)) + 
   geom_histogram() + 
-  geom_vline(xintercept = beta_x2)+ # rather skewed.
+  geom_vline(xintercept = beta_x2)+ 
   geom_vline(xintercept = mean(df_res[p_val_x2 < 0.005,]$coef_x2), color="red")
+# rather skewed.
 
 # alpha = 0.0005-----
 df_res %>% filter(p_val_x2 < 0.0005) %>%
   ggplot(aes(x = coef_x2)) + 
   geom_histogram() + 
-  geom_vline(xintercept = beta_x2) +# rather skewed.
+  geom_vline(xintercept = beta_x2) + 
   geom_vline(xintercept = mean(df_res[p_val_x2 < 0.0005,]$coef_x2), color="red")
 # slightly larger even
 
 
-# Is this different/better when using Bayes?-------
-# TODO----
+# TODO Vary parameters--------
+
+# TODO Is this different/better when using Bayes?-------
+
