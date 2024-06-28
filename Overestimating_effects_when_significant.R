@@ -9,7 +9,8 @@
 # things that are at least two standard errors away from zero you'd like so
 # if the true value of the treatment is effect is less than that 
 # it's it's biased you know like it's biased no matter what but like it's if
-# the true value is less than two standard errors it's it's like deterministically bias "
+# the true value is less than two standard errors it's it's like 
+# deterministically bias "
 
 # https://www.youtube.com/watch?v=xgUBdi2wcDI&t=5222s&ab_channel=HarryCrane
 
@@ -80,7 +81,7 @@ df_res %>% filter(p_val_x2 < 0.005) %>%
   geom_vline(xintercept = beta_x2)+ # rather skewed.
   geom_vline(xintercept = mean(df_res[p_val_x2 < 0.005,]$coef_x2), color="red")
 
-# alpha = 0.0005
+# alpha = 0.0005-----
 df_res %>% filter(p_val_x2 < 0.0005) %>%
   ggplot(aes(x = coef_x2)) + 
   geom_histogram() + 
