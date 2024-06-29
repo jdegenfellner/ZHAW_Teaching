@@ -105,7 +105,7 @@ modb <- brm(y ~ x1 + x2,
             iter = 10000, 
             silent = FALSE,
             cores = detectCores())
-toc() # 22.501 sec elapsed
+toc() # 22 sec elapsed
 
 posterior_samples <- modb %>%
   spread_draws(b_Intercept, b_x1, b_x2)
@@ -137,3 +137,10 @@ ci(posterior_samples$b_x1, method = "HDI")
 ci(posterior_samples$b_x2, method = "HDI")
 hypothesis(modb, "x1 = 0")
 hypothesis(modb, "x2 = 0")
+
+# In the Bayesian paradigm, the estimate could be the mean or median of the 
+# posterior, which should be correct on average. This is better in so far as
+# we do not look at a p-value first and only interpret the estimation of the
+# parameter if the p-value was small.
+# We see though that individual parameter estimates using the posterior
+# are off as well with the given parameter settings.
