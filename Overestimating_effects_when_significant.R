@@ -17,7 +17,11 @@
 # Let's try to verify some of that:
 
 library(pacman)
-p_load(tidyverse)
+p_load(tidyverse, rstanarm,
+       bayestestR,
+       bayesplot, brms, 
+       tictoc, tidybayes,
+       parallel)
 
 n <- 100
 n_sim <- 1000
@@ -59,7 +63,7 @@ df_res %>% filter(p_val_x1 < 0.05) %>%
   geom_histogram() + 
   geom_vline(xintercept = beta_x1) + 
   geom_vline(xintercept = mean(df_res[p_val_x1 < 0.05,]$coef_x1), color="red")
-# # looks fine!
+# # looks quite fine!
   
 df_res %>% filter(p_val_x2 < 0.05) %>%
   ggplot(aes(x = coef_x2)) + 
@@ -94,4 +98,42 @@ df_res %>% filter(p_val_x2 < 0.0005) %>%
 # TODO Vary parameters--------
 
 # TODO Is this different/better when using Bayes?-------
+tic()
+modb <- brm(y ~ x1 + x2, 
+            data = df, 
+            chains = 4, 
+            iter = 10000, 
+            silent = FALSE,
+            cores = detectCores())
+toc() # 22.501 sec elapsed
 
+posterior_samples <- modb %>%
+  spread_draws(b_Intercept, b_x1, b_x2)
+
+medians <- posterior_samples %>%
+  summarise(across(starts_with("b_"), median))
+
+posterior_samples %>%
+  pivot_longer(cols = starts_with("b_"), names_to = "parameter", 
+               values_to = "value") %>%
+  ggplot(aes(x = value, fill = parameter)) +
+  geom_density(alpha = 0.6) +
+  facet_wrap(~ parameter, scales = "free") +
+  geom_vline(data = tibble(parameter = c("b_Intercept", "b_x1", "b_x2"), 
+                           value = c(0, beta_x1, beta_x2)),
+             aes(xintercept = value), linetype = "dashed", color = "blue") +
+  geom_vline(data = medians %>% pivot_longer(cols = starts_with("b_"), 
+                                             names_to = "parameter", 
+                                             values_to = "value"),
+             aes(xintercept = value), linetype = "dotted", color = "red") +
+  labs(title = "Posterior Distributions of Coefficients",
+       x = "Coefficient Value",
+       y = "Density") +
+  theme_minimal()
+
+cbind(t(medians), c(0, beta_x1, beta_x2))
+ci(posterior_samples$b_Intercept, method = "HDI")
+ci(posterior_samples$b_x1, method = "HDI")
+ci(posterior_samples$b_x2, method = "HDI")
+hypothesis(modb, "x1 = 0")
+hypothesis(modb, "x2 = 0")
