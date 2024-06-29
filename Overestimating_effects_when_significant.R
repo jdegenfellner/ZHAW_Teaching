@@ -73,10 +73,11 @@ df_res %>% filter(p_val_x2 < 0.05) %>%
 # rather skewed.
 
 
-# The smaller the p-value, the larger the t-statistic for the coefficient,
+# The smaller the p-value, the larger the absolute t-statistic for the coefficient,
 # and this is the case when the estimate is rather large compared to H_0: mue=0.
 
-# We can suspect, that the bias is larger with even smaller p_values, let's check:
+# We can hypothesize, that the bias is larger with even smaller p_values, 
+# let's check:
 
 # alpha = 0.005----
 df_res %>% filter(p_val_x2 < 0.005) %>%
