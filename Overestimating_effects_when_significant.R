@@ -127,9 +127,10 @@ posterior_samples %>%
                                              values_to = "value"),
              aes(xintercept = value), linetype = "dotted", color = "red") +
   labs(title = "Posterior Distributions of Coefficients",
-       x = "Coefficient Value",
+       x = "",
        y = "Density") +
-  theme_minimal()
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5))
 
 cbind(t(medians), c(0, beta_x1, beta_x2))
 ci(posterior_samples$b_Intercept, method = "HDI")
