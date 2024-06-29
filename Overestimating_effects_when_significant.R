@@ -97,7 +97,7 @@ df_res %>% filter(p_val_x2 < 0.0005) %>%
 
 # TODO Vary parameters--------
 
-# TODO Is this different/better when using Bayes?-------
+# Is this different/better when using Bayes?-------
 tic()
 modb <- brm(y ~ x1 + x2, 
             data = df, 
