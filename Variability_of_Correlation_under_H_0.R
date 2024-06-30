@@ -29,6 +29,12 @@ quantile(cor_vec, probs = c(0.025, 0.975))
 hist(cor_vec_spearman, main = "Verteilung Zufallskorrelation (Spearman) unter H_0")
 quantile(cor_vec_spearman, probs = c(0.025, 0.975))
 
+# p-val -0.12:
+Fn <- ecdf(cor_vec_spearman)
+Fn(-0.12) + 1-Fn(0.12)
+
+
+
 plot(x,y)
 cor(x,y)
 sum(abs(cor_vec)>0.1)/n_sim
@@ -61,17 +67,18 @@ df %>% ggplot(aes(x=V1,y=V2)) +
   xlab("x") + ylab("y")
 
 
-# p-Value under H_0: rho = 0.5----
+# p-Value under H_0: rho >= 0.5----
 n_sim <- 1000
 rho_vec <- numeric(n_sim)
 for(i in 1:n_sim){
-  res <- generate_correlated_samples(19, rho = 0.5)
+  res <- generate_correlated_samples(19, rho = 0.5) # We assume that there is a positive correlation
   rho_vec[i] <- cor(res[,1], res[,2], method = "spearman")
 }
 hist(rho_vec)
-sum(rho_vec<=0.12)/n_sim
+mean(rho_vec)
+sum(rho_vec < -0.12)/n_sim
 
-# p-Value under H_0: rho = 0.4----
+# p-Value under H_0: rho >= 0.4----
 n_sim <- 1000
 rho_vec <- numeric(n_sim)
 for(i in 1:n_sim){
@@ -79,9 +86,10 @@ for(i in 1:n_sim){
   rho_vec[i] <- cor(res[,1], res[,2], method = "spearman")
 }
 hist(rho_vec)
-sum(rho_vec<=0.12)/n_sim
+mean(rho_vec)
+sum(rho_vec < -0.12)/n_sim
 
-# p-Value under H_0: rho = 0.3----
+# p-Value under H_0: rho >= 0.3----
 n_sim <- 1000
 rho_vec <- numeric(n_sim)
 for(i in 1:n_sim){
@@ -89,4 +97,17 @@ for(i in 1:n_sim){
   rho_vec[i] <- cor(res[,1], res[,2], method = "spearman")
 }
 hist(rho_vec)
-sum(rho_vec<=0.12)/n_sim
+mean(rho_vec)
+sum(rho_vec < -0.12)/n_sim
+
+# p-Value under H_0: rho >= 0.25----
+n_sim <- 10000
+rho_vec <- numeric(n_sim)
+for(i in 1:n_sim){
+  res <- generate_correlated_samples(19, rho = 0.25)
+  rho_vec[i] <- cor(res[,1], res[,2], method = "spearman")
+}
+hist(rho_vec)
+mean(rho_vec)
+sum(rho_vec < -0.12)/n_sim 
+# one would not reject the H_0 here and further assume rho=0.25
