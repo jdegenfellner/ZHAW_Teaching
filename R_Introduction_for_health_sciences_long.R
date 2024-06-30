@@ -715,8 +715,6 @@ flights %>%
   group_by(dest) %>% 
   filter(n() > 365)
 
-# TODO continue here--------
-
 # 5) Exploratory Data Analysis EDA ----
 
 # a) Generate questions about your data.

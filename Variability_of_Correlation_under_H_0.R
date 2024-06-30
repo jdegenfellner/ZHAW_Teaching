@@ -52,7 +52,7 @@ generate_correlated_samples <- function(n, rho, mu = c(0, 0),
 set.seed(123)  # For reproducibility
 n <- 19       # Sample size
 rho <- 0.5     # Desired correlation
-samples <- generate_correlated_samples(n, rho)m, , wi
+samples <- generate_correlated_samples(n, rho)
 
 head(samples)
 df <- as.data.frame(samples)
