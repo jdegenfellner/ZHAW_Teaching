@@ -5,6 +5,9 @@ theta
 
 likelihood_f <- theta^6*(1-theta)^14 # 9 heads, 8 tails
 
+dbinom(6, 20, prob=0.3)
+dbinom(5, 20, prob=0.3) + dbinom(6, 20, prob=0.3) + dbinom(7, 20, prob=0.3)
+
 plot(theta, likelihood_f)
 
 which.max(likelihood_f)
