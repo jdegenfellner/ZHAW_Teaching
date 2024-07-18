@@ -23,4 +23,5 @@ p2 <- ggplot(df, aes(x = values)) +
   ggtitle("Histogram with density plot and boxplot below") +
   theme(plot.title = element_text(hjust = 0.5))
 p2
-# Ihr weiterer R-Code...
+
+# TODO scale automatically 
