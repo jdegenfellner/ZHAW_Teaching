@@ -1,3 +1,8 @@
+# From: https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Estimation_standard_deviation_alternative_Fisher_1922.R
+
+# Fisher, R. (1922), “On the Mathematical Foundations of Theoretical Statistics,
+# ” Philosophical Transaction of Royal Society A, 222, 309–368.
+
 # Load necessary library
 library(MASS)
 
