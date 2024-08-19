@@ -19,6 +19,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # Mein Tipp: Jedes Projekt in einem Ordner mit Unterordnern.
 getwd() # get working directory...
 
+
 # 3) libraries laden-----
 if (!require(pacman)) {
   install.packages("pacman")
@@ -31,8 +32,13 @@ DataExplorer, # Erstellt einen kurzen, schnellen Ueberblick ueber den Datensatz
 gtsummary, # Creates presentation-ready tables 
 table1, # schoene Table 1 (Uebersichtstabelle fuer die Stichprobe)
 flextable, # schoenere Tabellen
-utils)
+utils,
+here) # relative Pfade
 # ...und viele viele mehr
+
+# Auch praktisch, package "here":
+# Package here!
+here()
 
 # 4) Daten einlesen----
 
