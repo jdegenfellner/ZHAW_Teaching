@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.3.9)  8 MAR 2024 10:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.3.9)  25 AUG 2024 10:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -341,29 +341,29 @@ LaTeX Warning: Command \textless invalid in math mode on input line 27.
 
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 [2]
-<./images/boxplot.pdf, id=77, 505.89pt x 505.89pt>
+<./images/boxplot.pdf, id=81, 505.89pt x 505.89pt>
 File: ./images/boxplot.pdf Graphic file (type pdf)
 <use ./images/boxplot.pdf>
 Package pdftex.def Info: ./images/boxplot.pdf  used on input line 80.
 (pdftex.def)             Requested size: 188.21288pt x 188.21074pt.
-<./images/violin_plot.pdf, id=78, 541.02126pt x 484.81125pt>
+<./images/violin_plot.pdf, id=82, 541.02126pt x 484.81125pt>
 File: ./images/violin_plot.pdf Graphic file (type pdf)
 <use ./images/violin_plot.pdf>
 Package pdftex.def Info: ./images/violin_plot.pdf  used on input line 86.
 (pdftex.def)             Requested size: 188.21288pt x 168.6582pt.
-<./images/histogram.pdf, id=81, 505.89pt x 505.89pt>
+<./images/histogram.pdf, id=85, 505.89pt x 505.89pt>
 File: ./images/histogram.pdf Graphic file (type pdf)
 <use ./images/histogram.pdf>
 Package pdftex.def Info: ./images/histogram.pdf  used on input line 98.
 (pdftex.def)             Requested size: 188.21288pt x 188.21074pt.
-<./images/density_plot_with_boxplot.pdf, id=82, 541.02126pt x 484.81125pt>
+<./images/density_plot_with_boxplot.pdf, id=86, 541.02126pt x 484.81125pt>
 File: ./images/density_plot_with_boxplot.pdf Graphic file (type pdf)
 <use ./images/density_plot_with_boxplot.pdf>
 Package pdftex.def Info: ./images/density_plot_with_boxplot.pdf  used on input 
 line 104.
 (pdftex.def)             Requested size: 188.21288pt x 168.6582pt.
  [3]
-<./images/vis_miss.png, id=94, 361.35pt x 289.08pt>
+<./images/vis_miss.png, id=98, 361.35pt x 289.08pt>
 File: ./images/vis_miss.png Graphic file (type png)
 <use ./images/vis_miss.png>
 Package pdftex.def Info: ./images/vis_miss.png  used on input line 117.
@@ -374,13 +374,13 @@ Package pdftex.def Info: ./images/vis_miss.png  used on input line 117.
 (./Checklist_Stat_Master_thesis.aux)
 Package rerunfilecheck Info: File `Checklist_Stat_Master_thesis.out' has not ch
 anged.
-(rerunfilecheck)             Checksum: A9AF4BB166D85ADBE71918EB9D69B800;1489.
+(rerunfilecheck)             Checksum: 50CFE2530B486AF1A2BCC73F8DE00B0B;1620.
  ) 
 Here is how much of TeX's memory you used:
- 8342 strings out of 478994
- 124718 string characters out of 5858185
- 429011 words of memory out of 5000000
- 25685 multiletter control sequences out of 15000+600000
+ 8344 strings out of 478994
+ 124738 string characters out of 5858185
+ 429018 words of memory out of 5000000
+ 25686 multiletter control sequences out of 15000+600000
  409282 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  71i,7n,74p,574b,472s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -392,10 +392,10 @@ sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr
 /local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/l
 ocal/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/lo
 cal/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Checklist_Stat_Master_thesis.pdf (7 pages, 169658 bytes).
+Output written on Checklist_Stat_Master_thesis.pdf (7 pages, 170773 bytes).
 PDF statistics:
- 189 PDF objects out of 1000 (max. 8388607)
- 161 compressed objects within 2 object streams
- 48 named destinations out of 1000 (max. 500000)
- 82 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 195 PDF objects out of 1000 (max. 8388607)
+ 167 compressed objects within 2 object streams
+ 49 named destinations out of 1000 (max. 500000)
+ 90 words of extra memory for PDF output out of 10000 (max. 10000000)
 
