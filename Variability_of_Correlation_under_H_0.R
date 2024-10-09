@@ -11,7 +11,7 @@ p_load(janitor,tidyverse,readxl,writexl,
 
 # H_0: no correlation----
 
-n <- 26 # sample size
+n <- 35 # sample size
 n_sim <- 1000 # number of simulations
 
 cor_vec <- numeric(n_sim)
