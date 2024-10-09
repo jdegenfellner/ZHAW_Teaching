@@ -11,7 +11,9 @@ p_load(janitor,tidyverse,readxl,writexl,
 
 # H_0: no correlation----
 
-n <- 19 # sample size
+# This result seems to be bad news for convergent validity analyses?
+
+n <- 35 # sample size
 n_sim <- 1000 # number of simulations
 
 cor_vec <- numeric(n_sim)
@@ -67,7 +69,7 @@ df %>% ggplot(aes(x=V1,y=V2)) +
   xlab("x") + ylab("y")
 
 
-# p-Value under H_0: rho >= 0.5----
+# p-Value under H_0: rho = 0.5----
 n_sim <- 1000
 rho_vec <- numeric(n_sim)
 for(i in 1:n_sim){
@@ -78,7 +80,7 @@ hist(rho_vec)
 mean(rho_vec)
 sum(rho_vec < -0.12)/n_sim
 
-# p-Value under H_0: rho >= 0.4----
+# p-Value under H_0: rho = 0.4----
 n_sim <- 1000
 rho_vec <- numeric(n_sim)
 for(i in 1:n_sim){
@@ -89,7 +91,7 @@ hist(rho_vec)
 mean(rho_vec)
 sum(rho_vec < -0.12)/n_sim
 
-# p-Value under H_0: rho >= 0.3----
+# p-Value under H_0: rho = 0.3----
 n_sim <- 1000
 rho_vec <- numeric(n_sim)
 for(i in 1:n_sim){
@@ -100,7 +102,7 @@ hist(rho_vec)
 mean(rho_vec)
 sum(rho_vec < -0.12)/n_sim
 
-# p-Value under H_0: rho >= 0.25----
+# p-Value under H_0: rho = 0.25----
 n_sim <- 10000
 rho_vec <- numeric(n_sim)
 for(i in 1:n_sim){
