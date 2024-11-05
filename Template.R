@@ -39,6 +39,7 @@ here) # relative Pfade
 # Auch praktisch, package "here":
 # Package here!
 here()
+here("some", "path", "below")
 
 # 4) Daten einlesen----
 
