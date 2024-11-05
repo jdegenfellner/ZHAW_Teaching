@@ -65,10 +65,13 @@ df
 # - Handling of Missing values
 # - Konkrete Modelle schaetzen (Regression und co)
 
+
 # 6) Workspace oder einzelne Objekte speichern-----
+
 # _a) Workspace (inkl. Variablen)----
 save.image("my_workspace.RData")
 load("my_workspace.RData")
+
 # _b) einzelne Objekte----
 saveRDS(...Variable oder Object, ...Pfad bzw. Dateiname...)
 readRDS()
