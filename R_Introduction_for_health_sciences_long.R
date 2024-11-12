@@ -42,6 +42,7 @@ today()
 # A specific problem is usually solved in conjunction with online sources.
 
 # ChatGPT Turbo, helps IMMENSELY in creating R code!
+# Use Github Copilot for auto completion of code snippets!
 
 # Many of the following explanations are based on https://r4ds.had.co.nz/introduction.html!
 # Thank you, Hadley!
@@ -184,8 +185,8 @@ summary(x) # univariate summar: Min, 1st Quartile, Median, Mean, 3rd Quartile, M
 polynom <- function(x, y = 4){ # y has default value of 4
   x^2 + 3*x + 5*x*y + y^3 # last value is returned
 }
-polynom(1) # 1^1+3*1+5*1*4+4^3
-1^1+3*1+5*1*4+4^3
+polynom(1) # 1^1 + 3*1 + 5*1*4 + 4^3
+1^1 + 3*1 + 5*1*4 + 4^3
 polynom(1,0) # y = 0
 
 polynom_useless <- function(x, y = 4){ # y has default value of 4
