@@ -1,8 +1,7 @@
 #### Introduction to R ####
 
-# TODO
+# Maybe interesting:
 #   https://www.reddit.com/r/rstats/comments/1ak05u7/what_are_some_cool_r_packages_to_use_in_2024/
-# - useful applications for health sciences (epi packages and co)
 
 # Get your packages - functional extensions to base R:--------
 if (!require(pacman)) {
