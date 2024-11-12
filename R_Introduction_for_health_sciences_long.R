@@ -217,9 +217,6 @@ for(i in c(1,-3,5,7)){
 # y<-2
 # z<-3
 
-# TODO expand section
-
-
 
 # 2) Data Visualization ----
 
@@ -234,12 +231,14 @@ create_report(mpg) # DataExplorer, creates overview as html
 # conversions
 mpg <- as.data.table(mpg)
 mpg <- as_tibble(mpg)
+is.data.frame(mpg) # TRUE
 
 x <- c("1", "3", "5")
 x
 class(x)
 x <- as.numeric(x) # conversion
 x
+is.numeric(x) # TRUE
 
 ?mpg
 # Fuel economy data from 1999 to 2008 for 38 popular models of cars
@@ -259,20 +258,19 @@ headTail(mpg) # first and last rows (package psych)
 mpg
 
 
-# base R commands:
+# (old-school) base R commands:
 table(mpg$manufacturer) # frequency table
 barplot(table(mpg$manufacturer))
 cor(mpg$displ, mpg$hwy) 
 
 # versus using ggplot2
-mpg %>% # using the pipe operator
-  ggplot(aes(x = manufacturer)) +
-    geom_bar(stat = "count") +
-    coord_flip() +
-    xlab("") + ylab("") +
-    ggtitle("Title") +
-    theme(plot.title = element_text(hjust = 0.5)) # Center the title
-# ggplot() creates a coordinate system that you can add layers to!
+mpg %>% 
+  ggplot(aes(x = fct_infreq(manufacturer) %>% fct_rev())) + # GPT: What does this command do...?"
+  geom_bar(stat = "count") +
+  coord_flip() +
+  xlab("") + ylab("") +
+  ggtitle("Title") +
+  theme(plot.title = element_text(hjust = 0.5))
 
 # base R Plot:
 plot(mpg$displ, mpg$hwy) 
@@ -333,6 +331,8 @@ mpg %>% arrange(desc(manufacturer))
 
 save.image(file = "my_workspace.RData")
 load("my_workspace.RData")
+
+# save single objects
 
 colnames(mpg) # column names of data frame
 #colnames(mpg)[1] <- c("MANUF_new")
