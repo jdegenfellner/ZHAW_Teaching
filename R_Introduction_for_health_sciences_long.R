@@ -35,7 +35,7 @@ citation("readxl")
 
 
 today()
-"2024-06-24"
+"2024-11-12"
 
 # File-Info----
 # The following code snippets and examples are by no means exhaustive and are 
@@ -46,11 +46,10 @@ today()
 # for data manipulation.
 # A specific problem is usually solved in conjunction with online sources.
 
-# We are in a rapid and fundamental change with GPT.
-# Generative AI, especially (currently) GPT-4 Turbo, helps IMMENSELY in creating R code!
+# ChatGPT Turbo, helps IMMENSELY in creating R code!
 
 # Many of the following explanations are based on https://r4ds.had.co.nz/introduction.html!
-# Thank you Hadley!
+# Thank you, Hadley!
 
 # Many more free R introductions can be found online, see e.g., also YouTube.
 # Also see the package learnr (top right under "Tutorial").
@@ -66,12 +65,13 @@ today()
 # - large datasets? (Since Excel 2007, a worksheet can contain 1,048,576 rows and 16,384 columns (A to XFD), 
 #   comprising 17,179,869,184 cells. Before that, the size was limited to 65,536 rows and 256 columns (A to IV), comprising 16,777,216 cells.)
 #   Data sets with about one million to one billion records can also be processed in R, but need some additional effort
-# - price? R is free,
-# - speaking from experience: licenses are a pain!!
-# - expandability in Excel? -> packages in R!
+# - Price: R is free,
+# - Speaking from experience: licenses are a pain!!
+# - Expandability in Excel? -> packages in R!
 # - ....
-
 # Btw: For Excel, there is the R plug-in RExcel.
+
+
 
 # 0) Before you start #####
 
