@@ -26,8 +26,11 @@ pacman::p_load(tidyverse, # https://tidyverse.tidyverse.org/
                hexbin) # Bivariate Binning into Hexagon Cells
 
 # From time to time check for updates of packages: Tools -> "Check for Package Updates"
+# With this script, you can check if your R-Version is up-to-date, if you do not feel like
+# looking it up online :)
+# https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Check_R_version_if_up_to_date.R
 
-# Cite packages when you use them (not all, but the unusual ones maybe)
+# Cite packages when you use them
 citation("readxl")
 
 
