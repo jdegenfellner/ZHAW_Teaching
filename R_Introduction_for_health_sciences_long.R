@@ -25,11 +25,6 @@ pacman::p_load(tidyverse, # https://tidyverse.tidyverse.org/
                tictoc, # timing 
                hexbin) # Bivariate Binning into Hexagon Cells
 
-# From time to time check for updates of packages: Tools -> "Check for Package Updates"
-# With this script, you can check if your R-Version is up-to-date, if you do not feel like
-# looking it up online :)
-# https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Check_R_version_if_up_to_date.R
-
 # Cite packages when you use them
 citation("readxl")
 
@@ -79,11 +74,11 @@ today()
 
 # _How to setup your working environment-----
 # - Relative paths (and trick below) or
-# - RProjects
+# - RProjects (File -> New Project -> New Directory -> New Project)
 
 
 # Trick: Set working directory to source file location:
-setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+setwd( dirname(rstudioapi::getSourceEditorContext()$path) )
 getwd()
 # equivalent with: 
 # Menu: Session -> Set Working Directory -> To Source File Location
@@ -114,13 +109,13 @@ class(x)
 d <- c("Yes","No") # create string vector
 class(d)
 x
-( x <- c(1,2,3,4,5) ) # who result immediately
+( x <- c(1,2,3,4,5) ) # show result immediately
 2 -> y # other direction also possible
 y = 12 # also possible
 12 = y # error
 
 rm(y) # remove y
-
+y # object not found
 
 # We start very simple:
 
