@@ -27,7 +27,7 @@ pacman::p_load(tidyverse, # https://tidyverse.tidyverse.org/
 
 # Cite packages when you use them
 citation("readxl")
-
+sessionInfo() # to see everything about what is used in my current session.
 
 today()
 "2024-11-12"
@@ -41,7 +41,7 @@ today()
 # for data manipulation.
 # A specific problem is usually solved in conjunction with online sources.
 
-# ChatGPT Turbo, helps IMMENSELY in creating R code!
+# ChatGPT, helps IMMENSELY in creating R code!
 # Use Github Copilot for auto completion of code snippets!
 
 # Many of the following explanations are based on https://r4ds.had.co.nz/introduction.html!
@@ -80,7 +80,7 @@ today()
 
 # Trick: Set working directory to source file location:
 setwd( dirname(rstudioapi::getSourceEditorContext()$path) )
-getwd()
+getwd() # get working directory
 # equivalent with: 
 # Menu: Session -> Set Working Directory -> To Source File Location
 
@@ -105,13 +105,15 @@ devtools::source_url("https://raw.githubusercontent.com/jdegenfellner/ZHAW_Teach
 # c() concatenate
 c(1,2)
 x <- c(1,2,3,4,5) # create vector  .... "<-" assignment operator
+x
 x = c(1,2,3,4,5)
-class(x)
+class(x) # "numeric"
 d <- c("Yes","No") # create string vector
-class(d)
+class(d) # "character"
 x
 ( x <- c(1,2,3,4,5) ) # show result immediately
 2 -> y # other direction also possible
+y
 y = 12 # also possible
 12 = y # error
 
@@ -123,7 +125,7 @@ y # object not found
 # how to execute a primitive command, use R as calculator
 1 + 2
 sin(pi / 2)
-log(12) # natural log, Basis e
+log(12) # "ln"; natural log, Basis e
 
 # important!!
 ?log # make use of the documentation by ? and function-name
@@ -153,25 +155,38 @@ Large_Variable # not found
 
 # sequences
 seq(from = 1, to = 100, by = 2) # increase by 2 -> R create sequence....
-y <- seq(1, 10, length.out = 5)
+y <- seq(1, 10, length.out = 5) # 5 equidistant points between 1 and 10
 y
 
 
 str(x) # structure, important!
+flights
 str(flights)
+flights$year # go into column and show vector
+flights$year[1] # first element
+flights$year[1:10] # first 10 elements
 class(flights)
 View(flights) # opens new tab with non-editable overview
 class(x)
 class(flights)
 x <- "2"
-x*2 # error
+x*2 # error; Error in x * 2 : non-numeric argument to binary operator
 log(2)
 
 # simple statistics in base R:
+mean(flights$arr_time) # NA (non applicable)
+is.na(flights$arr_time) # logical vector
+sum(is.na(flights$arr_time)) # how many NAs?
+mean(flights$arr_time, na.rm = TRUE) # remove NAs; = 1502.055
+
 mean(y) # mean {base}
 median(y)
+median(c(2,3,4,12)) # 3.5
+median(c(2,3,4,120)) # 3.5 -> robust against outlier
 median( c(x,y) ) # error, different type
 median(c(2,3,4,12), c(45,2,3,1)) # What does this do?
+
+# BIS HIERHER TAG 1----
 
 x <- rnorm(1000) # sample of 1000 random number with X ~ N(mean = 0, sigma = 1)
 hist(x) # histogram in base R (later with ggplot2)
