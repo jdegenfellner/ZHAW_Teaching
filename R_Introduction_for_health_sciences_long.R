@@ -188,13 +188,17 @@ median(c(2,3,4,12), c(45,2,3,1)) # What does this do?
 
 # BIS HIERHER TAG 1----
 
-x <- rnorm(1000) # sample of 1000 random number with X ~ N(mean = 0, sigma = 1)
+x <- rnorm(1000) # sample of 1000 random number with X ~ N(mean = 0, sd = 1)
 hist(x) # histogram in base R (later with ggplot2)
-mean(x)
-sd(x) # standard deviation
-var(x) # variance
-1/(length(x)-1)*sum((x-mean(x))^2) # same
-summary(x) # univariate summar: Min, 1st Quartile, Median, Mean, 3rd Quartile, Max
+boxplot(x) # boxplot
+mean(x) # mean is an estimator for the population mean ~ 0
+median(x)
+sum(x <= -0.06026) # how many values are smaller than -0.06026?
+sd(x) # standard deviation ~ 1
+var(x) # variance # "erwartungstreu"
+1/(length(x)-1)*sum( (x-mean(x))^2 ) # same
+summary(x) # univariate summary: Min, 1st Quartile, Median, Mean, 3rd Quartile, Max
+
 
 # functions:
 polynom <- function(x, y = 4){ # y has default value of 4
@@ -202,20 +206,20 @@ polynom <- function(x, y = 4){ # y has default value of 4
 }
 polynom(1) # 1^1 + 3*1 + 5*1*4 + 4^3
 1^1 + 3*1 + 5*1*4 + 4^3
-polynom(1,0) # y = 0
+polynom(x = 1,y = 0) # y = 0
 
 polynom_useless <- function(x, y = 4){ # y has default value of 4
   x^2 + 3*x + 5*x*y + y^3 # last value is returned
-  return(23)
+  return(23) # please return the value 23
 }
-polynom_useless(3,4)# 23
+polynom_useless(x = 2, y = 4)# 23
 
 
 # loops (which I need the most)
 for(i in 1:5){
   print(i)
 }
-for(i in c(1,-3,5,7)){
+for( i in c(1,-3,5,7) ){
   print(i^3)
 } # 1^2 3^2 5^2 ...
 
@@ -227,21 +231,23 @@ for(i in c(1,-3,5,7)){
 # _comment out whole sections:----
 # step 1: mark the section you want to comment out
 # step 2: shift + command + c
-
+# 
 # x<-1
 # y<-2
 # z<-3
 
+# expand....
+
 
 # 2) Data Visualization ----
-
 str(mpg) # tibble vs data.frame # structure
 class(mpg)
-is.data.frame(mpg)
-is.numeric(mpg$manufacturer)
-is.numeric(mpg$year)
+is.data.frame(mpg) # TRUE
+is.numeric(mpg$manufacturer) # FALSE
+is.numeric(mpg$year) # TRUE
 View(mpg)
 create_report(mpg) # DataExplorer, creates overview as html
+
 
 # conversions
 mpg <- as.data.table(mpg)
@@ -250,6 +256,7 @@ is.data.frame(mpg) # TRUE
 
 x <- c("1", "3", "5")
 x
+x[3]*3 # error
 class(x)
 x <- as.numeric(x) # conversion
 x
@@ -257,39 +264,57 @@ is.numeric(x) # TRUE
 
 ?mpg
 # Fuel economy data from 1999 to 2008 for 38 popular models of cars
+View(mpg)
+
 
 # "$" Operator
 mpg$trans
-mpg$manufacturer[1:10] # elements 1 to 10 in manufacturer vector
+mpg$manufacturer[100:110] # elements 1 to 10 in manufacturer vector
 # Subsetting
 #mpg[Zeilen,Spalten]
-mpg[1:10, 4:7]$trans
+
+# How to look at data in detail
+mpg[1:10,] # first 10 rows
+mpg[1:10, 2:3] # only rows 1 to 10 and columns 2 and 3
+mpg[, 2:3] # all rows and columns 2 and 3
 mpg[1:10, c("displ", "cyl")]
-mpg[1:10, c(3,5)] 
+mpg[1:10, c("displ", "cyl")]$cyl
+mpg[1:10, 4:7]
+
+# change a single entry in a data set
+mpg_ <- mpg
+mpg_[1,1] <- "audi_neu"
+mpg_[1,1]
+mpg_
+
+mpg[1:10, c("displ", "cyl")]
+mpg[1:10, c(3,5)]
 
 head(mpg) # show first 10 rows
-tail(mpg) # show last 10 rows
+tail(mpg, n = 12) # show last 10 rows
 headTail(mpg) # first and last rows (package psych)
 mpg
 
 
 # (old-school) base R commands:
 table(mpg$manufacturer) # frequency table
-barplot(table(mpg$manufacturer))
-cor(mpg$displ, mpg$hwy) 
+table(mpg$manufacturer)/sum(table(mpg$manufacturer))*100 # relative frequencies
+barplot( table(mpg$manufacturer) )
+cor(mpg$displ, mpg$hwy) # correlation (Pearson)
+plot(mpg$displ, mpg$hwy) # Scatterplot, x-y
+
 
 # versus using ggplot2
-mpg %>% 
+mpg %>%  # so-called pipe operator
   ggplot(aes(x = fct_infreq(manufacturer) %>% fct_rev())) + # GPT: What does this command do...?"
-  geom_bar(stat = "count") +
-  coord_flip() +
-  xlab("") + ylab("") +
-  ggtitle("Title") +
+  geom_bar(stat = "count") + # add a barplot
+  coord_flip() + # flip the plot
+  xlab("") + ylab("") + # no labels
+  ggtitle("Title of the plot") +
   theme(plot.title = element_text(hjust = 0.5))
 
 # base R Plot:
 plot(mpg$displ, mpg$hwy) 
-
 ggplot(data = mpg) + 
   geom_point(aes(x = displ, y = hwy))
 
@@ -308,20 +333,24 @@ ggplot(data = mpg) # creates an empty plot!
 
 mpg <- mpg %>% mutate(cat_hwy = case_when(
   displ < 4 ~ "green",
-  displ >= 4 & displ <=6 ~ "blue",
-  displ >6 ~ "red"
+  displ >= 4 & displ <= 6 ~ "blue",
+  displ > 6 ~ "red"
 ))
 
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(aes(color = cat_hwy), position = position_jitter(width = 0.1, height = 0.1)) +
   geom_smooth(method = "loess", se = FALSE) +
+  #geom_smooth(method = "lm", se = FALSE) +
   ggtitle("Scatterplot for Displacement and Highway Mileage") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(legend.title = element_blank()) +
   scale_color_manual(values = c("green" = "green", "blue" = "blue", "red" = "red"))
 p
 
+# BISHER TAG 2----
+
 # What are the red dots and relatively fuel efficient points in the plot?
+# dplyr
 mpg %>% filter(displ > 6 & hwy > 20)
 # inefficient cars with displ > 6?
 mpg %>% filter(displ > 6 & hwy < 20)
