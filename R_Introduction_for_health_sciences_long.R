@@ -521,6 +521,7 @@ df$dteday <- as.POSIXct(df$dteday, format = "%d.%m.%Y") # Create date
 str(df)
 df$dteday[1]
 df$dteday[2]
+# We can now compare dates
 df$dteday[1] < df$dteday[2] # TRUE
 
 # write Excel:
@@ -533,9 +534,12 @@ write_xlsx(df, "./Data/df_out.xlsx")
 ?read.csv2
 ?read.table
 
+# Also check out: https://readr.tidyverse.org/
+
 
 # 4) Data transformation using dplyr-----
 # dplyr is part of tidyverse
+?tidyverse # https://www.tidyverse.org/packages/
 
 # Take careful note of the conflicts message that's printed when you load the tidyverse. 
 # It tells you that dplyr overwrites some functions in base R. 
@@ -552,7 +556,7 @@ flights$time_hour[c(1)] < flights$time_hour[c(100)]
 # Tibbles are data frames, but slightly tweaked to work better in the tidyverse.
 flights # larger data set, 336k rows
 
-# important functions in dplyr:
+# __Important functions in dplyr, the basic grammar:-------
 
 # Pick observations by their values (filter()).
 # Reorder the rows (arrange()).
@@ -568,16 +572,21 @@ flights %>% filter(month == 1, day == 1) # "==" for comparisons
 ( dec25 <- flights %>% filter(month == 12, day == 25) ) # directly show result
 # saves the resulting tibble to dec25
 
+# expand.....
 
 
 # Fun (non-intuitive) Facts:
 sqrt(2) ^ 2 == 2
 1 / 49 * 49 == 1 # 0.02040816*49 = 0.9999998 (limited mantissa length)
 
+# google:
+0.02040816326*49 # 0.99999999974
+
 near(sqrt(2) ^ 2,  2)
 near(1 / 49 * 49, 1)
 # or:
 abs(1 / 49 * 49 - 1) < 10^(-5)
+
 
 # logical Operators
 1 == 1 # equal
@@ -610,7 +619,7 @@ setdiff(y, x) # is not symmetric
 # Filter
 filter(flights, month == 11 | month == 12)
 # base R:
-subset(flights, month == 11 | month == 12)
+subset(flights, month == 11 | month == 12) # base R
 
 identical(filter(flights, month == 11 | month == 12), 
           subset(flights, month == 11 | month == 12)) # TRUE
@@ -627,9 +636,9 @@ NA > 5
 10 == NA
 NA + 10 # e.g. in mean() relevant
 d <- c(1,7,56,NA)
-mean(d, na.rm = FALSE)
+mean(d, na.rm = FALSE) # NA
 mean(d, na.rm = TRUE)
-NA / 2
+NA / 2 # NA
 
 NA == NA # why?
 # Let x be Mary's age. We don't know how old she is.
@@ -641,7 +650,7 @@ x == y
 # We don't know!
 
 # check classes is.XXXXXX()
-is.na(x)
+is.na(x) # very important!
 is.na(d)
 sum(is.na(d)) # FALSE FALSE FALSE  TRUE ... 0,0,0,1
 
@@ -652,9 +661,9 @@ is.character("hallo")
 is.character("1")
 
 # Recycling Bsp.
-1:3 + 1:12 # recycling
-data.frame(x = 1:3, y = 1:12)
-data.frame(x = 1:3, y = 1:10) # Error
+1:3 + 1:12 # recycling the shorter one
+data.frame(x = 1:3, y = 1:12) # recycling the shorter one
+data.frame(x = 1:3, y = 1:10) # Error, no multiple of the other
 1:3 + 1:10 # What happens?
 
 # pasting:
