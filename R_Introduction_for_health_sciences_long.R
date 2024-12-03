@@ -189,18 +189,18 @@ median(c(2,3,4,12), c(45,2,3,1)) # What does this do?
 # BIS HIERHER TAG 1----
 
 x <- rnorm(1000) # sample of 1000 random number with X ~ N(mean = 0, sd = 1)
-hist(x) # histogram in base R (later with ggplot2)
-boxplot(x) # boxplot
+hist(x) # histogram in base R (later with ggplot2) -> see also: https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Density_plot_boxplot_below.R
+boxplot(x) # base R boxplot
 mean(x) # mean is an estimator for the population mean ~ 0
 median(x)
 sum(x <= -0.06026) # how many values are smaller than -0.06026?
 sd(x) # standard deviation ~ 1
-var(x) # variance # "erwartungstreu"
+var(x) # variance # "erwartungstreu" (im Durchschnitt korrekt)
 1/(length(x)-1)*sum( (x-mean(x))^2 ) # same
 summary(x) # univariate summary: Min, 1st Quartile, Median, Mean, 3rd Quartile, Max
 
 
-# functions:
+# Create functions:
 polynom <- function(x, y = 4){ # y has default value of 4
   x^2 + 3*x + 5*x*y + y^3 # last value is returned
 }
@@ -210,18 +210,25 @@ polynom(x = 1,y = 0) # y = 0
 
 polynom_useless <- function(x, y = 4){ # y has default value of 4
   x^2 + 3*x + 5*x*y + y^3 # last value is returned
-  return(23) # please return the value 23
+  return(23) # please return the value 23 and ignore what came before
 }
-polynom_useless(x = 2, y = 4)# 23
+polynom_useless(x = 2, y = 4) # 23
 
 
-# loops (which I need the most)
+# loops (that I need the most)
 for(i in 1:5){
   print(i)
 }
 for( i in c(1,-3,5,7) ){
   print(i^3)
 } # 1^2 3^2 5^2 ...
+
+# sometimes a while loop is useful
+i <- 1
+while(i < 10){
+  print(i)
+  i <- i + 1
+}
 
 
 # 1.1) Tips and Tricks in R--------
@@ -238,6 +245,9 @@ for( i in c(1,-3,5,7) ){
 
 # expand....
 
+# If not already mentioned: use the "document outline" in RStudio to
+# navigate through your script and give it structure!
+
 
 # 2) Data Visualization ----
 str(mpg) # tibble vs data.frame # structure
@@ -246,7 +256,7 @@ is.data.frame(mpg) # TRUE
 is.numeric(mpg$manufacturer) # FALSE
 is.numeric(mpg$year) # TRUE
 View(mpg)
-create_report(mpg) # DataExplorer, creates overview as html
+create_report(mpg) # DataExplorer, creates a quick overview as html
 
 
 # conversions
@@ -262,14 +272,18 @@ x <- as.numeric(x) # conversion
 x
 is.numeric(x) # TRUE
 
-?mpg
+?mpg # data set included in ggplot2
 # Fuel economy data from 1999 to 2008 for 38 popular models of cars
 View(mpg)
+
+# What other data sets are in R?
+?datasets # package ‘datasets’
+library(help = "datasets")
 
 
 # "$" Operator
 mpg$trans
-mpg$manufacturer[100:110] # elements 1 to 10 in manufacturer vector
+mpg$manufacturer[100:110] # elements 100 to 110 in manufacturer vector
 # Subsetting
 #mpg[Zeilen,Spalten]
 
@@ -296,16 +310,16 @@ headTail(mpg) # first and last rows (package psych)
 mpg
 
 
-# (old-school) base R commands:
+# Base R commands:
 table(mpg$manufacturer) # frequency table
 table(mpg$manufacturer)/sum(table(mpg$manufacturer))*100 # relative frequencies
+sum(table(mpg$manufacturer)/sum(table(mpg$manufacturer))*100) # = 100 %
 barplot( table(mpg$manufacturer) )
 cor(mpg$displ, mpg$hwy) # correlation (Pearson)
 plot(mpg$displ, mpg$hwy) # Scatterplot, x-y
 
-
 # versus using ggplot2
-mpg %>%  # so-called pipe operator
+mpg %>%  # so-called pipe operator (also included in R by now as "|>")
   ggplot(aes(x = fct_infreq(manufacturer) %>% fct_rev())) + # GPT: What does this command do...?"
   geom_bar(stat = "count") + # add a barplot
   coord_flip() + # flip the plot
@@ -350,7 +364,7 @@ p
 # BISHER TAG 2----
 
 # What are the red dots and relatively fuel efficient points in the plot?
-# dplyr
+# Package "dplyr" by Hadley Wickham.
 mpg %>% filter(displ > 6 & hwy > 20)
 # inefficient cars with displ > 6?
 mpg %>% filter(displ > 6 & hwy < 20)
@@ -365,24 +379,23 @@ mpg[2,4] # look at single element in the data frame
 #mpg[2,4] <- 1998 # change single entry
 
 mpg[ order(mpg$manufacturer, decreasing = TRUE), ] # change order, sort in descending order for manufacturer
-# or:
+# or with dplyr:
 mpg %>% arrange(desc(manufacturer))
 
 
 # Save R whole workspace or single objects in R:
-# saveRDS(mpg, "mpg.RDS")
-# mpg <- readRDS("mpg.RDS")
+saveRDS(mpg, "mpg.RDS")
+mpg <- readRDS("mpg.RDS")
 
 save.image(file = "my_workspace.RData")
 load("my_workspace.RData")
 
-# save single objects
-
+# Very useful:
 colnames(mpg) # column names of data frame
 #colnames(mpg)[1] <- c("MANUF_new")
 
 unique(mpg$class) # unique entries in vector
-table(mpg$class) # frequency table
+table(mpg$class) # frequency table (absolute frequence table)
 length(unique(mpg$class)) # how many different entries are there?
 
 # One more dimension as information: car class
@@ -398,16 +411,17 @@ ggplot(data = mpg) +
 # nice feature: split plot into subplots
 ggplot(data = mpg) + 
   geom_point(aes(x = displ, y = hwy)) + 
-  facet_wrap(~ class, nrow = 2)
+  facet_wrap(~ class, nrow = 2) # stratify the plots after "class"
 # Does the relationship between displ and hwy change within classes?
 
 # two categorical variables
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) + 
-  facet_grid(drv ~ cyl)  + # 12 sub groups -> 3 are empty
+  facet_grid(drv ~ cyl)  + # 12 sub groups -> 3 are empty; stratify by cyl and drv
   ggtitle("Mileage vs displacement categorized via zylinders and drive train") +
   xlab("engine displacement, in litres") + 
-  ylab("highway miles per gallon")
+  ylab("highway miles per gallon") + 
+  theme(plot.title = element_text(hjust = 0.5))
 # There seem to be no data points with 4 or 5 cylinders and rear wheel drive
 
 ggplot(data = mpg) + 
@@ -419,7 +433,8 @@ ggplot(data = mpg) +
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() + 
-  geom_smooth()
+  geom_smooth() # add a smoothing line; https://en.wikipedia.org/wiki/Local_regression
+# loess = locally estimated scatterplot smoothing
 
 ggplot(mpg) +
   geom_smooth(aes(x = displ, y = hwy, color = drv), show.legend = TRUE)
@@ -460,7 +475,7 @@ bar + coord_polar()
 # making reading less "straightforward"...
 # You'll never find these difficulties with toy datasets.
 
-# Directly from the web:
+# 3.1) Read directly from the web:--------
 crab <- read.table("http://faculty.washington.edu/kenrice/rintro/crab.txt", # source
                    sep = " ", # column separator, here space
                    dec = ".", # decimal point
@@ -483,7 +498,6 @@ crab <- crab %>% mutate(new_var_3 = width*10) # dplyr
 crab %>%
   dplyr::select(last_col(2):last_col()) # explicitely take "select" from dplyr (sometimes you have packages loaded with identical command-names...)
 
-
 # Delete Variable/Spalte:
 crab$new_var_1 <- NULL # base R
 # or
@@ -495,12 +509,12 @@ crab %>%
   dplyr::select(last_col(2):last_col())
 
 
-# or read just from a local path on your hard disk
-
-
+# 3.2) or read just from a local path on your hard disk--------
 
 # Excel:
 df <- readxl::read_xlsx("./Data/bike_excel_small.xlsx") # Note that there is (in my case) another command with the identical name in the package officer, hence I added the "readxl::"
+# The command looks for a file named bike_excel_small.xlsx in the folder "Data" in the current working directory.
+# Make sure that the current working directory is set correctly!
 
 str(df)
 df$dteday <- as.POSIXct(df$dteday, format = "%d.%m.%Y") # Create date
