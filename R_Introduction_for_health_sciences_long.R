@@ -23,8 +23,8 @@ pacman::p_load(tidyverse, # https://tidyverse.tidyverse.org/
                psych, # A general purpose toolbox developed originally for personality, psychometric theory and experimental psychology. 
                visdat, # visualize missing values
                tictoc, # timing 
-               hexbin) # Bivariate Binning into Hexagon Cells
-
+               hexbin,
+               broman) # Bivariate Binning into Hexagon Cells
 # Cite packages when you use them
 citation("readxl")
 sessionInfo() # to see everything about what is used in my current session.
@@ -356,7 +356,7 @@ mpg <- mpg %>% mutate(cat_hwy = case_when(
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(aes(color = cat_hwy), position = position_jitter(width = 0.1, height = 0.1)) +
   geom_smooth(method = "loess", se = FALSE) +
-  #geom_smooth(method = "lm", se = FALSE) +
+  #geom_smooth(method = "lm", se = FALSE) + # lm = linear model
   ggtitle("Scatterplot for Displacement and Highway Mileage") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(legend.title = element_blank()) +
@@ -367,7 +367,7 @@ p
 
 # What are the red dots and relatively fuel efficient points in the plot?
 # Package "dplyr" by Hadley Wickham.
-mpg %>% filter(displ > 6 & hwy > 20)
+mpg %>% dplyr::filter(displ > 6 & hwy > 20)
 # inefficient cars with displ > 6?
 mpg %>% filter(displ > 6 & hwy < 20)
 # most efficient cars
@@ -379,14 +379,16 @@ summary(mpg)
 dim(mpg) # number of rows and cols
 mpg[2,4] # look at single element in the data frame
 #mpg[2,4] <- 1998 # change single entry
+mpg[2,4]*2
+as.numeric(mpg[2,4]) # convert to numeric
 
 mpg[ order(mpg$manufacturer, decreasing = TRUE), ] # change order, sort in descending order for manufacturer
 # or with dplyr:
-mpg %>% arrange(desc(manufacturer))
+mpg %>% arrange(desc(manufacturer)) # descending
 
 
 # Save R whole workspace or single objects in R:
-saveRDS(mpg, "mpg.RDS")
+saveRDS(mpg, "mpg.RDS") # nice feature
 mpg <- readRDS("mpg.RDS")
 
 save.image(file = "my_workspace.RData")
@@ -397,7 +399,10 @@ colnames(mpg) # column names of data frame
 #colnames(mpg)[1] <- c("MANUF_new")
 
 unique(mpg$class) # unique entries in vector
+
 table(mpg$class) # frequency table (absolute frequence table)
+table(mpg$class)/sum(table(mpg$class))*100 # relative frequencies
+
 length(unique(mpg$class)) # how many different entries are there?
 
 # One more dimension as information: car class
@@ -411,13 +416,14 @@ ggplot(data = mpg) +
   ggtitle("Titel") # + ......
 
 # nice feature: split plot into subplots
-ggplot(data = mpg) + 
+mpg %>% dplyr::filter(year %in% 1999:2001) %>%
+ggplot() + 
   geom_point(aes(x = displ, y = hwy)) + 
   facet_wrap(~ class, nrow = 2) # stratify the plots after "class"
 # Does the relationship between displ and hwy change within classes?
 
 # two categorical variables
-ggplot(data = mpg) + 
+mpg %>% ggplot() + 
   geom_point(mapping = aes(x = displ, y = hwy)) + 
   facet_grid(drv ~ cyl)  + # 12 sub groups -> 3 are empty; stratify by cyl and drv
   ggtitle("Mileage vs displacement categorized via zylinders and drive train") +
@@ -435,7 +441,7 @@ ggplot(data = mpg) +
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() + 
-  geom_smooth() # add a smoothing line; https://en.wikipedia.org/wiki/Local_regression
+  geom_smooth(method = "loess") # add a smoothing line; https://en.wikipedia.org/wiki/Local_regression
 # loess = locally estimated scatterplot smoothing
 
 ggplot(mpg) +
@@ -447,8 +453,10 @@ ggplot(data = mpg, aes(x = displ, y = hwy)) +
 
 ggplot(data = mpg) + 
   geom_point(aes(x = displ, y = hwy), position = "jitter") # standard for parameter position="identity"
+?geom_jitter
 
-
+?datasets
+library(help = "datasets")
 
 # further examples
 # data set diamonds
@@ -465,10 +473,9 @@ bar <- ggplot(data = diamonds) +
   labs(x = NULL, y = NULL) # keine Labels
 
 bar + coord_flip() # now graph is shown
-bar + coord_polar()
+bar + coord_polar() # do not do this!
 
-
-# 3) READ data from somewhere else.... ----
+# 3) READ data ----
 
 # Reading data is often very (!) tedious; e.g., due to the simultaneous use 
 # of "." and "," as decimal separators or different definition of missing values!
@@ -483,40 +490,47 @@ crab <- read.table("http://faculty.washington.edu/kenrice/rintro/crab.txt", # so
                    dec = ".", # decimal point
                    header = TRUE) # use first column for column names
 # sep="\t" would read tab-separated files, always check the raw file to see the separator!
-str(crab)
-View(crab)
+str(crab) # structure
+View(crab) # works only in RStudio
 summary(crab)
 colnames(crab)
-colnames(crab)[1]
+colnames(crab)[3]
 
 # create new variable and add to data set
 crab$new_var <- crab$width*10 # base R 
 # or
-crab <- as.data.table(crab)
-crab[, new_var_1 := width*10] # data.table syntax
+#crab <- as.data.table(crab)
+#crab[, new_var_1 := width*10] # data.table syntax
 # or
 crab <- crab %>% mutate(new_var_3 = width*10) # dplyr
+crab
 
 crab %>%
   dplyr::select(last_col(2):last_col()) # explicitely take "select" from dplyr (sometimes you have packages loaded with identical command-names...)
 
+# expand...
+
 # Delete Variable/Spalte:
-crab$new_var_1 <- NULL # base R
+crab$new_var_3 <- NULL # base R
+crab %>% head()
 # or
 #crab[, new_var_1 := NULL] # data.table syntax
 # or
-crab <- crab %>% dplyr::select(-c(new_var_3,new_var))
-
-crab %>%
-  dplyr::select(last_col(2):last_col())
+crab <- crab %>% dplyr::select(-new_var)
+crab %>% head() # worked
 
 
 # 3.2) or read just from a local path on your hard disk--------
 
 # Excel:
+getwd() # get working directory
 df <- readxl::read_xlsx("./Data/bike_excel_small.xlsx") # Note that there is (in my case) another command with the identical name in the package officer, hence I added the "readxl::"
 # The command looks for a file named bike_excel_small.xlsx in the folder "Data" in the current working directory.
 # Make sure that the current working directory is set correctly!
+
+# column names: Do not use "Umlaute", " ", special characters, or numbers at the beginning of the column names!
+# Example: Rotational_value_1,...
+# Don't: "Erster Messung ß?"
 
 str(df)
 df$dteday <- as.POSIXct(df$dteday, format = "%d.%m.%Y") # Create date
@@ -525,6 +539,8 @@ df$dteday[1]
 df$dteday[2]
 # We can now compare dates
 df$dteday[1] < df$dteday[2] # TRUE
+
+# BIS HIERHER TAG 3 ----------
 
 # write Excel:
 df
