@@ -681,10 +681,9 @@ arrange(flights, year, month, day)
 arrange(flights, year, month, desc(day))
 
 sum(is.na(flights)) # there are NAs in the data set
-vis_miss(flights)
-tic()
-vis_miss(flights, warn_large_data = FALSE)
-toc() # 9.968 sec elapsed
+vis_miss(flights) # error... too many rows
+flights %>% dplyr::slice_sample(n = 1000) %>% vis_miss() # only 1000 rows
+
 sum(is.na(flights$year)) # not in years
 
 # select() ... useful subset using operations based on the names of the variables.
@@ -792,6 +791,7 @@ flights %>%
 ?diamonds # Prices of over 50,000 round cut diamonds
 
 # Visualizing distributions
+# simple frequency table
 table(diamonds$cut) # categorical variable, is it ordinal or nominal?
 
 diamonds <- diamonds %>% group_by(cut) %>% mutate(count_cut = n())
