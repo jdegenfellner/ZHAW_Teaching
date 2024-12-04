@@ -44,7 +44,9 @@ today()
 # ChatGPT, helps IMMENSELY in creating R code!
 # Use Github Copilot for auto completion of code snippets!
 
-# Many of the following explanations are based on https://r4ds.had.co.nz/introduction.html!
+# Many of the following explanations are based on 
+# https://r4ds.had.co.nz/introduction.html!
+# https://r4ds.hadley.nz/ is the second edition.
 # Thank you, Hadley!
 
 # Many more free R introductions can be found online, see e.g., also YouTube.
