@@ -611,6 +611,11 @@ flights %>% filter(month == 1, day == 1) # "==" for comparisons
 sqrt(2) ^ 2 == 2
 1 / 49 * 49 == 1 # 0.02040816*49 = 0.9999998 (limited mantissa length)
 
+options(digits = 22)
+1/49
+# 0.02040816326530612082046
+options(digits = 10)
+
 # google:
 0.02040816326*49 # 0.99999999974
 
