@@ -640,6 +640,7 @@ ind <- c(1,3,5,18,21)
 for(i in ind){
   print(i)
 }
+# very helpful
 1:60 %nin% ind # Hmisc package
 
 
@@ -737,7 +738,7 @@ dplyr::select(flights, contains("time"))
 dplyr::rename(flights, tail_num = tailnum) # rename
 
 dplyr::select(flights, time_hour, air_time, everything()) # time_hour, air_time, and the rest
-
+# https://tidyselect.r-lib.org/reference/everything.html
 
 # mutate() always adds new columns at the end of your dataset 
 
@@ -858,7 +859,7 @@ ggplot(data = smaller, aes(x = carat)) +
 # see https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Density_plot_boxplot_below.R
 # for a nice histogram with boxplot below
 
-# are there outliers/unusual values?
+# Are there outliers/unusual values?
 
 # One definition could be:
 # "An outlier is an observation that lies an abnormal distance from other values in a random sample from a population. 
@@ -901,7 +902,7 @@ ggplot(diamonds, aes(x = reorder(cut, price, FUN = median), y = price)) + # on t
   geom_boxplot()   +                                # cut, on the y-axis the continuous variable price
   xlab("")
 # Comparison of central values is now easier
-# supports the counter-intuitive finding that better quality diamonds are cheaper on average!
+# Supports the counter-intuitive finding that better quality diamonds are cheaper on average!
 
 
 # Visualization of two categorical variables
@@ -919,14 +920,14 @@ ggplot(data = diamonds) +
   geom_point(mapping = aes(x = carat, y = price), alpha = 1 / 100) # with alpha in [0,1]
 
 # The trick with bins works not only in histograms, it also works in 2D
-ggplot(data = smaller) +
+ggplot(data = diamonds) +
   geom_bin2d(mapping = aes(x = carat, y = price))
 
-ggplot(data = smaller) +
+ggplot(data = diamonds) +
   geom_hex(mapping = aes(x = carat, y = price)) # library hexbin; even more aesthetic with hexagons
 
 # You can also bin a single variable:
-ggplot(data = smaller, mapping = aes(x = carat, y = price)) + 
+ggplot(data = diamonds, mapping = aes(x = carat, y = price)) + 
   geom_boxplot(mapping = aes(group = cut_width(carat, 0.1))) # cut_width() divides the variable into segments of length 0.1
 
 # Patterns/Clusters
@@ -938,8 +939,7 @@ ggplot(data = faithful) +
 # -> longer wait times are associated with longer eruptions
 # Multiple dimensions require multivariate methods -> see cluster analysis later!
 
-# Normalerweise laesst man bekannte Argumente weg, wie z.B. mapping oder die ersten beiden Argumente von aes()
-# kuerzer: 
+# shorter
 ggplot(faithful, aes(eruptions)) + 
   geom_freqpoly(binwidth = 0.25)
 
@@ -969,7 +969,7 @@ df # gibt inkorrekte Spaltennamen
 # illustrativ verwenden wir read_csv. Sehr oft sind Daten in Form von csv-Files gegeben.
 
 # Versuchen wir einen realen (rechteckigen/tabularen) Datensatz von Bike-Rentals einzulesen:
-bike <- read_csv("day.csv", col_names = TRUE)
+bike <- read_csv("./Data/day.csv", col_names = TRUE)
 bike #shows tibble
 head(bike) # zeige die ersten Zeilen
 tail(bike) # zeige die letzten Zeilen
