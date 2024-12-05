@@ -577,6 +577,7 @@ print(doc, target = output_path)
 # If you want to use the base version of these functions after loading dplyr, 
 # you'll need to use their full names: stats::filter() and stats::lag().
 
+?flights
 str(flights)
 # POSIXct: convenient to date calculations 
 # comparisons with >/</==
@@ -589,13 +590,13 @@ flights # larger data set, 336k rows
 
 # __Important functions in dplyr, the basic grammar:-------
 
-# Pick observations by their values (filter()).
-# Reorder the rows (arrange()).
-# Pick variables by their names (select()).
-# Create new variables with functions of existing variables (mutate()).
-# Collapse many values down to a single summary (summarise()).
-# These can all be used in conjunction with group_by() which changes the 
-# scope of each function from operating on the entire dataset to operating on it group-by-group. 
+# - Pick observations by their values: filter().
+# - Reorder the rows: arrange().
+# - Pick variables by their names: select().
+# - Create new variables with functions of existing variables: mutate().
+# - Collapse many values down to a single summary: summarise().
+# - These can all be used in conjunction with group_by() which changes the 
+#   scope of each function from operating on the entire dataset to operating on it group-by-group. 
 # -->> These six functions provide the verbs for a language of data manipulation.
 
 flights %>% filter(month == 1, day == 1) # "==" for comparisons
