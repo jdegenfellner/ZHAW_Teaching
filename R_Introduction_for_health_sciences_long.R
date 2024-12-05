@@ -1051,14 +1051,18 @@ gss_cat %>%
 ggplot(gss_cat, aes(race)) +
   geom_bar() # beachte die Standardstatistik fuer geom_bar(): stat="count" --> siehe ?geom_bar()
 
-# Bsp. Which relig does denom (denomination) apply to? How can you find out with a table? 
+# Bsp. Which religious does denom (denomination) apply to? How can you find out with a table? 
 # How can you find out with a visualisation?
 
-gss <- gss_cat %>% 
-  filter(denom != "Not applicable") %>% # filtere NAs heraus
+# Filter and select the relevant data
+gss <- gss_cat %>%
+  filter(denom != "Not applicable") %>% # Filter out "Not applicable"
   dplyr::select(relig, denom)
+
 ggplot(gss, aes(relig)) + 
-  geom_bar(aes(y = (..count..)/sum(..count..))) # eine Möglichkeit relative Frequenzen anzuzeigen -> wie wuerden wir danach suchen??
+  geom_bar(aes(y = after_stat(count) / sum(after_stat(count)))) +
+  labs(y = "Relative Frequency", x = "Religion") +
+  theme_minimal()
 
 relig_summary <- gss_cat %>%
   group_by(relig) %>%
@@ -1075,6 +1079,7 @@ ggplot(relig_summary, aes(age, tvhours)) + geom_point() # Trend fuer Alter? Zusa
 # oft gebraucht aus optischen Gruenden: Nach Groesse ordnen
 ggplot(relig_summary, aes(tvhours, fct_reorder(relig, tvhours))) + # Faktor relig wird nach tvhours umgeordnet
   geom_point()
+# ?fct_reorder
 ggplot(relig_summary, aes(tvhours, fct_reorder(relig, tvhours, .desc = TRUE))) + # dasselbe nur absteigend
   geom_point()
 relig_summary %>% # dasselbe nur etwas eleganter
