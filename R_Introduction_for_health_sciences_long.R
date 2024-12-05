@@ -630,10 +630,10 @@ abs(1 / 49 * 49 - 1) < 10^(-5)
 1 > 2 # larger
 3 >= 3 # larger or equal
 3 != 4 # not equal
-TRUE | TRUE # logisches ODER
-c(TRUE,TRUE) & c(TRUE,FALSE) # elementweise
-TRUE & FALSE # logisches UND
-xor(TRUE, TRUE) # exklusives oder
+TRUE | TRUE # logical OR
+c(TRUE,TRUE) & c(TRUE,FALSE) # element wise
+TRUE & FALSE # logical AND
+xor(TRUE, TRUE) # exclusive OR
 xor(TRUE, FALSE)
 
 ind <- c(1,3,5,18,21)
