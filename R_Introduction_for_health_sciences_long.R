@@ -24,7 +24,8 @@ pacman::p_load(tidyverse, # https://tidyverse.tidyverse.org/
                visdat, # visualize missing values
                tictoc, # timing 
                hexbin,
-               broman) # Bivariate Binning into Hexagon Cells
+               broman, # Bivariate Binning into Hexagon Cells
+               officer) # The officer package facilitates access to and manipulation of 'Microsoft Word' and 'Microsoft PowerPoint'
 # Cite packages when you use them
 citation("readxl")
 sessionInfo() # to see everything about what is used in my current session.
@@ -542,10 +543,14 @@ df$dteday[1] < df$dteday[2] # TRUE
 
 # BIS HIERHER TAG 3 ----------
 
-# write Excel:
+# _write Excel:-------
 df
 getwd()
 write_xlsx(df, "./Data/df_out.xlsx")
+
+# _write Table to Word---------
+
+
 
 # Text files
 ?read.csv
