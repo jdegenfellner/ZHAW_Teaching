@@ -549,8 +549,16 @@ getwd()
 write_xlsx(df, "./Data/df_out.xlsx")
 
 # _write Table to Word---------
+ft <- flextable(df[, 1:5]) # only first 5 columns
 
+# Save the flextable to a Word document
+doc <- read_docx() %>%
+  body_add_flextable(ft) %>%
+  body_add_par("")  # Add an empty paragraph for spacing
 
+# Specify the output file path
+output_path <- "./Data/df_table.docx"
+print(doc, target = output_path)
 
 # Text files
 ?read.csv
