@@ -582,11 +582,14 @@ str(flights)
 # POSIXct: convenient to date calculations 
 # comparisons with >/</==
 flights$time_hour[c(1,100)]
+flights$time_hour[1:100]
 # compare:
 flights$time_hour[c(1)] < flights$time_hour[c(100)]
+"YES" < "No"
 
 # Tibbles are data frames, but slightly tweaked to work better in the tidyverse.
 flights # larger data set, 336k rows
+data.frame(x=1:10, y=1:10) # does not show dimensions and col types.
 
 # __Important functions in dplyr, the basic grammar:-------
 
@@ -601,8 +604,10 @@ flights # larger data set, 336k rows
 
 flights %>% filter(month == 1, day == 1) # "==" for comparisons
 
-( dec25 <- flights %>% filter(month == 12, day == 25) ) # directly show result
+( dec25 <- flights %>% filter(month == 12, day == 25) ) # directly shows result
 # saves the resulting tibble to dec25
+
+( x <- 1:10 ) # directly shows result
 
 # expand.....
 
@@ -619,63 +624,71 @@ options(digits = 10)
 # google:
 0.02040816326*49 # 0.99999999974
 
-near(sqrt(2) ^ 2,  2)
+?near
+near(sqrt(2) ^ 2,  2) # TRUE
 near(1 / 49 * 49, 1)
 # or:
-abs(1 / 49 * 49 - 1) < 10^(-5)
+abs(1 / 49 * 49 - 1) < 10^(-5) # TRUE
 
 
-# logical Operators
+# logical Operators!!
 1 == 1 # equal
 1 > 2 # larger
 3 >= 3 # larger or equal
 3 != 4 # not equal
 TRUE | TRUE # logical OR
-c(TRUE,TRUE) & c(TRUE,FALSE) # element wise
+TRUE | FALSE # logical OR
+FALSE | FALSE # logical OR
 TRUE & FALSE # logical AND
+TRUE & TRUE # logical AND
+c(TRUE,TRUE) & c(TRUE,FALSE) # element wise
+
 xor(TRUE, TRUE) # exclusive OR
 xor(TRUE, FALSE)
 
+# very useful:
 ind <- c(1,3,5,18,21)
 for(i in ind){
   print(i)
 }
-# very helpful
+# very helpful:
+1:60 %in% ind
 1:60 %nin% ind # Hmisc package
 
-
 # set operations
-x <- 1:7
-y <- 4:10
-x
-y
+( x <- 1:7 )
+( y <- 4:10 )
+
 union(x, y) # union
-setdiff(x, y) # difference x - y
+setdiff(x, y) # difference "x - y"
 setdiff(y, x) # is not symmetric 
 
 
 # Filter
-filter(flights, month == 11 | month == 12)
+flights %>% filter(month == 11 | month == 12)
 # base R:
 subset(flights, month == 11 | month == 12) # base R
 
-identical(filter(flights, month == 11 | month == 12), 
-          subset(flights, month == 11 | month == 12)) # TRUE
+identical( flights %>% filter(month == 11 | month == 12), 
+          subset(flights, month == 11 | month == 12) ) # TRUE
 
 # or:
-filter(flights, month %in% c(11, 12)) # %in%-operator
+flights %>% filter(month %nin% c(11, 12)) # %in%-operator
 
-filter(flights, !(arr_delay > 120 | dep_delay > 120))
-filter(flights, arr_delay <= 120 & dep_delay <= 120) # identical (De Morgan)
+flights %>% filter(!(arr_delay > 120 | dep_delay > 120))
+flights %>% filter(arr_delay <= 120 & dep_delay <= 120) # identical (De Morgan)
+
 
 # Missing values - wichtig, da es dauernd vorkommt! 
 # NA .... 'Not Available' / Missing Values
-NA > 5
+NA > 5 # NA
 10 == NA
 NA + 10 # e.g. in mean() relevant
-d <- c(1,7,56,NA)
-mean(d, na.rm = FALSE) # NA
-mean(d, na.rm = TRUE)
+d <- c(1, 7, 56, NA)
+mean(d, na.rm = FALSE) # NA; na.rm ... "NA remove"
+(1+7+56+NA)/4
+mean(d, na.rm = TRUE) # 21.33333333
+# ..
 NA / 2 # NA
 
 NA == NA # why?
@@ -690,15 +703,16 @@ x == y
 # check classes is.XXXXXX()
 is.na(x) # very important!
 is.na(d)
-sum(is.na(d)) # FALSE FALSE FALSE  TRUE ... 0,0,0,1
+sum(is.na(d)) # = sum of missing values in vector d; FALSE FALSE FALSE  TRUE ... 0,0,0,1
 
-is.numeric(45.4)
+is.numeric(45.4) # num
 class(45.4)
 class(45)
 is.character("hallo")
 is.character("1")
+is.character(1) # FALSE
 
-# Recycling Bsp.
+# Recycling Bsp.!!
 1:3 + 1:12 # recycling the shorter one
 data.frame(x = 1:3, y = 1:12) # recycling the shorter one
 data.frame(x = 1:3, y = 1:10) # Error, no multiple of the other
@@ -707,54 +721,63 @@ data.frame(x = 1:3, y = 1:10) # Error, no multiple of the other
 # pasting:
 x <- 12
 y <- 3
-paste0(x, "and", y) # 0 means no space between, different data types are allowed, here character and integer
+paste0(x, " and ", y) # 0 means no space between, different data types are allowed, here character and integer
 paste0(x, y) # no space
 paste(x, "and", y)
-paste(x, "and", y, sep = "")
+paste(x, "and", y, sep = "::")
 
+x <- rnorm(100)
+y <- 1.2*x + rnorm(100)
+cor_label <- cor(x, y) # correlation
+title_for_plot <- paste("Correlation is", round(cor_label, 2))
+title_for_plot
+ggplot(data = data.frame(x = x, y = y)) + 
+  geom_point(aes(x = x, y = y)) + 
+  ggtitle(title_for_plot) + 
+  theme(plot.title = element_text(hjust = 0.5))
 
 
 # arrange() works similarly to filter() except that instead of selecting rows, it changes their order.
-arrange(flights, year, month, day)
-arrange(flights, year, month, desc(day))
+flights %>% arrange(year, month, day)
+flights %>%  arrange(year, month, desc(day))
 
 sum(is.na(flights)) # there are NAs in the data set
 vis_miss(flights) # error... too many rows
 flights %>% dplyr::slice_sample(n = 1000) %>% vis_miss() # only 1000 rows
 
-sum(is.na(flights$year)) # not in years
+sum(is.na(flights$year)) # = 0; not in years
 
 # select() ... useful subset using operations based on the names of the variables.
-dplyr::select(flights, year, month, day) # select only these three variables and show the result
-dplyr::select(flights, year:day) # select range of variables from year to day. -> practical as you don't need to count column numbers
-dplyr::select(flights, -(year:day)) # What happens here?
+flights %>% dplyr::select(year, month, day) # select only these three variables and show the result
+flights %>% dplyr::select(year:day) # select range of variables from year to day. -> practical as you don't need to count column numbers
+flights %>% dplyr::select(-(year:day)) # What happens here?
 # useful:
 #starts_with("abc") # matches names that begin with "abc".
-dplyr::select(flights, starts_with("s"))
+flights %>% dplyr::select(starts_with("s"))
 #ends_with("xyz")   # matches names that end with "xyz".
 #contains("ijk")    # matches names that contain "ijk".
-dplyr::select(flights, contains("time"))
+flights %>% dplyr::select(contains("time"))
 
-dplyr::rename(flights, tail_num = tailnum) # rename
+flights %>% dplyr::rename(tail_num = tailnum) # rename
 
-dplyr::select(flights, time_hour, air_time, everything()) # time_hour, air_time, and the rest
+flights %>% dplyr::select(time_hour, air_time, everything()) # time_hour, air_time
 # https://tidyselect.r-lib.org/reference/everything.html
 
 # mutate() always adds new columns at the end of your dataset 
 
-flights_sml <- dplyr::select(flights, # smaller data set
-                             year:day, 
+flights_sml <- flights %>% dplyr::select(# smaller data set
+                             year:day, # year, months, day
                              ends_with("delay"), 
                              distance, 
                              air_time
 )
-mutate(flights_sml,
+flights_sml %>% mutate(
        gain = dep_delay - arr_delay,
        speed = distance / air_time * 60
 )
-head(flights_sml) # We did not save, same data set as before
+# head(flights_sml) # We did not save, same data set as before
 
-transmute(flights, # only keeps new columns
+flights_sml %>% transmute(# only keeps new columns
           gain = dep_delay - arr_delay,
           hours = air_time / 60,
           gain_per_hour = gain / hours
@@ -763,7 +786,11 @@ transmute(flights, # only keeps new columns
 
 # summarise() collapses a data frame to a single row
 
-summarise(flights, delay = mean(dep_delay, na.rm = TRUE)) # simple mean
+flights %>% 
+  group_by(origin) %>%
+  summarise(delay = mean(dep_delay, na.rm = TRUE)) # simple mean
+
+# BIS HIERHER TAG 4, 5.12.24---------
 
 # __more PIPE-Operator----
 
