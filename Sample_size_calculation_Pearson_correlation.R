@@ -9,9 +9,6 @@ p_load(tidyverse, MASS)
 # We assume that the relationship between the variables X and Y
 # can be reasonable well described using a linear function.
 
-# Precision with which we want to know the correlation
-delta <- 0.15
-
 # One way to search is to demand:--------
 # The true but unknown correlation should lie within the interval
 # [rho-delta, rho+delta]
@@ -20,11 +17,13 @@ delta <- 0.15
 # (can be disputed of course)
 
 # _Simulate data---------
+# Parameters
 n <- 100
 mu <- c(0, 0)         # Means of the two variables
 sigma1 <- 1           # Standard deviation of the first variable
 sigma2 <- 2           # Standard deviation of the second variable
 rho <- 0.5            # Correlation coefficient
+delta <- 0.1         # Precision with which we want to know the correlation
 
 # Covariance matrix
 Sigma <- matrix(c(sigma1^2, rho * sigma1 * sigma2,
@@ -53,5 +52,33 @@ hist(rho_est, main = "Histogram of estimated rho",
      xlab = "Estimated rho", col = "lightblue")
 mean(rho_est) # seems to be OK.
 
-# _How often is the true rho within the interval [rho-delta, rho+delta]?--------
 
+
+# _How often is the true rho within the interval [rho-delta, rho+delta]?--------
+# vary rho and n
+func_perc_included <- function(n, rho, delta) {
+  included_in_interval <- numeric(n_sim)
+  Sigma <- matrix(c(1, rho, rho, 1), nrow = 2)  # Fixed SD = 1
+  for (i in 1:n_sim) {
+    data <- mvrnorm(n = n, mu = mu, Sigma = Sigma)
+    rho_est <- cor(data[, 1], data[, 2])
+    included_in_interval[i] <- ifelse(rho_est >= rho - delta & rho_est <= rho + delta, 1, 0)
+  }
+  return(mean(included_in_interval))
+}
+
+n_seq <- seq(30, 150, by = 10)
+rhos <- c(0.5, 0.7, 0.9)
+results <- sapply(rhos, function(rho) {
+  sapply(n_seq, function(n) func_perc_included(n, rho, delta))
+})
+
+# Plot Results
+plot(NULL, xlim = range(n_seq), ylim = c(0, 1), 
+     xlab = "Sample Size (n)", ylab = "Percentage Included", 
+     main = paste("Percentage of Correlations Within Interval\n(delta =", delta, ")"))
+colors <- c("red", "blue", "green")
+for (i in seq_along(rhos)) {
+  lines(n_seq, results[, i], type = "b", col = colors[i], pch = 19, lty = 1)
+}
+legend("bottomright", legend = paste("rho =", rhos), col = colors, pch = 19, lty = 1)
