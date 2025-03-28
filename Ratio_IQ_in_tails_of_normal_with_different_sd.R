@@ -1,3 +1,6 @@
+# https://www.swr.de/wissen/1000-antworten/sind-mehr-maenner-hochbegabt-102.html#:~:text=Zun%C3%A4chst%20sind%20M%C3%A4nner%20im%20Schnitt,nach%20oben%20und%20nach%20unten.
+# Of course, the below is simplified should be seen as a toy example.
+
 # Two normals with different sd---------
 # Draw two normal densities with mean=100 and sd1=15, sd2=20
 mean <- 100
