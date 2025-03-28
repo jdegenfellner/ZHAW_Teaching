@@ -13,12 +13,12 @@ legend("topright", legend = c("SD = 15", "SD = 20"),
        col = c("blue", "red"), lty = c(1, 2), lwd = 2)
 
 # Ratio in high IQs----------
-ratio_men_women_above_given_iq_high <- ( 1-pnorm(seq(100, 200, 1), 
+ratio_men_women_above_given_iq_high <- ( 1-pnorm(seq(101, 200, 1), 
                                             mean = 100, 
-                                            sd = 20) )/(1-pnorm(seq(100, 200, 1), 
+                                            sd = 20) )/(1-pnorm(seq(101, 200, 1), 
                                                                 mean = 100, 
                                                                 sd = 15))
-plot(seq(100, 200, 1), ratio_men_women_above_given_iq_high,
+plot(seq(101, 200, 1), ratio_men_women_above_given_iq_high,
      main = "Ratio Men to women", 
      xlab = "IQ",
      ylab = "Ratio",
@@ -31,6 +31,14 @@ ratio_men_women_above_given_iq_low <- ( pnorm(seq(0, 100, 1),
                                                             mean = 100, 
                                                             sd = 15))
 plot(seq(0, 100, 1), ratio_men_women_above_given_iq_low, 
+     main = "Ratio Men to women", 
+     xlab = "IQ",
+     ylab = "Ratio",
+     type = "l")
+
+# combine:
+plot(seq(0, 200, 1), c(ratio_men_women_above_given_iq_low,
+                       ratio_men_women_above_given_iq_high),
      main = "Ratio Men to women", 
      xlab = "IQ",
      ylab = "Ratio",
