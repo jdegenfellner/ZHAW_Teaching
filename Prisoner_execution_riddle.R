@@ -6,9 +6,11 @@
 # he is now one of only two remaining prisoners at risk, his chances of 
 # execution have risen from one-third to one-half!"
 
+library(tictoc)
 
+tic()
 set.seed(42)
-n <- 1e5
+n <- 1e6
 executed <- sample(c("A", "B", "C"), n, replace = TRUE) # 1/3 wahrsch für A,B,C
 
 # Für alle Fälle mit A als Fragender:
@@ -26,3 +28,4 @@ table(executed[named == "B"]) / sum(named == "B")
 
 # Fälle, in denen Wärter C genannt hat
 table(executed[named == "C"]) / sum(named == "C")
+toc()
