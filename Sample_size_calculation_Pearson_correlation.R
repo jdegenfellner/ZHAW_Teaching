@@ -67,8 +67,8 @@ func_perc_included <- function(n, rho, delta) {
   return(mean(included_in_interval))
 }
 
-n_seq <- seq(30, 150, by = 10)
-rhos <- c(0.5, 0.7, 0.9)
+n_seq <- seq(20, 120, by = 10)
+rhos <- c(0.5, 0.7, 0.8)
 results <- sapply(rhos, function(rho) {
   sapply(n_seq, function(n) func_perc_included(n, rho, delta))
 })
