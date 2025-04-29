@@ -4,7 +4,7 @@
 # Jan 25
 
 library(pacman)
-p_load(tidyverse, MASS)
+p_load(tidyverse, MASS, tictoc)
 
 # We assume that the relationship between the variables X and Y
 # can be reasonable well described using a linear function.
@@ -82,3 +82,59 @@ for (i in seq_along(rhos)) {
   lines(n_seq, results[, i], type = "b", col = colors[i], pch = 19, lty = 1)
 }
 legend("bottomright", legend = paste("rho =", rhos), col = colors, pch = 19, lty = 1)
+
+# Simulate "zero" (i.e. low) correlation------------
+simulate_correlation_in_interval <- function(n = 50, 
+                                             lower_bound = -0.15, 
+                                             upper_bound = 0.15, 
+                                             n_sim = 1e5) {
+  
+  true_rhos <- runif(n_sim, min = lower_bound, max = upper_bound)
+  inside_interval <- numeric(n_sim)
+  
+  mu <- c(0, 0)  # Mittelwerte
+  
+  for (i in seq_len(n_sim)) {
+    rho <- true_rhos[i]
+    Sigma <- matrix(c(1, rho, rho, 1), nrow = 2)
+    data <- mvrnorm(n = n, mu = mu, Sigma = Sigma)
+    rho_est <- cor(data[, 1], data[, 2])
+    
+    inside_interval[i] <- as.integer(rho_est >= lower_bound & 
+                                       rho_est <= upper_bound)
+  }
+  hist(true_rhos)
+  mean(inside_interval)  # Anteil der Korrelationen innerhalb der Grenzen
+}
+
+# fixed n:
+set.seed(123)
+tic() # start timer
+simulate_correlation_in_interval(n = 100, 
+                                 lower_bound = -0.3, 
+                                 upper_bound = 0.3, 
+                                 n_sim = 1e5)
+toc() # ~4s
+
+
+# multiple n:
+n_values <- c(30, 50, 70, 90)
+
+results <- numeric(length(n_values))
+
+tic("Gesamtzeit")
+for (i in seq_along(n_values)) {
+  results[i] <- simulate_correlation_in_interval(n = n_values[i], 
+                                                 lower_bound = -0.3, 
+                                                 upper_bound = 0.3, 
+                                                 n_sim = 1e5)
+}
+toc()
+
+# In Dataframe umwandeln
+results_df <- data.frame(
+  Sample_Size = n_values,
+  Proportion_Within_Bounds = results
+)
+
+print(results_df)
