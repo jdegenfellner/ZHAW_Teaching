@@ -138,3 +138,18 @@ results_df <- data.frame(
 )
 
 print(results_df)
+
+lower_bound <- -0.3
+upper_bound <- 0.3
+
+ggplot(results_df, aes(x = Sample_Size, y = Proportion_Within_Bounds)) +
+  geom_line(color = "steelblue", size = 1) +
+  geom_point(size = 3, color = "steelblue") +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  labs(
+    title = paste0("Anteil der geschätzten Korrelationen innerhalb [", 
+                   lower_bound, ", ", upper_bound, "]"),
+    x = "Stichprobengröße (n)",
+    y = "Anteil innerhalb der Grenzen"
+  ) +
+  theme_minimal(base_size = 14)
