@@ -1,5 +1,6 @@
 # # Nice video:
 # Mike Pound: https://www.youtube.com/watch?v=TJdH6rPA-TI&ab_channel=Computerphile
+# https://www.youtube.com/watch?v=KtRLF6rAkyo&t=517s&ab_channel=Computerphile
 
 # PCA is basically a coordinate transformation
 # One can use PCA to reduce the dimensionality of data by just omitting
