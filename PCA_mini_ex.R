@@ -32,7 +32,7 @@ plot(df$x, df$y, main = "Bivariate Normal Distribution", xlab = "x", ylab = "y")
 pca <- prcomp(df, center = TRUE, scale. = TRUE) 
 # -> scale. = TRUE means we standardize the data -> this way a variable with a huge range does not dominate
 # -> center = TRUE means we move the point cloud to the origin (mean of the data is 0)
-summary(pca)
+summary(pca) # shows proportions of variance explained by the principal components
 
 # check orthogonality: 
 sum(pca$rotation[,1] * pca$rotation[,2]) # = 0, check
@@ -40,6 +40,8 @@ sum(pca$rotation[,1] * pca$rotation[,2]) # = 0, check
 pca$rotation
 pca$rotation[,1] 
 pca$rotation[,2]
+
+
 
 # So the algorithm found a valid transformation # W = pca$rotation
 # Let's apply this transformation:
