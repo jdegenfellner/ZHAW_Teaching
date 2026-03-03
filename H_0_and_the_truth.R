@@ -21,8 +21,8 @@ graph <- ToDiagrammeRGraph(tree)
 render_graph(graph)
 
 
-alpha <- 0.05 # Type I decision probability
-beta <- 0.2 # 1 - Power, Power = 0.8
+alpha <- 0.01 # Type I decision probability
+beta <- 0.1 # 1 - Power, Power = 0.8
 # Probabilities that the H_0 is true
 p <- seq(
   from = 0,
