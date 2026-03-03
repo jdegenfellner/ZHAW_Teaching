@@ -1,4 +1,4 @@
-# Dichotomization worsens your model
+# Dichotomization_worsens_your_predictions.R
 
 library(tidyverse)
 
