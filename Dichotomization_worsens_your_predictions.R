@@ -27,6 +27,7 @@ cutoffs <- quantile(df$x, probs = seq(0.05, 0.95, length.out = 10),
 
 dicho_rows <- map_dfr(cutoffs, function(cut) {
   df2 <- df %>% mutate(x_bin = as.integer(x > cut))
+  df2$x_bin <- as.factor(df2$x_bin) 
   m_bin <- lm(y ~ x_bin, data = df2)
   tibble(
     model = "dichotomized x",
