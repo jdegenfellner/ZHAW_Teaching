@@ -11,8 +11,7 @@ p_load(
 # between 0 and 1, and its logarithm is therefore negative.
 #
 # See:
-# https://web.stanford.edu/class/archive/cs/cs109/cs109.1178/
-# lectureHandouts/220-logistic-regression.pdf
+# https://web.stanford.edu/class/archive/cs/cs109/cs109.1178/lectureHandouts/220-logistic-regression.pdf
 #
 # As model fit improves, ln(L) becomes less negative and moves
 # closer to zero. Therefore, the ratio

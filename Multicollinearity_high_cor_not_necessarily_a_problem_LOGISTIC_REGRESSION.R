@@ -1,6 +1,7 @@
 library(pacman)
 
-# Multicollinearity
+# from the vignette of: check_collinearity {performance}:
+
 # Multicollinearity should not be confused with a raw strong correlation between predictors. 
 # What matters is the association between one or more predictor variables, conditional on the 
 # other variables in the model. In a nutshell, multicollinearity means that once you know the
