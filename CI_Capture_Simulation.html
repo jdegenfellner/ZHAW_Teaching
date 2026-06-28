@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liegt die nächste Schätzung im vorigen 95%-KI? (Cumming, ~83%)</title>
+<style>
+  :root{
+    --bg:#f5f6f8; --card:#ffffff; --ink:#1f2933; --muted:#6b7280;
+    --accent:#1f3b73; --in:#1a9850; --out:#d73027; --ci:#2563eb; --border:#e3e6eb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;padding:24px;}
+  .wrap{max-width:980px;margin:0 auto;}
+  h1{font-size:23px;color:var(--accent);margin:0 0 4px;}
+  .sub{color:var(--muted);margin:0 0 18px;font-size:14px;}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;
+    padding:18px 20px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  canvas{width:100%;height:auto;display:block;border-radius:8px;}
+  .controls{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;margin-bottom:8px;}
+  .ctl{display:flex;flex-direction:column;gap:2px;font-size:13px;color:var(--muted);}
+  .ctl input[type=range]{width:140px;}
+  button{font:inherit;font-size:14px;border:1px solid var(--accent);background:var(--accent);
+    color:#fff;border-radius:8px;padding:8px 14px;cursor:pointer;transition:.15s;}
+  button.ghost{background:#fff;color:var(--accent);}
+  button:hover{opacity:.88;}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:6px;}
+  .stat{background:#fafbfc;border:1px solid var(--border);border-radius:10px;padding:12px 14px;}
+  .stat .lab{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;}
+  .stat .val{font-size:26px;font-weight:700;margin-top:2px;}
+  .stat .note{font-size:12px;color:var(--muted);margin-top:2px;}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:10px;}
+  .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:middle;}
+  .bar{display:inline-block;width:22px;height:0;border-top:3px solid var(--ci);margin-right:6px;vertical-align:middle;}
+  .big{font-size:15px;}
+  .key{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:12px 16px;color:#9a3412;font-size:14px;}
+  details{margin-top:6px;}
+  summary{cursor:pointer;font-weight:600;color:var(--accent);}
+  .formula{font-family:"SFMono-Regular",Menlo,Consolas,monospace;background:#f0f3f8;
+    border-radius:8px;padding:12px 14px;margin:10px 0;font-size:14px;overflow-x:auto;}
+  .green{color:var(--in);font-weight:700} .red{color:var(--out);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Liegt die nächste Schätzung im 95%-KI der vorigen?</h1>
+  <p class="sub">Gleichbleibender datengenerierender Prozess. Intuition sagt 95% &mdash;
+  tatsächlich im Mittel nur <b>83,4%</b> (Geoff Cumming, „capture percentage“).</p>
+
+  <div class="card key big">
+    <b>Das Vorgehen (genau wie gewünscht):</b> Ich ziehe eine Stichprobe und zeichne ihr 95%-KI.
+    Dann ziehe ich <b>nochmal</b> und prüfe nur: liegt der neue Mittelwert im KI der
+    <b>unmittelbar vorigen</b> Ziehung? <span class="green">Ja</span> oder
+    <span class="red">nein</span>. Danach rückt das „aktuelle KI“ eine Zeile weiter &mdash; jede
+    Ziehung wird also gegen genau <b>ein</b> KI geprüft, nämlich das davor.
+  </div>
+
+  <div class="card">
+    <div class="controls">
+      <button id="btnStep" class="ghost">＋ Eine Ziehung</button>
+      <button id="btnPlay">▶ Laufen lassen</button>
+      <button id="btn1k" class="ghost">+1000 sofort</button>
+      <button id="btnReset" class="ghost">Zurücksetzen</button>
+      <div class="ctl">Stichprobengröße n: <b id="nVal"></b>
+        <input type="range" id="n" min="5" max="200" step="1" value="20"></div>
+      <div class="ctl">Streuung σ: <b id="sVal"></b>
+        <input type="range" id="sigma" min="2" max="40" step="1" value="15"></div>
+      <div class="ctl">Tempo
+        <input type="range" id="speed" min="1" max="60" step="1" value="14"></div>
+    </div>
+
+    <canvas id="cv" width="940" height="470"></canvas>
+
+    <div class="legend">
+      <span><span class="bar"></span>95%-KI einer Ziehung (oberste = „aktuelles“ KI)</span>
+      <span><span class="dot" style="background:var(--in)"></span>Mittelwert lag im vorigen KI</span>
+      <span><span class="dot" style="background:var(--out)"></span>lag außerhalb</span>
+      <span>blaues Band = aktuelles KI · gestrichelt = wahrer Wert μ</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="stats">
+      <div class="stat" style="border-color:#bbf7d0;background:#f0fdf4">
+        <div class="lab">Nächste Schätzung im vorigen KI</div>
+        <div class="val" id="emp">–</div>
+        <div class="note" id="empN">0 Vergleiche</div>
+      </div>
+      <div class="stat">
+        <div class="lab">Theoretischer Wert</div>
+        <div class="val">83,4%</div>
+        <div class="note">= 2·Φ(1,96/√2) − 1</div>
+      </div>
+      <div class="stat">
+        <div class="lab">Zum Vergleich: Überdeckung von μ</div>
+        <div class="val" id="muCap">–</div>
+        <div class="note">KIs, die den wahren Wert enthalten → ~95%</div>
+      </div>
+    </div>
+    <p class="note" style="color:var(--muted);font-size:13px;margin-top:12px">
+      Das mittlere Feld ist der Nennwert des KI (es soll den <b>festen</b> wahren Wert μ in 95% der
+      Fälle überdecken). Das linke Feld ist die andere, schwierigere Frage &mdash; eine
+      <b>selbst zufällige</b> nächste Schätzung einzufangen: das gelingt nur in ~83%.
+    </p>
+  </div>
+
+  <div class="card">
+    <details open>
+      <summary>Warum 83% und nicht 95%? (kurze Herleitung)</summary>
+      <p style="font-size:14px">Das 95%-KI ist dafür gebaut, den <b>festen wahren Wert μ</b> in 95% der
+      Fälle zu überdecken (rechtes Feld). Hier wollen wir aber ein <b>neues, selbst zufälliges</b>
+      Stichprobenmittel M₂ einfangen. Beide Mittel streuen &mdash; die Hürde ist höher.</p>
+      <div class="formula">
+        M₁, M₂ ~ N(μ, SE²),&nbsp; SE = σ/√n<br>
+        95%-KI der vorigen = M₁ ± 1,96·SE<br>
+        Differenz M₂ − M₁ ~ N(0, 2·SE²)&nbsp; → SD = √2·SE<br><br>
+        P(M₂ im vorigen KI) = P(|M₂ − M₁| ≤ 1,96·SE)
+        = 2·Φ(1,96/√2) − 1 = 2·Φ(1,386) − 1 ≈ <b>0,8344</b>
+      </div>
+      <p style="font-size:14px">Wichtig: Die Größe σ und n verschieben nichts &mdash; der Wert bleibt
+      83,4%, weil sich SE im Verhältnis herauskürzt. Probier die Regler ruhig aus.</p>
+    </details>
+  </div>
+
+  <p class="sub">Quelle der Aussage: Cumming, G. (2008/2012), capture percentage ≈ 83,4%.</p>
+
+</div>
+
+<script>
+// ---------- Mathe-Helfer ----------
+function erf(x){const s=Math.sign(x);x=Math.abs(x);
+  const a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911;
+  const t=1/(1+p*x);
+  const y=1-(((((a5*t+a4)*t)+a3)*t+a2)*t+a1)*t*Math.exp(-x*x);return s*y;}
+function ncdf(x){return 0.5*(1+erf(x/Math.SQRT2));}
+function randn(){let u=0,v=0;while(u===0)u=Math.random();while(v===0)v=Math.random();
+  return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+const Z=1.959963985;
+
+// ---------- Zustand ----------
+const MU=100;
+let sigma=15, n=20, SE=sigma/Math.sqrt(n);
+let exps=[];                  // {mean,lo,hi,inPrev}  (Anzeige, gekappt)
+let comparisons=0, captured=0;   // kumulativ
+let muTotal=0, muIn=0;           // Überdeckung des wahren Werts
+let playing=false, timer=null;
+
+const cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+const W=cv.width, H=cv.height;
+const L=64, R=W-30;
+const yTop=58, yBot=452, rowH=17, MAXROWS=Math.floor((yBot-yTop)/rowH);
+const CAP=400;
+
+function recompute(){SE=sigma/Math.sqrt(n);}
+function domain(){const half=4.6*SE;return [MU-half, MU+half];}
+function vx(v){const[lo,hi]=domain();let t=(v-lo)/(hi-lo);t=Math.max(-0.02,Math.min(1.02,t));return L+t*(R-L);}
+
+function reset(){exps=[];comparisons=0;captured=0;muTotal=0;muIn=0;recompute();draw();updateStats();}
+
+function step(){
+  recompute();
+  const mean=MU+SE*randn();
+  const lo=mean-Z*SE, hi=mean+Z*SE;
+  let inPrev=null;
+  if(exps.length>0){
+    const prev=exps[exps.length-1];
+    inPrev=(mean>=prev.lo && mean<=prev.hi);
+    comparisons++; if(inPrev)captured++;
+  }
+  muTotal++; if(MU>=lo && MU<=hi)muIn++;
+  exps.push({mean,lo,hi,inPrev});
+  if(exps.length>CAP)exps.shift();
+  draw(); updateStats();
+}
+
+function bulk(k){
+  recompute();
+  let prev=exps.length?exps[exps.length-1]:null;
+  for(let i=0;i<k;i++){
+    const mean=MU+SE*randn(); const lo=mean-Z*SE, hi=mean+Z*SE;
+    if(prev){comparisons++; if(mean>=prev.lo && mean<=prev.hi)captured++;}
+    muTotal++; if(MU>=lo && MU<=hi)muIn++;
+    const e={mean,lo,hi,inPrev:prev?(mean>=prev.lo&&mean<=prev.hi):null};
+    exps.push(e); if(exps.length>CAP)exps.shift();
+    prev=e;
+  }
+  draw(); updateStats();
+}
+
+// ---------- Zeichnen ----------
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  const N=exps.length;
+
+  // aktuelles KI (oberste/neueste Ziehung) als blaues Band
+  if(N>0){
+    const cur=exps[N-1];
+    ctx.fillStyle="rgba(37,99,235,0.10)";
+    ctx.fillRect(vx(cur.lo),yTop-12,vx(cur.hi)-vx(cur.lo),yBot-yTop+18);
+    ctx.setLineDash([3,4]);ctx.strokeStyle="rgba(37,99,235,0.55)";ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(vx(cur.lo),yTop-12);ctx.lineTo(vx(cur.lo),yBot+6);
+    ctx.moveTo(vx(cur.hi),yTop-12);ctx.lineTo(vx(cur.hi),yBot+6);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle="#2563eb";ctx.font="12px sans-serif";ctx.textAlign="center";
+    ctx.fillText("aktuelles 95%-KI",(vx(cur.lo)+vx(cur.hi))/2,yTop-16);
+  }
+
+  // wahrer Wert μ
+  ctx.setLineDash([5,5]);ctx.strokeStyle="#94a3b8";ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(vx(MU),yTop-26);ctx.lineTo(vx(MU),yBot+22);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle="#64748b";ctx.font="13px sans-serif";ctx.textAlign="center";
+  ctx.fillText("wahrer Wert μ",vx(MU),yBot+38);
+
+  // Zeilen: neueste oben
+  const V=Math.min(MAXROWS,N);
+  for(let r=0;r<V;r++){
+    const e=exps[N-1-r];
+    const y=yTop+r*rowH;
+    const newest=(r===0);
+    // KI-Linie
+    ctx.strokeStyle=newest?"#2563eb":"rgba(100,116,139,0.55)";
+    ctx.lineWidth=newest?3:1.6;
+    ctx.beginPath();ctx.moveTo(vx(e.lo),y);ctx.lineTo(vx(e.hi),y);
+    ctx.moveTo(vx(e.lo),y-4);ctx.lineTo(vx(e.lo),y+4);
+    ctx.moveTo(vx(e.hi),y-4);ctx.lineTo(vx(e.hi),y+4);ctx.stroke();
+    // Mittelwert-Punkt
+    let col="rgba(120,130,140,0.9)";          // erste Ziehung: neutral
+    if(e.inPrev===true)col="rgba(26,152,80,0.95)";
+    else if(e.inPrev===false)col="rgba(215,48,39,0.95)";
+    ctx.beginPath();ctx.arc(vx(e.mean),y,4,0,7);ctx.fillStyle=col;ctx.fill();
+  }
+}
+
+function pct(x){return (100*x).toFixed(1)+"%";}
+function updateStats(){
+  document.getElementById('emp').textContent=comparisons?pct(captured/comparisons):"–";
+  document.getElementById('empN').textContent=comparisons.toLocaleString('de-CH')+" Vergleiche";
+  document.getElementById('muCap').textContent=muTotal?pct(muIn/muTotal):"–";
+}
+
+// ---------- Steuerung ----------
+function play(){if(playing)return;playing=true;document.getElementById('btnPlay').textContent="⏸ Pause";
+  const tick=()=>{step();const sp=+document.getElementById('speed').value;timer=setTimeout(tick,Math.max(10,700/sp));};
+  tick();}
+function pause(){playing=false;clearTimeout(timer);document.getElementById('btnPlay').textContent="▶ Laufen lassen";}
+
+document.getElementById('btnStep').onclick=()=>{pause();step();};
+document.getElementById('btnPlay').onclick=()=>playing?pause():play();
+document.getElementById('btn1k').onclick=()=>bulk(1000);
+document.getElementById('btnReset').onclick=()=>{pause();reset();};
+document.getElementById('n').oninput=e=>{n=+e.target.value;document.getElementById('nVal').textContent=n;pause();reset();};
+document.getElementById('sigma').oninput=e=>{sigma=+e.target.value;document.getElementById('sVal').textContent=sigma;pause();reset();};
+
+document.getElementById('nVal').textContent=n;
+document.getElementById('sVal').textContent=sigma;
+reset();
+// ein paar Startziehungen, damit man gleich was sieht
+for(let i=0;i<6;i++)step();
+</script>
+</body>
+</html>
